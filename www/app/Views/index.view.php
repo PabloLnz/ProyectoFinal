@@ -40,7 +40,7 @@
                     <li><a href="#" class="navLi">SOBRE NOSOTROS</a></li>
                     <li><a href="#" class="navLi">HISTORIAL</a></li>
                     <li><a href="#" class="navLi">RESERVAS</a></li>
-                    <li><a href="#" class="linkLogin">LOGIN</a></li>
+                    <li><a href="/login" class="linkLogin">LOGIN</a></li>
                 </ul>
             </nav>
         </div>

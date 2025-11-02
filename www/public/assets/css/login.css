@@ -1,0 +1,138 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family:'Montserrat',Helvetica,Arial,Lucida,sans-serif;
+}
+
+
+.contenedor-principal-login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f6f9;
+}
+
+.caja-login {
+    width: 100%;
+    max-width: 360px;
+    padding: 0 15px;
+}
+
+.logo-login {
+    text-align: center;
+    font-size: 24px;
+}
+
+.logo-login a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #495057;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.img-logo-login {
+    height: 200px;
+    width: auto;
+}
+
+.texto-logo-login {
+    display: none;
+}
+
+.tarjeta-login {
+    background-color: white;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    box-shadow: 0 0 1rem rgba(0,0,0,.1);
+}
+
+.cuerpo-tarjeta {
+    padding: 20px;
+}
+
+.mensaje-login {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.datos-login {
+    display: flex;
+    margin-bottom: 16px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+}
+
+.grupo-input:focus-within {
+    border-color: #16588E;
+}
+
+.campo-texto {
+    border: none;
+    flex-grow: 1;
+    padding: 10px 10px;
+    line-height: 1.5;
+    background: none;
+    outline: none;
+}
+
+.icono-login {
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #495057;
+    background-color: #e9ecef;
+    border-left: 1px solid #ced4da;
+}
+
+.acceder {
+    margin-top: 20px;
+}
+
+.boton-acceder {
+    width: 100%;
+    padding: 10px;
+    background-color: #16588E;
+    color: white;
+    border: 1px solid #16588E;
+    border-radius: 4px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: 600;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.boton-acceder:hover {
+    background-color: #0d4672;
+    border-color: #0d4672;
+}
+
+.enlaces-login {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.enlaces-login p {
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.enlaces-login a {
+    color: #16588E;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.enlaces-login a:hover {
+    text-decoration: underline;
+}

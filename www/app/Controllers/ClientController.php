@@ -12,5 +12,12 @@ class ClientController extends BaseController
         $this->view->showViews(array('index.view.php'));
     }
 
+    public function showLogin()
+    {
+        $this->view->showViews(array('login.view.php'));
+    }
 
+    public function login() {
+
+    }
 }

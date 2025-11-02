@@ -20,6 +20,15 @@ class FrontController
             'get'
         );
 
+        Route::add(
+            '/login',
+            function () {
+                $controlador = new \Com\Daw2\Controllers\ClientController();
+                $controlador->showLogin();
+            },
+            'get'
+        );
+
 
 
         Route::run();
