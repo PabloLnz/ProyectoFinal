@@ -18,6 +18,6 @@ class ClientController extends BaseController
     }
 
     public function login() {
-
+        header('Location: /indexTaller');
     }
 }

@@ -28,6 +28,24 @@ class FrontController
             },
             'get'
         );
+        Route::add(
+            '/login',
+            function () {
+                $controlador = new \Com\Daw2\Controllers\ClientController();
+                $controlador->login();
+            },
+            'post'
+        );
+
+        Route::add(
+            '/indexTaller',
+            function () {
+                $controlador = new \Com\Daw2\Controllers\TallerController();
+                $controlador->showIndexTaller();
+            },
+            'get'
+        );
+
 
 
 

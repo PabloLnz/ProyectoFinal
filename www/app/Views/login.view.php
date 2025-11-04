@@ -24,7 +24,7 @@
         <div class="cuerpo-tarjeta">
             <p class="mensaje-login">Iniciar sesión</p>
 
-            <form action="/" method="post">
+            <form method="post">
                 <div class="datos-login">
                     <input type="text" class="campo-texto" name="username" placeholder="Email" required>
                     <span class="icono-login">
