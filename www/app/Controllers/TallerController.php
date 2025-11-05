@@ -10,11 +10,15 @@ class TallerController extends BaseController
 
     public function showIndexTaller()
     {
-        $this->view->showViews(array('indexTaller.view.php'));
+        
+        $this->view->showViews(array('templates/head.view.php','templates/aside.view.php','indexTaller.view.php','templates/footer.view.php'
+        ));
     }
      public function showEmpleadosTaller()
     {
-        $this->view->showViews(array('empleadosTaller.view.php'));
+       
+        $this->view->showViews(array('templates/head.view.php','templates/aside.view.php','empleadosTaller.view.php','templates/footer.view.php'
+        ));
     }
 }
 
