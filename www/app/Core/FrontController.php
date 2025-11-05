@@ -46,6 +46,14 @@ class FrontController
             'get'
         );
 
+           Route::add(
+            '/empleadosTaller',
+            function () {
+                $controlador = new \Com\Daw2\Controllers\TallerController();
+                $controlador->showEmpleadosTaller();
+            },
+            'get'
+        );
 
 
 

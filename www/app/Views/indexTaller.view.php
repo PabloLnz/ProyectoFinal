@@ -114,7 +114,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="/empleadosTaller" class="nav-link">
                             <i class="nav-icon fas fa-users-cog"></i>
                             <p>Empleados</p>
                         </a>
