@@ -109,7 +109,6 @@
                             height="450"
                             allowfullscreen=""
                             loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade"
                     ></iframe>
                 </div>
 
