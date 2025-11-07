@@ -9,6 +9,7 @@ class FrontController
 
     static function main()
     {
+        session_start();
 
         //Rutas que están disponibles para todos
         Route::add(
@@ -51,6 +52,15 @@ class FrontController
             function () {
                 $controlador = new \Com\Daw2\Controllers\TallerController();
                 $controlador->showEmpleadosTaller();
+            },
+            'get'
+        );
+
+        Route::add(
+            '/logout',
+            function () {
+                $controlador = new \Com\Daw2\Controllers\TallerController();
+                $controlador->logout();
             },
             'get'
         );

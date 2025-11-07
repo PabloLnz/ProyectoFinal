@@ -8,9 +8,9 @@
 
 		<div class="sidebar">
 			<nav class="mt-2">
-				<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+				<ul class="nav nav-pills nav-sidebar flex-column">
 					<li class="nav-item">
-						<a href="#" class="nav-link active">
+						<a href="/indexTaller" class="nav-link active">
 							<i class="nav-icon fas fa-chart-line"></i>
 							<p>Inicio</p>
 						</a>
@@ -22,26 +22,26 @@
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="#" class="nav-link">
+						<a href="/vehiculos" class="nav-link">
 							<i class="nav-icon fas fa-car-side"></i>
 							<p>Vehhiculos</p>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="#" class="nav-link">
+						<a href="/reservas" class="nav-link">
 							<i class="nav-icon fas fa-tools"></i>
 							<p>Reservas</p>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="#" class="nav-link">
+						<a href="/facturacion" class="nav-link">
 							<i class="nav-icon fas fa-cash-register"></i>
 							<p>Facturacion</p>
 						</a>
 					</li>
 					<li class="nav-header">OPCIONES</li>
 					<li class="nav-item">
-						<a href="#" class="nav-link">
+						<a href="/logout" class="nav-link">
 							<i class="nav-icon fas fa-sign-out-alt text-danger"></i>
 							<p>Cerrar Sesion</p>
 						</a>

@@ -20,6 +20,13 @@ class TallerController extends BaseController
         $this->view->showViews(array('templates/head.view.php','templates/aside.view.php','empleadosTaller.view.php','templates/footer.view.php'
         ));
     }
+
+    public function logout()
+    {
+        session_destroy();
+        header('Location: /login');
+        exit();
+    }
 }
 
 

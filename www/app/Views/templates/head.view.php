@@ -3,9 +3,9 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Galician Motors | Gestión de Empleados</title>
+	<title>Galician Motors</title>
 
-	<!-- ADMINLTE Y FONT AWESOME (CDN) -->
+	<!-- ADMINLTE + FONT AWESOME Y CSS PERSO-->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
@@ -35,7 +35,7 @@
 				<span class="nav-link">Bienvenido sdfsdf</span>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button" title="Cerrar Sesión">
+				<a class="nav-link" href="/logout" role="button" title="Cerrar Sesión">
 					<i class="fas fa-sign-out-alt"></i>
 				</a>
 			</li>
