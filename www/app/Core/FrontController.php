@@ -65,6 +65,14 @@ class FrontController
             'get'
         );
 
+           Route::add(
+            '/vehiculos',
+            function () {
+                $controlador = new \Com\Daw2\Controllers\TallerController();
+                $controlador->showVehiculos();
+            },
+            'get'
+        );
 
 
         Route::run();
