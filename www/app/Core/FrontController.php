@@ -15,7 +15,7 @@ class FrontController
         Route::add(
             '/',
             function () {
-                $controlador = new \Com\Daw2\Controllers\ClientController();
+                $controlador = new \Com\Daw2\Controllers\ClienteController();
                 $controlador->index();
             },
             'get'
@@ -24,7 +24,7 @@ class FrontController
         Route::add(
             '/login',
             function () {
-                $controlador = new \Com\Daw2\Controllers\ClientController();
+                $controlador = new \Com\Daw2\Controllers\ClienteController();
                 $controlador->showLogin();
             },
             'get'
@@ -32,7 +32,7 @@ class FrontController
         Route::add(
             '/login',
             function () {
-                $controlador = new \Com\Daw2\Controllers\ClientController();
+                $controlador = new \Com\Daw2\Controllers\ClienteController();
                 $controlador->login();
             },
             'post'
