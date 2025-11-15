@@ -27,6 +27,13 @@ class TallerController extends BaseController
         $this->view->showViews(array('templates/head.view.php','templates/aside.view.php','vehiculosTaller.view.php','templates/footer.view.php'
         ));
     }
+    public function showReservas()
+    {
+
+        $this->view->showViews(array('templates/head.view.php','templates/aside.view.php','reservasTaller.view.php','templates/footer.view.php'
+        ));
+    }
+
 
     public function logout()
     {
