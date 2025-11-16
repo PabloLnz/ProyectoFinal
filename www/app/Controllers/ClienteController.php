@@ -26,6 +26,43 @@ class ClienteController extends BaseController
     }
 
 
+
+    public function register()
+    {
+        $modelCliente = new ClienteModel();
+        $modelEmpleado = new EmpleadosModel();
+
+        $nombre = $_POST['nombre'] ?? "";
+        $email = $_POST['email'] ?? "";
+        $pass = $_POST['pass'] ?? "";
+        $telefono = $_POST['telefono'] ?? "";
+        $direccion = $_POST['direccion'] ?? "";
+
+        $clienteExistente = $modelCliente->getusuariosEmail($email);
+        $empleadoExistente = $modelEmpleado->getEmpleadosEmail($email);
+
+        if ($clienteExistente !== false || $empleadoExistente !== false) {
+            $data['datosIncorrectos'] = "El correo electrónico ya está registrado. Por favor, utiliza otro.";
+            $this->view->showViews(array('register.view.php'), $data);
+            return;
+        }
+
+        $passHash = password_hash($pass, PASSWORD_DEFAULT);
+
+        $registroExitoso = $modelCliente->insertCliente($nombre, $email, $passHash, $telefono, $direccion);
+
+        if ($registroExitoso) {
+            $nuevoCliente = $modelCliente->getDatosCliente($email);
+            if ($nuevoCliente) {
+                $_SESSION['datosUsuario'] = $nuevoCliente;
+            }
+            header('Location: /');
+        } else {
+            $data['datosIncorrectos'] = "Ha ocurrido un error inesperado al registrar los datos.";
+            $this->view->showViews(array('register.view.php'), $data);
+        }
+    }
+
     public function login()
     {
         $modelUsuario = new ClienteModel();
@@ -35,8 +72,8 @@ class ClienteController extends BaseController
         $email = $_POST['email'] ?? "";
         $pass = $_POST['pass'] ?? "";
 
-        $usuarios = $modelUsuario->getusuariosLogin($email);
-        $empleados = $modelEmpleado->getEmpleadosLogin($email);
+        $usuarios = $modelUsuario->getusuariosEmail($email);
+        $empleados = $modelEmpleado->getEmpleadosEmail($email);
         if ($usuarios !== false) {
             $existePass = password_verify($pass, $usuarios['pass']);
             if ($existePass !== false) {

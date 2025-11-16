@@ -91,6 +91,14 @@ class FrontController
             },
             'get'
         );
+        Route::add(
+            '/register',
+            function () {
+                $controlador = new \Com\Daw2\Controllers\ClienteController();
+                $controlador->register();
+            },
+            'post'
+        );
 
 
 
