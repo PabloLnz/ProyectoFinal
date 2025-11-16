@@ -20,6 +20,12 @@ class ClienteController extends BaseController
         $this->view->showViews(array('login.view.php'));
     }
 
+    public function showRegister()
+    {
+        $this->view->showViews(array('register.view.php'));
+    }
+
+
     public function login()
     {
         $modelUsuario = new ClienteModel();
