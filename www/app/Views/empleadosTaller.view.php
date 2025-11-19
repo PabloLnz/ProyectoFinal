@@ -69,9 +69,9 @@
                     <div class="card-header">
                         <h3 class="card-title">Listado Completo de Empleados</h3>
                         <div class="card-tools">
-                            <button type="button" class="btn btn-primary btn-sm" title="Nuevo Empleado">
+                            <a href="/altaEmpleado" class="btn btn-primary btn-sm" title="Nuevo Empleado">
                                 <i class="fas fa-user-plus mr-1"></i> Añadir Empleado
-                            </button>
+                            </a>
                         </div>
                     </div>
                     <!-- Tabla -->

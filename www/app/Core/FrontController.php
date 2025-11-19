@@ -100,6 +100,15 @@ class FrontController
             'post'
         );
 
+             Route::add(
+            '/altaEmpleado',
+            function () {
+                $controlador = new \Com\Daw2\Controllers\TallerController();
+                $controlador->showAltaEmpleado();
+            },
+            'get'
+        );
+
 
 
         Route::run();
