@@ -11,7 +11,6 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -71,7 +70,7 @@ CREATE TABLE `factura_reparacion` (
 --
 
 CREATE TABLE `paises` (
-  `id_pais` smallint UNSIGNED NOT NULL COMMENT 'identificador único del país',
+  `id_pais` smallint UNSIGNED NOT NULL  COMMENT 'identificador único del país',
   `nombre` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'nombre del país'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla de países utilizados por los usuarios del taller';
 
@@ -238,6 +237,7 @@ ALTER TABLE `factura_reparacion`
 -- Indices de la tabla `paises`
 --
 ALTER TABLE `paises`
+  MODIFY id_pais SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
   ADD PRIMARY KEY (`id_pais`),
   ADD UNIQUE KEY `nombre` (`nombre`);
 

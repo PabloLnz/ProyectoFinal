@@ -34,12 +34,7 @@ class TallerController extends BaseController
         ));
     }
 
-     public function showAltaEmpleado()
-    {
 
-        $this->view->showViews(array('templates/head.view.php','templates/aside.view.php','altaEmpleado.view.php','templates/footer.view.php'
-        ));
-    }
 
 
     public function logout()
