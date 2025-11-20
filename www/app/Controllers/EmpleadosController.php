@@ -4,6 +4,7 @@ namespace Com\Daw2\Controllers;
 
 use Com\Daw2\Core\BaseController;
 use Com\Daw2\Models\EmpleadosModel;
+use Com\Daw2\Models\RolModel;
 use Com\Daw2\Libraries\Mensaje;
 
 class EmpleadosController extends BaseController
@@ -19,7 +20,8 @@ public function showEmpleados(string $mensaje = "")
     $data['errors'] = $this->checkErrors($_GET);
 
     $model = new EmpleadosModel();
-    $roles = $model->getRoles();
+    $rolModel = new RolModel();
+    $roles = $rolModel->getRoles();
 
     $url = $_GET;
     if (isset($url['page'])) {
