@@ -140,21 +140,21 @@ declare(strict_types=1);
                             <?php if (isset($empleados) && !empty($empleados)) { ?>
                                 <?php foreach ($empleados as $emp) { ?>
                                     <tr>
-                                        <td><?php echo $emp['id'] ?></td>
+                                        <td><?php echo $emp['id_usuario'] ?></td>
                                         <td><?php echo $emp['nombre'] ?></td>
-                                        <td><?php echo $emp['puesto'] ?></td>
+                                        <td><?php echo $emp['nombre_rol'] ?></td>
                                         <td><?php echo $emp['email'] ?></td>
                                         <td>
-                                            <?php if ($emp['estado'] == 1) { ?>
+                                            <?php if ($emp['activo'] == 1) { ?>
                                                 <span class="badge bg-success">Activo</span>
                                             <?php } else { ?>
                                                 <span class="badge bg-danger">Inactivo</span>
                                             <?php } ?>
                                         </td>
                                         <td>
-                                            <a href="/empleados/edit/<?php echo $emp['id'] ?>" class="btn btn-sm btn-info"><i class="fas fa-edit"></i></a>
-                                            <a href="/empleados/baja/<?php echo $emp['id'] ?>" class="btn btn-sm btn-warning text-dark"><i class="fas fa-minus-circle"></i></a>
-                                            <a href="/empleados/delete/<?php echo $emp['id'] ?>" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+                                            <a href="/empleados/edit/<?php echo $emp['id_usuario'] ?>" class="btn btn-sm btn-info"><i class="fas fa-edit"></i></a>
+                                            <a href="/empleados/baja/<?php echo $emp['id_usuario'] ?>" class="btn btn-sm btn-warning text-dark"><i class="fas fa-minus-circle"></i></a>
+                                            <a href="/empleados/delete/<?php echo $emp['id_usuario'] ?>" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 <?php } ?>

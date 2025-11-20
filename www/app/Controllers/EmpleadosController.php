@@ -9,7 +9,7 @@ use Com\Daw2\Libraries\Mensaje;
 class EmpleadosController extends BaseController
 {
 
-public function showEmpleados($mensaje)
+public function showEmpleados(string $mensaje = "")
 {
     $data = [
         'titulo' => 'Gestión de Empleados',
@@ -54,7 +54,7 @@ public function showEmpleados($mensaje)
     if ($data['errors'] === []) {
         $empleados = $model->getEmpeleadosByFilters($_GET, $page, $order, $dir);
         $total = $model->getLastEmpleados($_GET, $order, $dir);
-        $lastPage = ceil($total / 30);
+        $lastPage = ceil($total / 2);
 
         $data['lastPage'] = $lastPage;
         $data['empleados'] = $empleados;

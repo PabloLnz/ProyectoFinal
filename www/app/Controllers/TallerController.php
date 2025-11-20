@@ -14,12 +14,7 @@ class TallerController extends BaseController
         $this->view->showViews(array('templates/head.view.php','templates/aside.view.php','indexTaller.view.php','templates/footer.view.php'
         ));
     }
-     public function showEmpleadosTaller()
-    {
-       
-        $this->view->showViews(array('templates/head.view.php','templates/aside.view.php','empleadosTaller.view.php','templates/footer.view.php'
-        ));
-    }
+ 
 
       public function showVehiculos()
     {

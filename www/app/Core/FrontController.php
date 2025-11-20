@@ -47,14 +47,7 @@ class FrontController
             'get'
         );
 
-           Route::add(
-            '/empleadosTaller',
-            function () {
-                $controlador = new \Com\Daw2\Controllers\TallerController();
-                $controlador->showEmpleadosTaller();
-            },
-            'get'
-        );
+
 
         Route::add(
             '/logout',
@@ -115,6 +108,15 @@ class FrontController
                 $controlador->altaEmpleado();
             },
             'post'
+        );
+
+          Route::add(
+            '/empleadosTaller',
+            function () {
+                $controlador = new \Com\Daw2\Controllers\EmpleadosController($mensaje ?? "");
+                $controlador->showEmpleados();
+            },
+            'get'
         );
 
 
