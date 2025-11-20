@@ -5,6 +5,7 @@ namespace Com\Daw2\Controllers;
 use Com\Daw2\Core\BaseController;
 use Com\Daw2\Models\EmpleadosModel;
 use Com\Daw2\Models\RolModel;
+use Com\Daw2\Models\PaisesModel;
 use Com\Daw2\Libraries\Mensaje;
 
 class EmpleadosController extends BaseController
@@ -103,9 +104,10 @@ public function checkErrors(array $data): array
         $data['errors'] = $errors;
         $data['input'] = $input;
 
-        $model = new EmpleadosModel();
-        $data['roles'] = $model->getRoles();
-        $data['paises'] = $model->getPaises();
+        $rolModel = new RolModel();
+        $paisesModel = new PaisesModel();
+        $data['roles'] = $rolModel->getRoles();
+        $data['paises'] = $paisesModel->getPaises();
 
         $this->view->showViews(array('templates/head.view.php','templates/aside.view.php','altaEmpleado.view.php','templates/footer.view.php'), $data);
     }
@@ -123,13 +125,13 @@ public function checkErrors(array $data): array
             $pass = $_POST['pass'] ?? '';
             $id_rol = isset($_POST['id_rol']) ? (int) $_POST['id_rol'] : 0;
             $pais = trim($_POST['id_pais'] ?? '');
-            $model = new EmpleadosModel();
+            $paisesModel = new PaisesModel();
             $id_pais = 0;
             if ($pais !== '') {
-                $id_pais = $model->obtenerCrearPaises('', $pais);
+                $id_pais = $paisesModel->obtenerCrearPaises('', $pais);
             }
-           
-            $existe = $model->getEmpleadosEmail($email);
+            $empleadosModel = new EmpleadosModel();
+            $existe = $empleadosModel->getEmpleadosEmail($email);
             if ($existe !== false) {
                 $mensaje = new Mensaje('El email ya está en uso', Mensaje::ERROR);
                 $this->addFlashMessage($mensaje);
@@ -138,7 +140,7 @@ public function checkErrors(array $data): array
             }
 
             $passHash = password_hash($pass, PASSWORD_DEFAULT);
-            $ok = $model->insertEmpleado($nombre, $email, $passHash, $telefono, $id_rol, $id_pais);
+            $ok = $empleadosModel->insertEmpleado($nombre, $email, $passHash, $telefono, $id_rol, $id_pais);
             if ($ok) {
                 $mensaje = new Mensaje('Empleado creado correctamente', Mensaje::SUCCESS);
                 $this->addFlashMessage($mensaje);
