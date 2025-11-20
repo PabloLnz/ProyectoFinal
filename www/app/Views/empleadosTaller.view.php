@@ -123,15 +123,15 @@ declare(strict_types=1);
              
                 <div class="card-body p-0">
                     <div class="table-responsive">
-                                                <?php if (isset($empleados) && !empty($empleados)){ ?>
+                    <?php if (isset($empleados) && !empty($empleados)){ ?>
                         <table class="table table-hover table-striped">
                             <thead>
                                 <tr>
-                                    <th><a href="/empleados?<?php echo $url?>&order=1&dir=<?php echo ($order == 1 && $dir == 'ASC') ? 'DESC' : 'ASC'; ?>">ID</a></th>
-                                    <th><a href="/empleados?<?php echo $url?>&order=2&dir=<?php echo ($order == 2 && $dir == 'ASC') ? 'DESC' : 'ASC'; ?>">Nombre Completo</a></th>
-                                    <th>Puesto</th>
-                                    <th>Email</th>
-                                    <th>Estado</th>
+                                    <th><a href="/empleadosTaller?<?php echo $url?>&order=1&dir=<?php echo ($order == 1 && $dir == 'ASC') ? 'DESC' : 'ASC'; ?>">ID</a></th>
+                                    <th><a href="/empleadosTaller?<?php echo $url?>&order=2&dir=<?php echo ($order == 2 && $dir == 'ASC') ? 'DESC' : 'ASC'; ?>">Nombre Completo</a></th>
+                                    <th><a href="/empleadosTaller?<?php echo $url?>&order=3&dir=<?php echo ($order == 3 && $dir == 'ASC') ? 'DESC' : 'ASC'; ?>">Puesto</th>
+                                    <th><a href="/empleadosTaller?<?php echo $url?>&order=4&dir=<?php echo ($order == 4 && $dir == 'ASC') ? 'DESC' : 'ASC'; ?>">Email</th>
+                                    <th><a href="/empleadosTaller?<?php echo $url?>&order=5&dir=<?php echo ($order == 5 && $dir == 'ASC') ? 'DESC' : 'ASC'; ?>">Estado</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -152,9 +152,9 @@ declare(strict_types=1);
                                             <?php } ?>
                                         </td>
                                         <td>
-                                            <a href="/empleados/edit/<?php echo $emp['id_usuario'] ?>" class="btn btn-sm btn-info"><i class="fas fa-edit"></i></a>
-                                            <a href="/empleados/baja/<?php echo $emp['id_usuario'] ?>" class="btn btn-sm btn-warning text-dark"><i class="fas fa-minus-circle"></i></a>
-                                            <a href="/empleados/delete/<?php echo $emp['id_usuario'] ?>" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+                                            <a href="/empleadosTaller/edit/<?php echo $emp['id_usuario'] ?>" class="btn btn-sm btn-info"><i class="fas fa-edit"></i></a>
+                                            <a href="/empleadosTaller/baja/<?php echo $emp['id_usuario'] ?>" class="btn btn-sm btn-warning text-dark"><i class="fas fa-minus-circle"></i></a>
+                                            <a href="/empleadosTaller/delete/<?php echo $emp['id_usuario'] ?>" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 <?php } ?>

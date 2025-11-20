@@ -61,15 +61,20 @@ public function getEmpeleadosByFilters(array $parametros, int $page, int $order,
         $sql .= " WHERE " . implode(" AND ", $filtros) . " ";
     }
 
-    if ($order == 1) {
-        $sql .= " ORDER BY ut.nombre $dir";
-    } elseif ($order == 2) {
-        $sql .= " ORDER BY ut.email $dir";
-    } elseif ($order == 3) {
-        $sql .= " ORDER BY r.nombre_rol $dir";
-    } else {
-        $sql .= " ORDER BY ut.nombre $dir";
-    }
+            
+        if ($order == 1) {
+            $sql .= " ORDER BY ut.id_usuario $dir";
+        } elseif ($order == 2) {
+            $sql .= " ORDER BY ut.nombre $dir"; 
+        } elseif ($order == 3) {
+            $sql .= " ORDER BY r.nombre_rol $dir"; 
+        } elseif ($order == 4) {
+            $sql .= " ORDER BY ut.email $dir"; 
+        } elseif ($order == 5) {
+            $sql .= " ORDER BY ut.activo $dir"; 
+        }else {
+            $sql .= " ORDER BY ut.nombre $dir";
+        }
 
     $sql .= " LIMIT 2 OFFSET $offset";
 
@@ -105,15 +110,21 @@ public function getLastEmpleados(array $parametros, int $order, string $dir): in
         $sql .= " WHERE " . implode(" AND ", $filtros) . " ";
     }
 
-    if ($order == 1) {
-        $sql .= " ORDER BY ut.nombre $dir";
-    } elseif ($order == 2) {
-        $sql .= " ORDER BY ut.email $dir";
-    } elseif ($order == 3) {
-        $sql .= " ORDER BY r.nombre_rol $dir";
-    } else {
-        $sql .= " ORDER BY ut.nombre $dir";
-    }
+            
+       if ($order == 1) {
+            $sql .= " ORDER BY ut.id_usuario $dir";
+        } elseif ($order == 2) {
+            $sql .= " ORDER BY ut.nombre $dir"; 
+        } elseif ($order == 3) {
+            $sql .= " ORDER BY r.nombre_rol $dir"; 
+        } elseif ($order == 4) {
+            $sql .= " ORDER BY ut.email $dir"; 
+        } elseif ($order == 5) {
+            $sql .= " ORDER BY ut.activo $dir"; 
+        }else {
+            $sql .= " ORDER BY ut.nombre $dir";
+        }
+
 
     $stmt = $this->pdo->prepare($sql);
     $stmt->execute($valores);

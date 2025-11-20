@@ -37,7 +37,7 @@ public function showEmpleados(string $mensaje = "")
         $page = (int)$_GET['page'];
     }
 
-    if (isset($_GET['order']) && is_numeric($_GET['order']) && $_GET['order'] >= 1 && $_GET['order'] <= 3) {
+    if (isset($_GET['order']) && is_numeric($_GET['order']) && $_GET['order'] >= 1 && $_GET['order'] <= 5) {
         $order = (int)$_GET['order'];
     } else {
         $order = 1;
