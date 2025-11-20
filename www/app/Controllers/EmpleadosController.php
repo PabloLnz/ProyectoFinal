@@ -8,6 +8,89 @@ use Com\Daw2\Libraries\Mensaje;
 
 class EmpleadosController extends BaseController
 {
+
+public function showEmpleados($mensaje)
+{
+    $data = [
+        'titulo' => 'Gestión de Empleados',
+        'breadcrumb' => ['Empleados']
+    ];
+    $data['input'] = filter_input_array(INPUT_GET, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $data['errors'] = $this->checkErrors($_GET);
+
+    $model = new EmpleadosModel();
+    $roles = $model->getRoles();
+
+    $url = $_GET;
+    if (isset($url['page'])) {
+        unset($url['page']);
+    }
+    $url = http_build_query($url);
+    $data['url'] = $url;
+
+    if (!isset($_GET['page']) || !is_numeric($_GET['page'])) {
+        $page = 1;
+    } else {
+        $page = (int)$_GET['page'];
+    }
+
+    if (isset($_GET['order']) && is_numeric($_GET['order']) && $_GET['order'] >= 1 && $_GET['order'] <= 3) {
+        $order = (int)$_GET['order'];
+    } else {
+        $order = 1;
+    }
+
+    if (isset($_GET['dir']) && ($_GET['dir'] === 'ASC' || $_GET['dir'] === 'DESC')) {
+        $dir = $_GET['dir'];
+    } else {
+        $dir = 'ASC';
+    }
+
+    $data['page'] = $page;
+    $data['lastPage'] = 1;
+    $data['order'] = $order;
+    $data['dir'] = $dir;
+
+    if ($data['errors'] === []) {
+        $empleados = $model->getEmpeleadosByFilters($_GET, $page, $order, $dir);
+        $total = $model->getLastEmpleados($_GET, $order, $dir);
+        $lastPage = ceil($total / 30);
+
+        $data['lastPage'] = $lastPage;
+        $data['empleados'] = $empleados;
+    } else {
+        $data['empleados'] = [];
+    }
+
+    if (!empty($mensaje)) {
+        $data['mensaje'] = $mensaje;
+    }
+
+    $data['roles'] = $roles;
+    $this->view->showViews(array('templates/head.view.php', 'templates/aside.view.php', 'empleadosTaller.view.php', 'templates/footer.view.php'), $data);
+}
+
+
+public function checkErrors(array $data): array
+{
+    $errors = [];
+
+    if (isset($data['selectPuesto']) && $data['selectPuesto'] !== "") {
+        if (!is_numeric($data['selectPuesto']) || (int)$data['selectPuesto'] < 0) {
+            $errors['selectPuesto'] = 'Debe seleccionar un rol válido';
+        }
+    }
+
+    if (isset($data['selectEstado']) && $data['selectEstado'] !== "") {
+        if (!in_array($data['selectEstado'], ['0', '1'], true)) {
+            $errors['selectEstado'] = 'Debe seleccionar un estado válido';
+        }
+    }
+
+    return $errors;
+}
+
+
     public function showAltaEmpleado(array $input = [], array $errors = [])
     {
         $data = [

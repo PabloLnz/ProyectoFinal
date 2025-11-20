@@ -55,4 +55,95 @@ class EmpleadosModel extends BaseDbModel
         $stmt->execute([':nombre' => $nombre]);
         return (int)$this->pdo->lastInsertId();
     }
+
+public function getEmpeleadosByFilters(array $parametros, int $page, int $order, string $dir): array
+{
+    $valores = [];
+    $offset = ($page - 1) * 30;
+    $filtros = [];
+
+    if (isset($parametros['inputNombre']) && $parametros['inputNombre'] !== "") {
+        $filtros[] = "ut.nombre LIKE :inputNombre";
+        $valores['inputNombre'] = "%" . $parametros["inputNombre"] . "%";
+    }
+
+    if (isset($parametros['selectPuesto']) && is_numeric($parametros['selectPuesto']) && $parametros['selectPuesto'] > 0) {
+        $filtros[] = "ut.id_rol = :selectPuesto";
+        $valores['selectPuesto'] = $parametros["selectPuesto"];
+    }
+
+    if (isset($parametros['selectEstado']) && ($parametros['selectEstado'] === '0' || $parametros['selectEstado'] === '1')) {
+        $filtros[] = "ut.activo = :selectEstado";
+        $valores['selectEstado'] = $parametros["selectEstado"];
+    }
+
+    $sql = "SELECT ut.id_usuario, ut.nombre, ut.email, ut.activo, ut.id_rol,
+                   r.nombre_rol AS nombre_rol
+                FROM usuario_taller ut
+                LEFT JOIN roles r ON ut.id_rol = r.id_rol";
+
+    if ($filtros) {
+        $sql .= " WHERE " . implode(" AND ", $filtros) . " ";
+    }
+
+    if ($order == 1) {
+        $sql .= " ORDER BY ut.nombre $dir";
+    } elseif ($order == 2) {
+        $sql .= " ORDER BY ut.email $dir";
+    } elseif ($order == 3) {
+        $sql .= " ORDER BY r.nombre_rol $dir";
+    } else {
+        $sql .= " ORDER BY ut.nombre $dir";
+    }
+
+    $sql .= " LIMIT 30 OFFSET $offset";
+
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute($valores);
+    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+}
+public function getLastEmpleados(array $parametros, int $order, string $dir): int
+{
+    $valores = [];
+    $filtros = [];
+
+    if (isset($parametros['inputNombre']) && $parametros['inputNombre'] !== "") {
+        $filtros[] = "ut.nombre LIKE :inputNombre";
+        $valores['inputNombre'] = "%" . $parametros["inputNombre"] . "%";
+    }
+
+    if (isset($parametros['selectPuesto']) && is_numeric($parametros['selectPuesto']) && $parametros['selectPuesto'] > 0) {
+        $filtros[] = "ut.id_rol = :selectPuesto";
+        $valores['selectPuesto'] = $parametros["selectPuesto"];
+    }
+
+    if (isset($parametros['selectEstado']) && ($parametros['selectEstado'] === '0' || $parametros['selectEstado'] === '1')) {
+        $filtros[] = "ut.activo = :selectEstado";
+        $valores['selectEstado'] = $parametros["selectEstado"];
+    }
+
+    $sql = "SELECT COUNT(*) AS total
+                FROM usuario_taller ut
+                LEFT JOIN roles r ON ut.id_rol = r.id_rol";
+
+    if ($filtros) {
+        $sql .= " WHERE " . implode(" AND ", $filtros) . " ";
+    }
+
+    if ($order == 1) {
+        $sql .= " ORDER BY ut.nombre $dir";
+    } elseif ($order == 2) {
+        $sql .= " ORDER BY ut.email $dir";
+    } elseif ($order == 3) {
+        $sql .= " ORDER BY r.nombre_rol $dir";
+    } else {
+        $sql .= " ORDER BY ut.nombre $dir";
+    }
+
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute($valores);
+    return $stmt->fetchColumn(0);
+}
+
+
 }
