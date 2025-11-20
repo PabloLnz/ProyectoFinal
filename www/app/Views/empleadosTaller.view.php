@@ -39,9 +39,6 @@ declare(strict_types=1);
 
                 <div class="card-body">
                     <form method="get" id="filtroEmpleados">
-                        <input type="hidden" name="order" value="<?php echo $order ?? '' ?>">
-                        <input type="hidden" name="dir" value="<?php echo $dir ?? '' ?>">
-
                         <?php if (isset($mensaje)) { ?>
                             <div class="alert alert-danger"><?php echo $mensaje ?></div>
                         <?php } ?>
@@ -98,9 +95,9 @@ declare(strict_types=1);
 
                         <div class="row">
                             <div class="col-12 text-right">
-                                <button type="reset" class="btn btn-default mr-2">
+                                <a href="/empleadosTaller" class="btn btn-default mr-2">
                                     <i class="fas fa-sync-alt mr-1"></i> Limpiar Filtros
-                                </button>
+                                </a>
                                 <button type="submit" class="btn btn-info">
                                     <i class="fas fa-search mr-1"></i> Aplicar Filtros
                                 </button>
@@ -163,11 +160,17 @@ declare(strict_types=1);
                             <?php } ?>
                             </tbody>
                         </table>
-                        <?php } ?>
+                        <?php } else { ?>
+                        <div class="p-5 text-center bg-light">
+                            <i class="fas fa-info-circle fa-2x text-info mb-3"></i>
+                            <h4 class="mb-1">No se encontraron resultados.</h4>
+                        </div>
+                    <?php } ?>
                     </div>
                 </div>
 
 
+                <?php if ($lastPage > 1) { ?>
                 <div class="card-footer clearfix">
                     <ul class="pagination pagination-sm m-0 float-right">
 
@@ -199,6 +202,7 @@ declare(strict_types=1);
 
                     </ul>
                 </div>
+                <?php } ?>
             </div>
 
         </div>

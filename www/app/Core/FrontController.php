@@ -119,6 +119,13 @@ class FrontController
             'get'
         );
 
+        Route::add('/empleadosTaller/baja/([0-9]+)',
+            function ($id_usuario){
+                $controlador = new \Com\Daw2\Controllers\EmpleadosController($mensaje ?? "");
+                $controlador->estadoEmpleado($id_usuario);
+            },
+            'get'
+        );
 
 
         Route::run();
