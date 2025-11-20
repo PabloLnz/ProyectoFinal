@@ -59,7 +59,7 @@ class EmpleadosModel extends BaseDbModel
 public function getEmpeleadosByFilters(array $parametros, int $page, int $order, string $dir): array
 {
     $valores = [];
-    $offset = ($page - 1) * 30;
+    $offset = ($page - 1) * 2;
     $filtros = [];
 
     if (isset($parametros['inputNombre']) && $parametros['inputNombre'] !== "") {
@@ -96,7 +96,7 @@ public function getEmpeleadosByFilters(array $parametros, int $page, int $order,
         $sql .= " ORDER BY ut.nombre $dir";
     }
 
-    $sql .= " LIMIT 30 OFFSET $offset";
+    $sql .= " LIMIT 2 OFFSET $offset";
 
     $stmt = $this->pdo->prepare($sql);
     $stmt->execute($valores);

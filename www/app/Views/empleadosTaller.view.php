@@ -172,13 +172,13 @@ declare(strict_types=1);
                     <ul class="pagination pagination-sm m-0 float-right">
 
                         <li class="page-item <?php if ($page == 1) echo 'd-none' ?>">
-                            <a class="page-link" href="/empleados?<?php echo $url ?>">
+                            <a class="page-link" href="/empleadosTaller?<?php echo $url ?>">
                                 << 
                             </a>
                         </li>
 
                         <li class="page-item <?php if ($page == 1) echo 'd-none' ?>">
-                            <a class="page-link" href="/empleados?<?php echo $url ?>&page=<?php echo $page - 1 ?>">
+                            <a class="page-link" href="/empleadosTaller?<?php echo $url ?>&page=<?php echo $page - 1 ?>">
                                 <
                             </a>
                         </li>
@@ -186,13 +186,13 @@ declare(strict_types=1);
                         <li class="page-item active"><span class="page-link"><?php echo $page ?></span></li>
 
                         <li class="page-item <?php if ($page == $lastPage) echo 'd-none' ?>">
-                            <a class="page-link" href="/empleados?<?php echo $url ?>&page=<?php echo $page + 1 ?>">
+                            <a class="page-link" href="/empleadosTaller?<?php echo $url ?>&page=<?php echo $page + 1 ?>">
                                 >
                             </a>
                         </li>
 
                         <li class="page-item <?php if ($page == $lastPage) echo 'd-none' ?>">
-                            <a class="page-link" href="/empleados?<?php echo $url ?>&page=<?php echo $lastPage ?>">
+                            <a class="page-link" href="/empleadosTaller?<?php echo $url ?>&page=<?php echo $lastPage ?>">
                                 >>
                             </a>
                         </li>
