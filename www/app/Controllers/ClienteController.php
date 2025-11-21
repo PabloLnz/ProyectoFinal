@@ -77,13 +77,8 @@ class ClienteController extends BaseController
         if ($usuarios !== false) {
             $existePass = password_verify($pass, $usuarios['pass']);
             if ($existePass !== false) {
-                if($usuarios['baja']==0){
                     $_SESSION['datosUsuario'] = $usuarios;
                     header('Location: /');
-                }else{
-                    $data['datosIncorrectos'] = "Los datos introducidos son incorrectos";
-                    $this->view->showViews(array('login.view.php'), $data);
-                }
             } else {
                 $data['datosIncorrectos'] = "Los datos introducidos son incorrectos";
                 $this->view->showViews(array('login.view.php'), $data);
@@ -91,11 +86,11 @@ class ClienteController extends BaseController
         } elseif ($empleados !== false) {
             $existePass = password_verify($pass, $empleados['pass']);
             if ($existePass !== false) {
-                if($empleados['baja']==0){
+                if($empleados['activo']==1){
                     $_SESSION['datosUsuario'] = $empleados;
                     $_SESSION['permisos']=$this->permisos($empleados['id_rol']);
 
-                    header('Location: /');
+                    header('Location: /indexTaller');
                 }else{
                     $data['datosIncorrectos'] = "El usuario está dado de baja";
                     $this->view->showViews(array('login.view.php'), $data);

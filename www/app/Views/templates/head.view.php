@@ -32,7 +32,7 @@
 		<ul class="navbar-nav ml-auto">
 			<!-- Nombre y cerrar sesion -->
 			<li class="nav-item">
-				<span class="nav-link">Bienvenido sdfsdf</span>
+				<span class="nav-link">Bienvenido/a  <?php echo $_SESSION['datosUsuario']['nombre'] ?? 'Usuario';?></span>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="/logout" role="button" title="Cerrar Sesión">

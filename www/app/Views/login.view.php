@@ -26,14 +26,14 @@
 
             <form method="post">
                 <div class="datos-login">
-                    <input type="text" class="campo-texto" name="username" placeholder="Email" required>
+                    <input type="text" class="campo-texto" name="email" placeholder="Email" required>
                     <span class="icono-login">
                         <i class="fas fa-user"></i>
                     </span>
                 </div>
 
                 <div class="datos-login">
-                    <input type="password" class="campo-texto" name="password" placeholder="Contraseña" required>
+                    <input type="password" class="campo-texto" name="pass" placeholder="Contraseña" required>
                     <span class="icono-login">
                         <i class="fas fa-lock"></i>
                     </span>
