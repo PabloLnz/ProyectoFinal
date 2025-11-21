@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
     <!-- css -->
     <link rel="stylesheet" href="assets/css/index.css">
+     <link rel="stylesheet" href="assets/css/global.css">
 </head>
 <body class="hold-transition">
 <div class="wrapper">
@@ -39,7 +40,7 @@
                     <li><a href="#" class="navLi">TALLER</a></li>
                     <li><a href="#" class="navLi">SOBRE NOSOTROS</a></li>
                     <li><a href="#" class="navLi">HISTORIAL</a></li>
-                    <li><a href="#" class="navLi">RESERVAS</a></li>
+                    <li><a href="/reservaCliente" class="navLi">RESERVAS</a></li>
                     <li><a href="/login" class="linkLogin">LOGIN</a></li>
                 </ul>
             </nav>

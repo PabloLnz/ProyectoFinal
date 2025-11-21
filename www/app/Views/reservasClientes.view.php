@@ -22,7 +22,8 @@
     <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
     <!-- css -->
-    <link rel="stylesheet" href="assets/css/index.css">
+      <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/reservasClientes.css">
 </head>
 <body class="hold-transition">
 <div class="wrapper">
@@ -39,7 +40,7 @@
                     <li><a href="#" class="navLi">TALLER</a></li>
                     <li><a href="#" class="navLi">SOBRE NOSOTROS</a></li>
                     <li><a href="#" class="navLi">HISTORIAL</a></li>
-                    <li><a href="#" class="navLi">RESERVAS</a></li>
+                    <li><a href="/reservaCliente" class="navLi">RESERVAS</a></li>
                     <li><a href="/login" class="linkLogin">LOGIN</a></li>
                 </ul>
             </nav>
@@ -48,6 +49,117 @@
 
 
     <!-- MAIN -->
+
+<main class="contenedor-reservas">
+    <div class="row">
+        <div class="col-12">
+            
+            <div class="textoCitasBoton">
+
+                <h1 class="titulo">
+                    <i class="far fa-calendar-alt"></i> Mis Citas y Reservas
+                </h1>
+                
+                <button class="boton-cita boton-principal" style="width: auto;">
+                    <i class="fas fa-calendar-plus"></i> Solicitar Nueva Cita
+                </button>
+ </div>
+            <p class="subtitulo">Aquí puedes revisar el estado y los detalles de tus citas</p>
+            
+            <div class="grid-citas">
+
+                <section class="panel-lista-citas">
+                    <h4>Próximas y Recientes</h4>
+                    
+                    <div class="card-cita seleccionada" onclick="seleccionarCita('cita1');">
+                        <div class="info-cita">
+                            <div class="fecha-hora-cita">
+                                <i class="far fa-clock"></i> Lunes, 15 de Octubre - 10:00 AM
+                            </div>
+                            <div class="detalle-servicio-cita">
+                                Revisión de Frenos y Neumáticos | Vehículo: <span>4567-XYZ (BMW)</span>
+                            </div>
+                        </div>
+                        <span class="etiqueta-estado estado-confirmada">Confirmada</span>
+                    </div>
+
+                    <div class="card-cita" onclick="seleccionarCita('cita2');">
+                        <div class="info-cita">
+                            <div class="fecha-hora-cita">
+                                <i class="far fa-clock"></i> Viernes, 19 de Enero - 03:30 PM
+                            </div>
+                            <div class="detalle-servicio-cita">
+                                Servicio de Mantenimiento General (Filtros y Aceite) | Vehículo: <span>1234-ABC (BMW)</span>
+                            </div>
+                        </div>
+                        <span class="etiqueta-estado estado-pendiente">Pendiente</span>
+                    </div>
+                    
+                    <div class="card-cita" onclick="seleccionarCita('cita3');">
+                        <div class="info-cita">
+                            <div class="fecha-hora-cita">
+                                <i class="far fa-clock"></i> Martes, 5 de Septiembre - 09:00 AM
+                            </div>
+                            <div class="detalle-servicio-cita">
+                                Diagnóstico de motor | Vehículo: <span>4567-XYZ (BMW)</span>
+                            </div>
+                        </div>
+                        <span class="etiqueta-estado estado-cancelada">Cancelada</span>
+                    </div>
+
+                </section>
+                
+                <section class="panel-detalles">
+                    <h4><i class="fas fa-info-circle"></i> Detalles de la Cita</h4>
+                    
+                    <div class="secciones-panel">
+                        <span class="etiqueta-detalle"><i class="fas fa-calendar-check"></i> Estado Actual</span>
+                        <span class="valor-detalle confirmada">Confirmada</span>
+                    </div>
+                    
+                    <div class="secciones-panel">
+                        <span class="etiqueta-detalle"><i class="fas fa-car"></i> Vehículo</span>
+                        <span class="valor-detalle">BMW Serie 3</span>
+                    </div>
+
+                     <div class="secciones-panel">
+                        <span class="etiqueta-detalle"><i class="fas fa-car"></i> Matricula</span>
+                        <span class="valor-detalle"> 4567-XYZ</span>
+                    </div>
+                    
+
+                    <div class="secciones-panel">
+                        <span class="etiqueta-detalle"><i class="fas fa-tools"></i> Servicio Solicitado</span>
+                        <span class="valor-detalle">Revisión de Frenos y Neumáticos</span>
+                    </div>
+
+                    <div class="secciones-panel">
+                        <span class="etiqueta-detalle"><i class="fas fa-map-marker-alt"></i> Ubicación del Taller</span>
+                        <span class="valor-detalle">Salceda de Caselas</span>
+                    </div>
+                    
+                    <h5 class="notas-comentarios">Notas y Comentarios</h5>
+                    <p class="texto-comentarios">
+                        "Se escucha un sonido agudo al frenar"
+                    </p>
+                    
+                    <div class="acciones-rapidas-bloque">
+                        <h5>Acciones Rápidas</h5>
+                        
+                        <button class="boton-cita boton-peligro-outline">
+                            <i class="fas fa-times-circle"></i> Cancelar Cita
+                        </button>
+                        
+                        <small class="aviso-cancelacion">Las cancelaciones deben hacerse con 24h de antelación.</small>
+                    </div>
+
+                </section>
+            </div>
+            
+        </div>
+    </div>
+</main>
+
 
 
 
@@ -123,5 +235,6 @@
 <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <script src="assets/js/adminlte.min.js"></script>
 <script src="assets/js/pages/main.js"></script>
+<script src="assets/js/reservaCliente.js"></script>
 </body>
 </html>

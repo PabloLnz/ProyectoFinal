@@ -25,7 +25,11 @@ class ClienteController extends BaseController
         $this->view->showViews(array('register.view.php'));
     }
 
-    
+    public function showReservaCliente()
+    {
+         $this->view->showViews(array('reservasClientes.view.php'));
+
+    }
 
 
 
