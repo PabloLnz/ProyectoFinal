@@ -153,6 +153,15 @@ class FrontController
             'get'
         );
 
+               Route::add('/nuevaReserva',
+            function (){
+                $controlador = new \Com\Daw2\Controllers\ClienteController();
+                $controlador->showNuevaReserva();
+            },
+            'get'
+        );
+
+
 
 
 

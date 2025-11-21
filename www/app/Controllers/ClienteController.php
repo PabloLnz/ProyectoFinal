@@ -31,6 +31,13 @@ class ClienteController extends BaseController
 
     }
 
+        public function showNuevaReserva()
+    {
+         $this->view->showViews(array('nuevaReserva.view.php'));
+
+    }
+
+
 
 
     public function register()

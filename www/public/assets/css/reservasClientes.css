@@ -245,6 +245,7 @@
             background-color: #0056b3;
             transform: translateY(-2px);
             box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
+            color: white;
         }
         .boton-peligro-outline {
             background-color: transparent;

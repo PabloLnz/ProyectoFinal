@@ -60,9 +60,9 @@
                     <i class="far fa-calendar-alt"></i> Mis Citas y Reservas
                 </h1>
                 
-                <button class="boton-cita boton-principal" style="width: auto;">
+                <a href="/nuevaReserva" class="boton-cita boton-principal" style="width: auto;">
                     <i class="fas fa-calendar-plus"></i> Solicitar Nueva Cita
-                </button>
+                </a>
  </div>
             <p class="subtitulo">Aquí puedes revisar el estado y los detalles de tus citas</p>
             
