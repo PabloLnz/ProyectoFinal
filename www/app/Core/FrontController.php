@@ -61,7 +61,7 @@ class FrontController
            Route::add(
             '/vehiculos',
             function () {
-                $controlador = new \Com\Daw2\Controllers\TallerController();
+                $controlador = new \Com\Daw2\Controllers\VehiculosController();
                 $controlador->showVehiculos();
             },
             'get'
@@ -126,6 +126,25 @@ class FrontController
             },
             'get'
         );
+
+          Route::add('/vehiculos/gestionVehiculo/([0-9]+)',
+            function ($id_vehiculo){
+                $controlador = new \Com\Daw2\Controllers\VehiculosController();
+                $controlador->gestionarVehiculo($id_vehiculo);
+            },
+            'get'
+        );
+
+
+        //prueba
+              Route::add('/vehiculos/gestionVehiculo',
+            function (){
+                $controlador = new \Com\Daw2\Controllers\VehiculosController();
+                $controlador->gestionarVehiculo();
+            },
+            'get'
+        );
+
 
 
         Route::run();

@@ -203,7 +203,7 @@ CREATE TABLE `vehiculos` (
   `marca` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Marca del vehículo',
   `modelo` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Modelo del vehículo',
   `matricula` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Matrícula del vehículo',
-  `anyo` year NOT NULL COMMENT 'Año de matriculación',
+  `anyo` year NOT NULL COMMENT 'Año de fabricación del vehículo',
   `estado` enum('pendiente','finalizado') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pendiente' COMMENT 'Estado actual del vehículo'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla de vehículos de los clientes del taller';
 

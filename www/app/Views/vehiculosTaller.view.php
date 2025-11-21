@@ -11,7 +11,7 @@
             <div class="col-md-4 mb-4">
                 <div class="card card-warning card-outline shadow-lg vehicle-card-warning" style="border-left: 5px solid #ffc107;">
                     <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mb-3">>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
                             <h4 class="mb-0 text-dark font-weight-bolder">1234-ABC</h4>
                             <span class="badge badge-warning text-dark font-weight-bold p-2"><i class="fas fa-exclamation-triangle mr-1"></i> PENDIENTE</span>
                         </div>
@@ -46,6 +46,13 @@
                                 <i class="fas fa-wrench mr-2 text-secondary"></i>
                                 Reparacion: <span class="font-weight-normal">Revision general</span>
                             </p>
+                        </div>
+                        
+
+                        <div class="mt-4 pt-3 border-top">
+                            <a href="/vehiculos/gestionVehiculo" class="btn btn-sm btn-outline-dark btn-block font-weight-bold shadow-sm">
+                                <i class="fas fa-edit mr-1"></i> Gestionar Vehículo
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -88,6 +95,13 @@
                                 Reparacion: <span class="font-weight-normal">Revision general</span>
                             </p>
                         </div>
+                        
+
+                        <div class="mt-4 pt-3 border-top">
+                            <a href="/vehiculos/gestionVehiculo" class="btn btn-sm btn-outline-dark btn-block font-weight-bold shadow-sm">
+                                <i class="fas fa-edit mr-1"></i> Gestionar Vehículo
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -95,7 +109,7 @@
             <div class="col-md-4 mb-4">
                 <div class="card card-success card-outline shadow-lg vehicle-card-success" style="border-left: 5px solid #28a745;">
                     <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mb-3">>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
                             <h4 class="mb-0 text-dark font-weight-bolder">1234-ABC</h4>
                             <span class="badge badge-success font-weight-bold p-2"><i class="fas fa-check-circle mr-1"></i> FINALIZADO</span>
                         </div>
@@ -128,6 +142,13 @@
                                 <i class="fas fa-wrench mr-2 text-secondary"></i>
                                 Reparacion: <span class="font-weight-normal">Revision general</span>
                             </p>
+                        </div>
+                        
+                      
+                        <div class="mt-4 pt-3 border-top">
+                            <a href="/vehiculos/gestionVehiculo" class="btn btn-sm btn-outline-success btn-block font-weight-bold shadow-sm">
+                                <i class="fas fa-eye mr-1"></i> Ver Historial
+                            </a>
                         </div>
                     </div>
                 </div>
