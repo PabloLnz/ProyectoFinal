@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
     <!-- css -->
-    <link rel="stylesheet" href="assets/css/index.css">
+    <link rel="stylesheet" href="assets/css/nuevaReserva.css">
      <link rel="stylesheet" href="assets/css/global.css">
 </head>
 <body class="hold-transition">
@@ -49,7 +49,79 @@
 
 
     <!-- MAIN -->
+    <main>
+        <div class="contenedor-card">
+            <h1 class="titulo-principal">Solicitud de Cita</h1>
+            <p class="descripcion-principal">Gestione la reserva de su próxima visita al taller de forma rapida y sencilla.</p>
+            <form method="post">
 
+                <div class="contenedor-columnas">
+
+                    <div>
+                        <h2 class="subtitulo-seccion">Datos del Vehiculo y Servicio</h2>
+
+                        <div class="grupo-formulario">
+                            <label for="matricula" class="etiqueta-formulario">Matricula</label>
+                            <input type="text" name="matricula" placeholder="Ej: 1234 ABC" required class="inputEntrada inputMatricula"">
+                        </div>
+
+                        <div class="grupo-formulario">
+                            <label for="marca" class="etiqueta-formulario">Marca</label>
+                            <input type="text" name="marca" value="BMW" disabled class="inputEntrada">
+                        </div>
+
+                        <div class="grupo-formulario">
+                            <label for="modelo" class="etiqueta-formulario">Modelo</label>
+                            <input type="text" name="modelo" placeholder="Ej: Serie 5, X3, M4" class="inputEntrada">
+                        </div>
+
+                        <div class="grupo-formulario">
+                            <label for="anyo" class="etiqueta-formulario">Año de Fabricación</label>
+                            <input type="number" name="anyo" min="1950" max="2028" placeholder="Ej: 2018" class="inputEntrada">
+                        </div>
+
+                        <div class="grupo-formulario">
+                            <label for="tipo_servicio" class="etiqueta-formulario">Tipo de Servicio Requerido</label>
+                            <select name="tipo_servicio" class="inputSelect">
+                                <option value="revision">Revisión/Mantenimiento</option>
+                                <option value="reparacion">Diagnóstico de Avería y Reparación</option>
+                                <option value="chapa_pintura">Chapa, Pintura y Carrocería</option>
+                                <option value="neumaticos">Cambio de Neumáticos</option>
+                                <option value="otro">Otro Servicio</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h2 class="subtitulo-seccion">Detalles de la Cita</h2>
+
+                        <div class="grid-2columnas">
+                            <div class="grupo-formulario">
+                                <label for="fecha_reserva" class="etiqueta-formulario" id="fehca_reserva">Fecha Preferida</label>
+                                <input type="date" id="fecha_reserva" name="fecha_reserva" required class="inputEntrada">
+                            </div>
+                            <div class="grupo-formulario">
+                                <label for="hora_reserva" class="etiqueta-formulario">Hora Preferida</label>
+                                <input type="time" name="hora_reserva" required class="inputEntrada"  min="10:00" max="20:00">
+                            </div>
+                        </div>
+
+                        <div class="grupo-formulario">
+                            <label for="descripcion" class="etiqueta-formulario">Detalles de la Avería / Razón de la Visita</label>
+                            <textarea name="descripcion" rows="12" placeholder="Por favor, sea lo más específico posible." required class="area-texto"></textarea>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="botonEnviar">
+                        Confirmar Solicitud de Cita
+                    </button>
+
+                </div>
+            </form>
+
+        </div>
+
+    </main>
 
 
     <!-- Footer -->
@@ -123,5 +195,6 @@
 <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <script src="assets/js/adminlte.min.js"></script>
 <script src="assets/js/pages/main.js"></script>
+<script src="assets/js/nuevaReserva.js"></script>
 </body>
 </html>

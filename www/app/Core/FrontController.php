@@ -145,16 +145,25 @@ class FrontController
             'get'
         );
 
-                 Route::add('/reservaCliente',
+        Route::add('/reservaCliente',
             function (){
+                if(!isset($_SESSION['datosUsuario'])) {
+                    header('Location: /login');
+                    exit;
+                }
                 $controlador = new \Com\Daw2\Controllers\ClienteController();
                 $controlador->showReservaCliente();
             },
             'get'
         );
 
-               Route::add('/nuevaReserva',
+
+        Route::add('/nuevaReserva',
             function (){
+                if(!isset($_SESSION['datosUsuario'])) {
+                    header('Location: /login');
+                    exit;
+                }
                 $controlador = new \Com\Daw2\Controllers\ClienteController();
                 $controlador->showNuevaReserva();
             },

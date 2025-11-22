@@ -404,6 +404,10 @@ ALTER TABLE `reservas`
   ADD CONSTRAINT `fk_reserva_cliente` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_reserva_vehiculo` FOREIGN KEY (`id_vehiculo`) REFERENCES `vehiculos` (`id_vehiculo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+
+ALTER TABLE reservas
+    ADD COLUMN comentariosReserva TEXT NULL COMMENT 'Comentarios del cliente';
+
 --
 -- Filtros para la tabla `usuario_taller`
 --
