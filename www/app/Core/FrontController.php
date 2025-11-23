@@ -151,7 +151,7 @@ class FrontController
                     header('Location: /login');
                     exit;
                 }
-                $controlador = new \Com\Daw2\Controllers\ClienteController();
+                $controlador = new \Com\Daw2\Controllers\ReservaClienteController();
                 $controlador->showReservaCliente();
             },
             'get'
@@ -164,11 +164,24 @@ class FrontController
                     header('Location: /login');
                     exit;
                 }
-                $controlador = new \Com\Daw2\Controllers\ClienteController();
+                $controlador = new \Com\Daw2\Controllers\ReservaClienteController();
                 $controlador->showNuevaReserva();
             },
             'get'
         );
+
+        Route::add('/nuevaReserva',
+            function (){
+                if(!isset($_SESSION['datosUsuario'])) {
+                    header('Location: /login');
+                    exit;
+                }
+                $controlador = new \Com\Daw2\Controllers\ReservaClienteController();
+                $controlador->nuevaReserva();
+            },
+            'post'
+        );
+
 
 
 

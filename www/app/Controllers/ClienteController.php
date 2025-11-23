@@ -25,17 +25,6 @@ class ClienteController extends BaseController
         $this->view->showViews(array('register.view.php'));
     }
 
-    public function showReservaCliente()
-    {
-         $this->view->showViews(array('reservasClientes.view.php'));
-
-    }
-
-        public function showNuevaReserva()
-    {
-         $this->view->showViews(array('nuevaReserva.view.php'));
-
-    }
 
 
 
@@ -100,7 +89,7 @@ class ClienteController extends BaseController
             $existePass = password_verify($pass, $empleados['pass']);
             if ($existePass !== false) {
                 if($empleados['activo']==1){
-                    $_SESSION['datosUsuario'] = $empleados;
+                    $_SESSION['datosEmpleado'] = $empleados;
                     $_SESSION['permisos']=$this->permisos($empleados['id_rol']);
 
                     header('Location: /indexTaller');

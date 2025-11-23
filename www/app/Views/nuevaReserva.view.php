@@ -67,7 +67,7 @@
 
                         <div class="grupo-formulario">
                             <label for="marca" class="etiqueta-formulario">Marca</label>
-                            <input type="text" name="marca" value="BMW" disabled class="inputEntrada">
+                            <input type="text" name="marca" value="BMW" readonly class="inputEntrada">
                         </div>
 
                         <div class="grupo-formulario">
@@ -80,16 +80,6 @@
                             <input type="number" name="anyo" min="1950" max="2028" placeholder="Ej: 2018" class="inputEntrada">
                         </div>
 
-                        <div class="grupo-formulario">
-                            <label for="tipo_servicio" class="etiqueta-formulario">Tipo de Servicio Requerido</label>
-                            <select name="tipo_servicio" class="inputSelect">
-                                <option value="revision">Revisión/Mantenimiento</option>
-                                <option value="reparacion">Diagnóstico de Avería y Reparación</option>
-                                <option value="chapa_pintura">Chapa, Pintura y Carrocería</option>
-                                <option value="neumaticos">Cambio de Neumáticos</option>
-                                <option value="otro">Otro Servicio</option>
-                            </select>
-                        </div>
                     </div>
 
                     <div>
@@ -107,8 +97,8 @@
                         </div>
 
                         <div class="grupo-formulario">
-                            <label for="descripcion" class="etiqueta-formulario">Detalles de la Avería / Razón de la Visita</label>
-                            <textarea name="descripcion" rows="12" placeholder="Por favor, sea lo más específico posible." required class="area-texto"></textarea>
+                            <label for="comentariosReserva" class="etiqueta-formulario">Detalles de la Avería / Razón de la Visita</label>
+                            <textarea name="comentariosReserva" rows="12" placeholder="Por favor, sea lo más específico posible." required class="area-texto"></textarea>
                         </div>
                     </div>
 
