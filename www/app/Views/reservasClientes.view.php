@@ -49,7 +49,6 @@
 
 
     <!-- MAIN -->
-
 <main class="contenedor-reservas">
     <div class="row">
         <div class="col-12">
@@ -63,99 +62,121 @@
                 <a href="/nuevaReserva" class="boton-cita boton-principal" style="width: auto;">
                     <i class="fas fa-calendar-plus"></i> Solicitar Nueva Cita
                 </a>
- </div>
-            <p class="subtitulo">Aquí puedes revisar el estado y los detalles de tus citas</p>
+
+            </div>
+
+            <p class="subtitulo">Aqui puedes revisar el estado y los detalles de tus citas</p>
             
             <div class="grid-citas">
 
-                <section class="panel-lista-citas">
+               <section class="panel-lista-citas">
                     <h4>Próximas y Recientes</h4>
-                    
-                    <div class="card-cita seleccionada" onclick="seleccionarCita('cita1');">
-                        <div class="info-cita">
-                            <div class="fecha-hora-cita">
-                                <i class="far fa-clock"></i> Lunes, 15 de Octubre - 10:00 AM
-                            </div>
-                            <div class="detalle-servicio-cita">
-                                Revisión de Frenos y Neumáticos | Vehículo: <span>4567-XYZ (BMW)</span>
-                            </div>
-                        </div>
-                        <span class="etiqueta-estado estado-confirmada">Confirmada</span>
-                    </div>
 
-                    <div class="card-cita" onclick="seleccionarCita('cita2');">
-                        <div class="info-cita">
-                            <div class="fecha-hora-cita">
-                                <i class="far fa-clock"></i> Viernes, 19 de Enero - 03:30 PM
-                            </div>
-                            <div class="detalle-servicio-cita">
-                                Servicio de Mantenimiento General (Filtros y Aceite) | Vehículo: <span>1234-ABC (BMW)</span>
-                            </div>
-                        </div>
-                        <span class="etiqueta-estado estado-pendiente">Pendiente</span>
-                    </div>
-                    
-                    <div class="card-cita" onclick="seleccionarCita('cita3');">
-                        <div class="info-cita">
-                            <div class="fecha-hora-cita">
-                                <i class="far fa-clock"></i> Martes, 5 de Septiembre - 09:00 AM
-                            </div>
-                            <div class="detalle-servicio-cita">
-                                Diagnóstico de motor | Vehículo: <span>4567-XYZ (BMW)</span>
-                            </div>
-                        </div>
-                        <span class="etiqueta-estado estado-cancelada">Cancelada</span>
-                    </div>
+                    <?php if (empty($reservas)): ?>
+                        <p class="text-center mt-3">No tienes reservas registradas.</p>
+                    <?php else: ?>
 
-                </section>
-                
+                <?php $primera = true; ?>
+               <?php foreach ($reservas as $reserva): ?>
+                    <div class="card-cita"
+                        id="cita<?php echo $reserva['id_reserva']; ?>"
+                        onclick="seleccionarCita(this);"
+                        data-estado="<?php echo $reserva['estado']; ?>"
+                        data-vehiculo="<?php echo $reserva['marca'].' '.$reserva['modelo']; ?>"
+                        data-matricula="<?php echo $reserva['matricula']; ?>"
+                        data-fecha="<?php echo date('d/m/Y', strtotime($reserva['fecha_reserva'])); ?>"
+                        data-hora="<?php echo date('H:i', strtotime($reserva['hora_reserva'])); ?>"
+                        data-comentarios="<?php echo $reserva['comentariosReserva']; ?>">
+
+                        <div class="info-cita">
+                            <div class="fecha-hora-cita">
+                                <i class="far fa-clock"></i>
+                                <?php echo date("l, d F", strtotime($reserva['fecha_reserva'])); ?> — 
+                                <?php echo date("H:i", strtotime($reserva['hora_reserva'])); ?>
+                            </div>
+
+                            <div class="detalle-servicio-cita">
+                                Reserva programada | Vehículo:
+                                <span>
+                                    <?php echo htmlspecialchars($reserva['matricula']); ?> 
+                                    (<?php echo htmlspecialchars($reserva['marca']); ?>)
+                                </span>
+                            </div>
+                        </div>
+
+                        <span class="etiqueta-estado <?php if ($reserva['estado'] === 'pendiente') {echo 'estado-pendiente';} elseif ($reserva['estado'] === 'confirmada') {echo 'estado-confirmada';
+                                } elseif ($reserva['estado'] === 'rechazada') {echo 'estado-rechazada';} elseif ($reserva['estado'] === 'no_asistida') {echo 'estado-no_asistida';
+                                } elseif ($reserva['estado'] === 'finalizada') {echo 'estado-finalizada';}
+                            ?>">
+                            <?php echo $reserva['estado']; ?>
+                        </span>
+
+                    </div>
+                <?php endforeach; ?>
+
+
+
+                <?php endif; ?>
+
+            </section>
+
+
                 <section class="panel-detalles">
                     <h4><i class="fas fa-info-circle"></i> Detalles de la Cita</h4>
-                    
-                    <div class="secciones-panel">
-                        <span class="etiqueta-detalle"><i class="fas fa-calendar-check"></i> Estado Actual</span>
-                        <span class="valor-detalle confirmada">Confirmada</span>
-                    </div>
-                    
-                    <div class="secciones-panel">
-                        <span class="etiqueta-detalle"><i class="fas fa-car"></i> Vehículo</span>
-                        <span class="valor-detalle">BMW Serie 3</span>
-                    </div>
 
-                     <div class="secciones-panel">
-                        <span class="etiqueta-detalle"><i class="fas fa-car"></i> Matricula</span>
-                        <span class="valor-detalle"> 4567-XYZ</span>
-                    </div>
-                    
+                    <?php if (!empty($reservas)): ?>
+                        <div class="secciones-panel">
+                            <span class="etiqueta-detalle"><i class="fas fa-calendar-check"></i> Estado Actual</span>
+                            <span class="valor-detalle" id="estado"><?php echo $reserva['estado']; ?></span>
+                        </div>
 
-                    <div class="secciones-panel">
-                        <span class="etiqueta-detalle"><i class="fas fa-tools"></i> Servicio Solicitado</span>
-                        <span class="valor-detalle">Revisión de Frenos y Neumáticos</span>
-                    </div>
+                        <div class="secciones-panel">
+                            <span class="etiqueta-detalle"><i class="fas fa-car"></i> Vehículo</span>
+                            <span class="valor-detalle" id="vehiculo"><?php echo $reserva['marca'] . ' ' . $reserva['modelo']; ?></span>
+                        </div>
 
-                    <div class="secciones-panel">
-                        <span class="etiqueta-detalle"><i class="fas fa-map-marker-alt"></i> Ubicación del Taller</span>
-                        <span class="valor-detalle">Salceda de Caselas</span>
-                    </div>
-                    
-                    <h5 class="notas-comentarios">Notas y Comentarios</h5>
-                    <p class="texto-comentarios">
-                        "Se escucha un sonido agudo al frenar"
-                    </p>
-                    
-                    <div class="acciones-rapidas-bloque">
-                        <h5>Acciones Rápidas</h5>
-                        
-                        <button class="boton-cita boton-peligro-outline">
-                            <i class="fas fa-times-circle"></i> Cancelar Cita
-                        </button>
-                        
-                        <small class="aviso-cancelacion">Las cancelaciones deben hacerse con 24h de antelación.</small>
-                    </div>
+                        <div class="secciones-panel">
+                            <span class="etiqueta-detalle"><i class="fas fa-car"></i> Matrícula</span>
+                            <span class="valor-detalle" id="matricula"><?php echo $reserva['matricula']; ?></span>
+                        </div>
+
+                        <div class="secciones-panel">
+                            <span class="etiqueta-detalle"><i class="far fa-calendar-alt"></i> Día y Hora</span>
+                            <span class="valor-detalle" id="fecha-hora">
+                                <?php echo date("d/m/Y", strtotime($reserva['fecha_reserva'])); ?> a las <?php echo date("H:i", strtotime($reserva['hora_reserva'])); ?>
+                            </span>
+                        </div>
+
+                        <div class="secciones-panel">
+                            <span class="etiqueta-detalle"><i class="fas fa-map-marker-alt"></i> Ubicacion del Taller</span>
+                            <span class="valor-detalle" id="localizacion">Salceda de Caselas</span>
+                        </div>
+
+                        <h5 class="notas-comentarios">Notas y Comentarios</h5>
+                        <p class="texto-comentarios" id="comentarios"><?php echo $reserva['comentariosReserva'] ?: "Sin comentarios"; ?></p>
+
+                        <div class="acciones-rapidas-bloque">
+                            <h5>Acciones Rapidas</h5>
+                            <form method="get">
+                                <input type="hidden" name="id_reserva" value="<?php echo $reserva['id_reserva']; ?>">
+                                <a href="/reservaCliente/delete/<?php echo $reserva['id_reserva']?>" class="boton-cita boton-peligro-outline">
+                                    <i class="fas fa-times-circle"></i> Cancelar Cita
+                                </a>
+                            </form>
+                            <small class="aviso-cancelacion">
+                                Las cancelaciones deben hacerse con 24h de antelación.
+                            </small>
+                        </div>
+
+                    <?php else: ?>
+                        <p>No hay detalles disponibles.</p>
+                    <?php endif; ?>
 
                 </section>
+
+
             </div>
-            
+
         </div>
     </div>
 </main>

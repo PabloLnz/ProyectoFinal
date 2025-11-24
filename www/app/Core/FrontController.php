@@ -182,6 +182,18 @@ class FrontController
             'post'
         );
 
+         Route::add('/reservaCliente/delete/([0-9]+)',
+            function ($id_reserva){
+                if(!isset($_SESSION['datosUsuario'])) {
+                    header('Location: /login');
+                    exit;
+                }
+                $controlador = new \Com\Daw2\Controllers\ReservaClienteController();
+                $controlador->deleteReservaCliente($id_reserva);
+            },
+            'get'
+        );
+
 
 
 

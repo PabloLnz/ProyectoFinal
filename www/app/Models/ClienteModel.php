@@ -17,7 +17,7 @@ class ClienteModel extends BaseDbModel
     public function getDatosCliente(string $email):array{
         $stmt = $this->pdo->prepare("SELECT * FROM clientes WHERE email = :email");
         $stmt->execute([':email' => $email]);
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
 
     }
     public function insertCliente(string $nombre, string $email, string $passHash, string $telefono, string $direccion): bool

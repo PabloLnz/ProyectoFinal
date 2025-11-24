@@ -9,11 +9,17 @@ use Com\Daw2\Models\VehiculosModel;
 
 class ReservaClienteController extends BaseController
 {
-    public function showReservaCliente()
-    {
-        $this->view->showViews(array('reservasClientes.view.php'));
+   public function showReservaCliente()
+{
+    $idCliente = $_SESSION['datosUsuario']['id_cliente'];
 
-    }
+    $model = new ReservasModel();
+    $reservas = $model->getReservasByCliente($idCliente);
+
+    $data['reservas'] = $reservas;
+    $this->view->showViews(['reservasClientes.view.php'], $data);
+}
+
 
     public function showNuevaReserva()
     {
@@ -55,7 +61,8 @@ class ReservaClienteController extends BaseController
             $this->addFlashMessage($mensaje);
         }
 
-        $this->view->showViews(['reservasClientes.view.php']);
+        header('Location: /reservaCliente');
+        exit();
     }
 
 
@@ -91,6 +98,33 @@ class ReservaClienteController extends BaseController
     }
 
 
+    public function deleteReservaCliente(int $id_reserva)
+    {
+        $model = new ReservasModel();
+        $reserva = $model->obtenerReserva($id_reserva);
 
+        if ($reserva === false) {
+            $mensaje = new Mensaje("La reserva no existe", Mensaje::ERROR);
+            $this->addFlashMessage($mensaje);
+            header('Location: /reservaCliente');
+            exit;
+        }
 
+        $fechaHoraReserva = strtotime($reserva['fecha_reserva'] . ' ' . $reserva['hora_reserva']);
+        $ahora = time();
+        if (($fechaHoraReserva - $ahora) < 24 * 3600) {
+            $mensaje = new Mensaje("No se puede cancelar la reserva con menos de 24 horas de antelación", Mensaje::ERROR);
+            $this->addFlashMessage($mensaje);
+            header('Location: /reservaCliente');
+            exit;
+        }
+
+        if ($model->deleteReservaCliente($id_reserva)) {
+            $mensaje = new Mensaje("Reserva cancelada correctamente", Mensaje::INFO);
+        } else {
+            $mensaje = new Mensaje("Error al cancelar la reserva", Mensaje::ERROR);
+        }
+        $this->addFlashMessage($mensaje);
+        header('Location: /reservaCliente');
+    }
 }

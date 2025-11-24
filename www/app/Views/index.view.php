@@ -41,7 +41,17 @@
                     <li><a href="#" class="navLi">SOBRE NOSOTROS</a></li>
                     <li><a href="#" class="navLi">HISTORIAL</a></li>
                     <li><a href="/reservaCliente" class="navLi">RESERVAS</a></li>
-                    <li><a href="/login" class="linkLogin">LOGIN</a></li>
+                    <?php 
+                      if (isset($_SESSION['datosUsuario'])): 
+                    ?>
+                        <li>
+                            <a href="/logout" class="navLi linkLogout" title="Cerrar Sesión">
+                                <i class="fas fa-sign-out-alt"></i> 
+                            </a>
+                        </li>
+                    <?php else: ?>
+                        <li><a href="/login" class="linkLogin">LOGIN</a></li>
+                    <?php endif; ?>
                 </ul>
             </nav>
         </div>
