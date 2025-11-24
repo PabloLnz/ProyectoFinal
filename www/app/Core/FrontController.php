@@ -70,7 +70,7 @@ class FrontController
         Route::add(
             '/reservas',
             function () {
-                $controlador = new \Com\Daw2\Controllers\TallerController();
+                $controlador = new \Com\Daw2\Controllers\ReservasTallerController();
                 $controlador->showReservas();
             },
             'get'

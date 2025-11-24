@@ -17,14 +17,6 @@ class TallerController extends BaseController
  
 
 
-    public function showReservas()
-    {
-
-        $this->view->showViews(array('templates/head.view.php','templates/aside.view.php','reservasTaller.view.php','templates/footer.view.php'
-        ));
-    }
-
-
 
 
     public function logout()
