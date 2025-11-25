@@ -75,6 +75,50 @@ class FrontController
             },
             'get'
         );
+        
+    Route::add(
+            '/reservas/gestionar/([0-9]+)',
+            function ($id_reserva) {
+                $controlador = new \Com\Daw2\Controllers\ReservasTallerController();
+                $controlador->gestionarReservas($id_reserva);
+            },
+            'get'
+        );
+
+        Route::add(
+            '/reservas/gestionar/confirmar/([0-9]+)',
+            function ($id_reserva) {
+                $controlador = new \Com\Daw2\Controllers\ReservasTallerController();
+                $controlador->confirmarReserva($id_reserva);
+            },
+            'get'
+        );
+
+             Route::add(
+            '/reservas/gestionar/rechazar/([0-9]+)',
+            function ($id_reserva) {
+                $controlador = new \Com\Daw2\Controllers\ReservasTallerController();
+                $controlador->rechazarReserva($id_reserva);
+            },
+            'get'
+        );
+
+             Route::add(
+            '/reservas/gestionar/finalizar/([0-9]+)',
+            function ($id_reserva) {
+                $controlador = new \Com\Daw2\Controllers\ReservasTallerController();
+                $controlador->finalizarReserva($id_reserva);
+            },
+            'get'
+        );
+             Route::add(
+            '/reservas/gestionar/no-asistida/([0-9]+)',
+            function ($id_reserva) {
+                $controlador = new \Com\Daw2\Controllers\ReservasTallerController();
+                $controlador->noAsistidaReserva($id_reserva);
+            },
+            'get'
+        );
 
         Route::add(
             '/register',

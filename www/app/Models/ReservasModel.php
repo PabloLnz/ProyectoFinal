@@ -51,4 +51,41 @@ class ReservasModel extends BaseDbModel
         return $stmt->fetch(\PDO::FETCH_ASSOC); 
     }
 
+    public function getReservasGeneral()
+    {
+        $sql = "SELECT r.id_reserva,r.fecha_reserva,r.hora_reserva,r.estado,r.creacion_reserva,c.id_cliente,c.nombre AS nombre_cliente,v.id_vehiculo,v.marca,v.modelo,v.matricula,v.anyo,v.estado AS estado_vehiculo
+                FROM reservas r
+                INNER JOIN clientes c ON r.id_cliente = c.id_cliente
+                INNER JOIN vehiculos v ON r.id_vehiculo = v.id_vehiCulo
+                ORDER BY 
+                    FIELD(LOWER(r.estado), 'pendiente', 'confirmada') DESC,
+                    r.creacion_reserva ASC";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function getReservaById($id) {
+        $sql = "SELECT r.id_reserva,r.fecha_reserva,r.hora_reserva,r.estado,r.creacion_reserva,
+                    c.id_cliente,c.nombre AS nombre_cliente, c.telefono, c.email,r.comentariosReserva,
+                    v.id_vehiculo,v.marca,v.modelo,v.matricula,v.anyo,v.estado AS estado_vehiculo
+                FROM reservas r
+                INNER JOIN clientes c ON r.id_cliente = c.id_cliente
+                INNER JOIN vehiculos v ON r.id_vehiculo = v.id_vehiculo
+                WHERE r.id_reserva = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    public function cambiarEstado(int $id_reserva, string $nuevo_estado): bool
+    {
+        $sql = "UPDATE reservas SET estado = :estado WHERE id_reserva = :id_reserva";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute([
+            'estado' => $nuevo_estado,
+            'id_reserva' => $id_reserva
+        ]);
+    }
+
 }
