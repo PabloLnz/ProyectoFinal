@@ -1,4 +1,8 @@
 <main class="content-wrapper p-4">
+    	          <?php
+          include $_ENV['folder.views'] . '/templates/flash-messages.php';
+          ?>
+
     <div class="container-fluid">
 
         <h2 class="mb-4 text-dark font-weight-bold">

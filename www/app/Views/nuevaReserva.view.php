@@ -50,6 +50,10 @@
 
     <!-- MAIN -->
     <main>
+        	          <?php
+          include $_ENV['folder.views'] . '/templates/flash-messages.php';
+          ?>
+
         <div class="contenedor-card">
             <h1 class="titulo-principal">Solicitud de Cita</h1>
             <p class="descripcion-principal">Gestione la reserva de su próxima visita al taller de forma rapida y sencilla.</p>

@@ -5,6 +5,10 @@ declare(strict_types=1);
 <main class="content-wrapper" role="main">
     <!-- Título y Breadcrumb -->
     <div class="content-header">
+            	          <?php
+          include $_ENV['folder.views'] . '/templates/flash-messages.php';
+          ?>
+
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">

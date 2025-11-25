@@ -1,5 +1,9 @@
     
     <main class="content-wrapper">
+        	          <?php
+          include $_ENV['folder.views'] . '/templates/flash-messages.php';
+          ?>
+
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">

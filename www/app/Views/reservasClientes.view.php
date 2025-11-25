@@ -50,6 +50,10 @@
 
     <!-- MAIN -->
 <main class="contenedor-reservas">
+    	          <?php
+          include $_ENV['folder.views'] . '/templates/flash-messages.php';
+          ?>
+
     <div class="row">
         <div class="col-12">
             

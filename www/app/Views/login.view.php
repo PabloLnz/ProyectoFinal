@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="assets/css/login.css">
 </head>
 <body class="contenedor-principal-login">
+	          <?php
+          include $_ENV['folder.views'] . '/templates/flash-messages.php';
+          ?>
 
 <div class="caja-login">
     <div class="logo-login">

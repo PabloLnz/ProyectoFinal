@@ -1,6 +1,10 @@
 
     <!-- MAIN -->
     <main class="content-wrapper" role="main">
+        	          <?php
+          include $_ENV['folder.views'] . '/templates/flash-messages.php';
+          ?>
+
         <!-- Título y Breadcrumb -->
         <div class="content-header">
             <div class="container-fluid">
