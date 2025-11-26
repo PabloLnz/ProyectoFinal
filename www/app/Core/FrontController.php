@@ -188,6 +188,38 @@ class FrontController
             'get'
         );
 
+        Route::add('/vehiculos/gestionVehiculo/estado/([0-9]+)',
+            function ($id_vehiculo){
+                $controlador = new \Com\Daw2\Controllers\VehiculosController();
+                $controlador->actualizarEstado($id_vehiculo);
+            },
+            'post'
+        );
+
+        Route::add('/vehiculos/gestionVehiculo/agregar-pieza/([0-9]+)',
+            function ($id_vehiculo){
+                $controlador = new \Com\Daw2\Controllers\VehiculosController();
+                $controlador->agregarPieza($id_vehiculo);
+            },
+            'post'
+        );
+
+        Route::add('/vehiculos/gestionVehiculo/eliminar-pieza/([0-9]+)/([0-9]+)',
+            function ($id_reparacion_pieza, $id_vehiculo){
+                $controlador = new \Com\Daw2\Controllers\VehiculosController();
+                $controlador->eliminarPieza($id_reparacion_pieza, $id_vehiculo);
+            },
+            'get'
+        );
+
+        Route::add('/vehiculos/gestionVehiculo/factura/([0-9]+)',
+            function ($id_vehiculo){
+                $controlador = new \Com\Daw2\Controllers\VehiculosController();
+                $controlador->generarFactura($id_vehiculo);
+            },
+            'get'
+        );
+
         Route::add('/reservaCliente',
             function (){
                 if(!isset($_SESSION['datosUsuario'])) {

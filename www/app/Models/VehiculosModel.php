@@ -73,4 +73,10 @@ class VehiculosModel extends BaseDbModel
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
+   public function actualizarEstado(int $idVehiculo, string $estado) {
+        $stmt = $this->pdo->prepare("UPDATE vehiculos SET estado_vehiculo = :estado WHERE id_vehiculo = :id");
+        $stmt->execute([':estado' => $estado, ':id' => $idVehiculo]);
+    }
+
+
 }

@@ -21,19 +21,31 @@ class ReservasTallerController extends BaseController
 
     
 
-    public function confirmarReserva(int $id_reserva): void
-    {
-        $reservaConfirmada = new ReservasModel();
-        $reservaConfirmada->cambiarEstado($id_reserva, 'confirmada');
-        if ($reservaConfirmada) {
-            $mensaje = new Mensaje("Reserva confirmada correctamente", Mensaje::SUCCESS);
-        } else {
-             $mensaje = new Mensaje("Error al confirmar la reserva", Mensaje::ERROR);
+        public function confirmarReserva(int $id_reserva): void
+{
+    $reservaModel = new ReservasModel();
+    $reservaModel->cambiarEstado($id_reserva, 'confirmada');
+
+
+    $reserva = $reservaModel->getReservaById($id_reserva);
+    if ($reserva) {
+        $vehiculoId = $reserva['id_vehiculo'];
+        $reparacionesModel = new ReparacionesModel();
+        $existeReparacion = $reparacionesModel->getReparacionPendientePorVehiculo($vehiculoId);
+        if (!$existeReparacion) {
+            $reparacionesModel->crearReparacionPendiente($vehiculoId);
         }
-        $this->addFlashMessage($mensaje);
-        header('Location: /reservas');
-        
+        $mensaje = new Mensaje("Reserva confirmada correctamente", Mensaje::SUCCESS);
+    } else {
+        $mensaje = new Mensaje("Error al confirmar la reserva", Mensaje::ERROR);
     }
+
+    $this->addFlashMessage($mensaje);
+    header('Location: /reservas');
+    exit;
+}
+
+
 
     public function rechazarReserva(int $id_reserva): void
     {
