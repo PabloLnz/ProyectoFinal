@@ -47,7 +47,7 @@ class FrontController
             'get'
         );
 
-        
+
         Route::add(
             '/indexTaller/cambiar-disponibilidad/([0-9]+)',
             function ($id_usuario) {
@@ -184,16 +184,6 @@ class FrontController
             function ($id_vehiculo){
                 $controlador = new \Com\Daw2\Controllers\VehiculosController();
                 $controlador->gestionarVehiculo($id_vehiculo);
-            },
-            'get'
-        );
-
-
-        //prueba
-              Route::add('/vehiculos/gestionVehiculo',
-            function (){
-                $controlador = new \Com\Daw2\Controllers\VehiculosController();
-                $controlador->gestionarVehiculo();
             },
             'get'
         );

@@ -1,14 +1,12 @@
 <main class="content-wrapper p-4">
-    	          <?php
-          include $_ENV['folder.views'] . '/templates/flash-messages.php';
-          ?>
+    <?php include $_ENV['folder.views'] . '/templates/flash-messages.php'; ?>
 
     <div class="container-fluid">
 
         <h2 class="mb-4 text-dark font-weight-bold d-flex align-items-center">
             <i class="fas fa-car-side text-info mr-3 fa-2x"></i>
             Gestión del Vehículo: 
-            <span class="ml-2 text-primary">4567-XYZ</span>
+            <span class="ml-2 text-primary"><?php echo htmlspecialchars($vehiculo['matricula']); ?></span>
         </h2>
         <p class="text-muted">Detalles y registro de actividad para el vehículo.</p>
 
@@ -26,15 +24,15 @@
                                 <div class="form-group col-md-6">
                                     <label for="matricula">Matrícula</label>
                                     <input type="text" class="form-control font-weight-bold" id="matricula" name="matricula" 
-                                           value="4567-XYZ" 
+                                           value="<?php echo htmlspecialchars($vehiculo['matricula']); ?>" 
                                            readonly>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="cliente_nombre"><i class="fas fa-user mr-1"></i> Cliente Asociado</label>
                                     <input type="text" class="form-control" id="cliente_nombre" 
-                                           value="Andrés González" 
+                                           value="<?php echo htmlspecialchars($vehiculo['cliente_nombre']); ?>" 
                                            readonly>
-                                    <input type="hidden" name="id_cliente" value="101">
+                                    <input type="hidden" name="id_cliente" value="<?php echo htmlspecialchars($vehiculo['id_cliente']); ?>">
                                 </div>
                             </div>
 
@@ -42,17 +40,17 @@
                                 <div class="form-group col-md-5">
                                     <label for="marca">Marca</label>
                                     <input type="text" class="form-control" id="marca" name="marca" 
-                                           value="BMW" readonly>
+                                           value="<?php echo htmlspecialchars($vehiculo['marca']); ?>" readonly>
                                 </div>
                                 <div class="form-group col-md-5">
                                     <label for="modelo">Modelo</label>
                                     <input type="text" class="form-control" id="modelo" name="modelo" 
-                                           value="Serie 3 (F30)" readonly>
+                                           value="<?php echo htmlspecialchars($vehiculo['modelo']); ?>" readonly>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="anyo">Año</label>
                                     <input type="text" class="form-control" id="anyo" name="anyo" 
-                                           value="2015" readonly>
+                                           value="<?php echo htmlspecialchars($vehiculo['anyo']); ?>" readonly>
                                 </div>
                             </div>
                         </div>
@@ -75,10 +73,11 @@
                                     <label for="pieza_seleccionada">Seleccionar Pieza</label>
                                     <select class="form-control" id="pieza_seleccionada" name="id_pieza">
                                         <option value="">Buscar o seleccionar...</option>
-                                        <option value="1">1. Filtro de aceite (Stock: 15)</option>
-                                        <option value="2">2. Pastillas de freno delanteras (Stock: 10)</option>
-                                        <option value="4">4. Aceite sintético 5W30 4L (Stock: 20)</option>
-                                        <option value="12">12. Bombilla LED faro delantero (Stock: 20)</option>
+                                        <?php foreach ($piezas as $pieza) { ?>
+                                            <option value="<?php echo $pieza['id_pieza']; ?>">
+                                                <?php echo htmlspecialchars($pieza['id_pieza']) . '. ' . htmlspecialchars($pieza['nombre']) . ' (Stock: ' . htmlspecialchars($pieza['stock']) . ')'; ?>
+                                            </option>
+                                        <?php } ?>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-3">
@@ -108,29 +107,26 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Filtro de aceite <br><small class="text-muted">FO-BMW-001</small></td>
-                                            <td class="text-center">1</td>
-                                            <td class="text-right">25,50 €</td>
-                                            <td class="text-right">25,50 €</td>
-                                            <td class="text-center">
-                                                <button type="button" class="btn btn-sm btn-danger"><i class="fas fa-times"></i></button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>Aceite sintético 5W30 4L <br><small class="text-muted">ACE-BMW-004</small></td>
-                                            <td class="text-center">4</td>
-                                            <td class="text-right">40,00 €</td>
-                                            <td class="text-right">160,00 €</td>
-                                            <td class="text-center">
-                                                <button type="button" class="btn btn-sm btn-danger"><i class="fas fa-times"></i></button>
-                                            </td>
-                                        </tr>
+                                        <?php 
+                                        $totalPiezas = 0;
+                                        foreach ($piezasUsadas as $index => $p) { 
+                                            $subtotal = $p['cantidad'] * $p['precio_pieza_reparacion'];
+                                            $totalPiezas += $subtotal;
+                                        ?>
+                                            <tr>
+                                                <td><?php echo $index + 1; ?></td>
+                                                <td><?php echo htmlspecialchars($p['nombre']) . ' <br><small class="text-muted">' . htmlspecialchars($p['codigo']) . '</small>'; ?></td>
+                                                <td class="text-center"><?php echo htmlspecialchars($p['cantidad']); ?></td>
+                                                <td class="text-right"><?php echo number_format($p['precio_pieza_reparacion'], 2, ',', '.'); ?> €</td>
+                                                <td class="text-right"><?php echo number_format($subtotal, 2, ',', '.'); ?> €</td>
+                                                <td class="text-center">
+                                                    <button type="button" class="btn btn-sm btn-danger"><i class="fas fa-times"></i></button>
+                                                </td>
+                                            </tr>
+                                        <?php } ?>
                                         <tr>
                                             <td colspan="4" class="text-right font-weight-bold">Total Piezas:</td>
-                                            <td class="text-right font-weight-bolder text-lg text-primary">185,50 €</td>
+                                            <td class="text-right font-weight-bolder text-lg text-primary"><?php echo number_format($totalPiezas, 2, ',', '.'); ?> €</td>
                                             <td></td>
                                         </tr>
                                     </tbody>
@@ -149,20 +145,35 @@
                         <div class="card-body text-center">
                             
                             <div class="mb-3">
-                                <span class="badge badge-warning text-dark font-weight-bold p-3 text-lg rounded-pill shadow">
-                                    <i class="fas fa-exclamation-triangle mr-2"></i> PENDIENTE
+                                <span class="badge 
+                                    <?php 
+                                        if ($vehiculo['estado_vehiculo'] === 'pendiente') { 
+                                            echo 'badge-warning text-dark'; 
+                                        } elseif ($vehiculo['estado_vehiculo'] === 'finalizado') { 
+                                            echo 'badge-success'; 
+                                        } else { 
+                                            echo 'badge-secondary'; 
+                                        } 
+                                    ?> font-weight-bold p-3 text-lg rounded-pill shadow">
+                                    <i class="fas 
+                                        <?php 
+                                            if ($vehiculo['estado_vehiculo'] === 'pendiente') { 
+                                                echo 'fa-exclamation-triangle'; 
+                                            } elseif ($vehiculo['estado_vehiculo'] === 'finalizado') { 
+                                                echo 'fa-check-circle'; 
+                                            } else { 
+                                                echo 'fa-question-circle'; 
+                                            } 
+                                        ?> mr-2"></i> 
+                                    <?php echo strtoupper($vehiculo['estado_vehiculo']); ?>
                                 </span>
                             </div>
 
                             <div class="form-group mt-4">
                                 <label for="estado">Cambiar Estado</label>
                                 <select class="form-control" id="estado" name="estado">
-                                    <option value="pendiente" selected>
-                                        Pendiente
-                                    </option>
-                                    <option value="finalizado">
-                                        Finalizado
-                                    </option>
+                                    <option value="pendiente" <?php if ($vehiculo['estado_vehiculo'] === 'pendiente') echo 'selected'; ?>>Pendiente</option>
+                                    <option value="finalizado" <?php if ($vehiculo['estado_vehiculo'] === 'finalizado') echo 'selected'; ?>>Finalizado</option>
                                 </select>
                             </div>
 

@@ -59,4 +59,18 @@ class VehiculosModel extends BaseDbModel
         ");
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+      public function getVehiculoById($idVehiculo)
+    {
+        $stmt = $this->pdo->prepare("
+            SELECT v.*, c.nombre AS cliente_nombre, c.telefono AS cliente_telefono,
+                   c.email AS cliente_email, c.direccion AS cliente_direccion, v.estado AS estado_vehiculo
+            FROM vehiculos v
+            INNER JOIN clientes c ON v.id_cliente = c.id_cliente
+            WHERE v.id_vehiculo = :id
+        ");
+        $stmt->execute(array('id' => $idVehiculo));
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
 }
