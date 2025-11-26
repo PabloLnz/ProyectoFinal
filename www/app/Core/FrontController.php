@@ -47,6 +47,15 @@ class FrontController
             'get'
         );
 
+        
+        Route::add(
+            '/indexTaller/cambiar-disponibilidad/([0-9]+)',
+            function ($id_usuario) {
+                $controlador = new \Com\Daw2\Controllers\TallerController();
+                $controlador->cambiarDisponibilidad($id_usuario);
+            },
+            'get'
+        );
 
 
         Route::add(

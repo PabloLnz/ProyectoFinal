@@ -155,4 +155,29 @@ public function getLastEmpleados(array $parametros, int $order, string $dir): in
     }
 
 
+    public function getUsuariosActivos()
+    {
+        $stmt = $this->pdo->query('
+            SELECT *
+            FROM usuario_taller ut
+            INNER JOIN roles r ON ut.id_rol = r.id_rol
+            WHERE ut.activo = 1
+            ORDER BY ut.nombre ASC
+        ');
+        
+        return $stmt->fetchAll();
+    }
+
+        public function actualizarDisponibilidad($id_usuario, $estado)
+    {
+        $stmt = $this->pdo->prepare("UPDATE usuario_taller 
+                                    SET disponibilidad = :estado 
+                                    WHERE id_usuario = :id");
+
+        $stmt->execute([
+            ':estado' => $estado,
+            ':id'     => $id_usuario
+        ]);
+    }
+
 }
