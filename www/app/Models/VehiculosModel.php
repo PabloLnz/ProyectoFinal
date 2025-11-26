@@ -33,4 +33,30 @@ class VehiculosModel extends BaseDbModel
         return (int)$this->pdo->lastInsertId();
     }
 
+    public function getVehiculosActivos(): array
+    {
+
+        $stmt = $this->pdo->query("
+            SELECT 
+                v.id_vehiculo,
+                v.matricula,
+                v.marca,
+                v.modelo,
+                v.anyo,
+                v.estado AS estado_vehiculo,
+                c.nombre AS cliente_nombre,
+                c.telefono AS cliente_telefono,
+                c.email AS cliente_email,
+                c.direccion AS cliente_direccion,
+                r.fecha_reserva,
+                r.hora_reserva,
+                r.estado AS estado_reserva
+            FROM vehiculos v
+            INNER JOIN clientes c ON v.id_cliente = c.id_cliente
+            INNER JOIN reservas r ON v.id_vehiculo = r.id_vehiculo
+            WHERE r.estado IN ('confirmada', 'finalizada')
+            ORDER BY r.creacion_reserva ASC
+        ");
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }
