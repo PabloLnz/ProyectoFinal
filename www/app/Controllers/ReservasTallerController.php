@@ -11,6 +11,7 @@ class ReservasTallerController extends BaseController
 
     public function showReservas(): void
     {
+        $data = ['seccion' => '/reservas'];
         $reservasModel = new ReservasModel ();
         $reservas = $reservasModel->getReservasGeneral();
         $data['reservas']=$reservas;

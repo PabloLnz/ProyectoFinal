@@ -11,9 +11,8 @@ class VehiculosController extends BaseController
      
      public function showVehiculos()
     {
-       
-        $this->view->showViews(array('templates/head.view.php','templates/aside.view.php','vehiculosTaller.view.php','templates/footer.view.php'
-        ));
+        $data = ['seccion' => '/vehiculos'];
+        $this->view->showViews(array('templates/head.view.php','templates/aside.view.php','vehiculosTaller.view.php','templates/footer.view.php'), $data);
     }
 
          public function gestionarVehiculo()

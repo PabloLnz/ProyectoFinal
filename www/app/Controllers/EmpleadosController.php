@@ -13,10 +13,7 @@ class EmpleadosController extends BaseController
 
 public function showEmpleados(string $mensaje = "")
 {
-    $data = [
-        'titulo' => 'Gestión de Empleados',
-        'breadcrumb' => ['Empleados']
-    ];
+    $data = ['seccion' => '/empleadosTaller'];
     $data['input'] = filter_input_array(INPUT_GET, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $data['errors'] = $this->checkErrors($_GET);
 
