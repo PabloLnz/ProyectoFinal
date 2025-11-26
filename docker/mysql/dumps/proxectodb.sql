@@ -188,7 +188,8 @@ CREATE TABLE `usuario_taller` (
   `telefono` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'numero de teléfono',
   `id_rol` tinyint UNSIGNED NOT NULL COMMENT 'clave foranea que apunta a la tabla roles',
   `id_pais` smallint UNSIGNED NOT NULL COMMENT 'clave foranea que apunta a tabla paises',
-  `activo` tinyint UNSIGNED NOT NULL DEFAULT '1' COMMENT '1 = activo, 0 = baja'
+  `activo` tinyint UNSIGNED NOT NULL DEFAULT '1' COMMENT '1 = activo, 0 = baja',
+  `disponibilidad` ENUM('disponible', 'en servicio', 'indispuesto') NOT NULL DEFAULT 'disponible' COMMENT 'Estado de disponibilidad del empleado'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla de que contiene a los usuarios/empleados del taller';
 
 -- --------------------------------------------------------
