@@ -10,21 +10,24 @@ use Com\Daw2\Models\ReparacionesModel;
 class VehiculosController extends BaseController
 {
 
-     
-     
-     public function showVehiculos()
+    public function showVehiculos()
     {
         $modelVehiculos = new VehiculosModel();
         $vehiculos = $modelVehiculos->getVehiculosActivos();
 
-        $data = ['seccion' => '/vehiculos',];
-        $data['vehiculos'] = $vehiculos;
+        $data = [
+            'seccion' => '/vehiculos',
+            'vehiculos' => $vehiculos
+        ];
 
-        $this->view->showViews(['templates/head.view.php', 'templates/aside.view.php', 'vehiculosTaller.view.php', 'templates/footer.view.php'],$data);
+        $this->view->showViews(
+            ['templates/head.view.php', 'templates/aside.view.php', 'vehiculosTaller.view.php', 'templates/footer.view.php'],
+            $data
+        );
     }
 
-
-       public function gestionarVehiculo(int $idVehiculo) {
+    public function gestionarVehiculo(int $idVehiculo)
+    {
         $vehiculosModel = new VehiculosModel();
         $piezasModel = new PiezasModel();
         $reparacionesModel = new ReparacionesModel();
@@ -45,7 +48,8 @@ class VehiculosController extends BaseController
         );
     }
 
-    public function actualizarEstado(int $idVehiculo) {
+    public function actualizarEstado(int $idVehiculo)
+    {
         $estado = $_POST['estado'] ?? null;
 
         if (!in_array($estado, ['pendiente', 'finalizado'])) {
@@ -59,7 +63,8 @@ class VehiculosController extends BaseController
         $this->gestionarVehiculo($idVehiculo);
     }
 
-   public function agregarPieza(int $idVehiculo) {
+   public function agregarPieza(int $idVehiculo)
+{
     $piezasModel = new PiezasModel();
     $reparacionesModel = new ReparacionesModel();
 
@@ -69,32 +74,36 @@ class VehiculosController extends BaseController
 
     $reparacion = $reparacionesModel->getReparacionPorVehiculo($idVehiculo);
 
-    $idUsuario = $_SESSION['datosEmpleado']['id_usuario'];
-    $idReparacion = $reparacionesModel->crearReparacion($idVehiculo, $idUsuario, "Reparación iniciada");
-
-    $reparacionesModel->agregarPieza($idReparacion, $idPieza, $cantidad, $precio);
-
-    $vehiculosModel = new VehiculosModel();
-    $vehiculo = $vehiculosModel->getVehiculoById($idVehiculo);
-    $data['vehiculo'] = $vehiculo;
-    $data['piezas'] = $piezasModel->getPiezasDisponibles();
-    $data['piezasUsadas'] = $reparacionesModel->getPiezasUsadas($idVehiculo);
-
-    $this->view->showViews(['templates/head.view.php', 'templates/aside.view.php', 'gestionVehiculo.view.php', 'templates/footer.view.php'], $data);
-}
-
-
-    public function eliminarPieza(int $idReparacionPieza, int $idVehiculo) {
-        $reparacionesModel = new ReparacionesModel();
-        $reparacionesModel->eliminarPieza($idReparacionPieza);
-
-        $this->gestionarVehiculo($idVehiculo);
+    if (!$reparacion) {
+        $idUsuario = $_SESSION['datosEmpleado']['id_usuario'];
+        $idReparacion = $reparacionesModel->crearReparacion($idVehiculo, $idUsuario, "Reparación iniciada");
+    } else {
+        $idReparacion = $reparacion['id_reparacion'];
     }
 
-    public function generarFactura(int $idVehiculo) {
+    $reparacionesModel->agregarPieza($idReparacion, $idPieza, $cantidad, $precio);
+    $piezasModel->quitarStock($idPieza, $cantidad);
+
+    $this->gestionarVehiculo($idVehiculo);
+}
+
+public function eliminarPieza(int $idReparacionPieza, int $idVehiculo)
+{
+    $reparacionesModel = new ReparacionesModel();
+    $piezasModel = new PiezasModel();
+
+    $pieza = $reparacionesModel->getPiezaUsada($idReparacionPieza);
+    if ($pieza) {
+        $piezasModel->sumarStock($pieza['id_pieza'], $pieza['cantidad']);
+    }
+
+    $reparacionesModel->eliminarPieza($idReparacionPieza);
+    $this->gestionarVehiculo($idVehiculo);
+}
+
+    public function generarFactura(int $idVehiculo)
+    {
         $reparacionesModel = new ReparacionesModel();
         $total = $reparacionesModel->calcularTotal($idVehiculo);
-
-        
     }
 }

@@ -148,9 +148,6 @@
                                 <i class="fas fa-file-invoice mr-1"></i> Generar Factura
                             </button>
                         </form>
-                        <button type="button" class="btn btn-outline-danger btn-block mt-3" data-toggle="modal" data-target="#modal-eliminar">
-                            <i class="fas fa-trash-alt mr-1"></i> Eliminar Vehículo
-                        </button>
                     </div>
                 </div>
             </div>

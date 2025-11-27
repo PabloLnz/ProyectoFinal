@@ -204,10 +204,11 @@ class FrontController
             'post'
         );
 
-        Route::add('/vehiculos/gestionVehiculo/eliminar-pieza/([0-9]+)/([0-9]+)',
-            function ($id_reparacion_pieza, $id_vehiculo){
+        Route::add(
+            '/vehiculos/gestionVehiculo/eliminar-pieza/([0-9]+)/([0-9]+)',
+            function($idReparacionPieza, $idVehiculo) {
                 $controlador = new \Com\Daw2\Controllers\VehiculosController();
-                $controlador->eliminarPieza($id_reparacion_pieza, $id_vehiculo);
+                $controlador->eliminarPieza($idReparacionPieza, $idVehiculo);
             },
             'get'
         );

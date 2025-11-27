@@ -20,5 +20,30 @@ public function getPrecioPieza(int $idPieza): ?float {
     return $stmt->fetchColumn();
 }
 
+public function quitarStock(int $idPieza, int $cantidad): bool {
+    $stmt = $this->pdo->prepare("
+        UPDATE piezas 
+        SET stock = stock - :cantidad
+        WHERE id_pieza = :id AND stock >= :cantidad2
+    ");
+    return $stmt->execute([
+        ':cantidad' => $cantidad,
+        ':cantidad2' => $cantidad,
+        ':id' => $idPieza
+    ]);
+}
+
+public function sumarStock(int $idPieza, int $cantidad): bool {
+    $stmt = $this->pdo->prepare("
+        UPDATE piezas 
+        SET stock = stock + :cantidad 
+        WHERE id_pieza = :id
+    ");
+    return $stmt->execute([
+        ':cantidad' => $cantidad,
+        ':id' => $idPieza
+    ]);
+}
+
 
 }

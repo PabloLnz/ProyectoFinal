@@ -34,6 +34,31 @@ public function getReparacionPorVehiculo(int $idVehiculo): ?array {
         ]);
     }
 
+    public function agregarPiezaAReparacion(int $idReparacion, int $idPieza, int $cantidad, float $precio)
+{
+    $stmt = $this->pdo->prepare("
+        INSERT INTO reparacion_pieza (id_reparacion, id_pieza, cantidad, precio)
+        VALUES (:idReparacion, :idPieza, :cantidad, :precio)
+    ");
+    return $stmt->execute([
+        ':idReparacion' => $idReparacion,
+        ':idPieza' => $idPieza,
+        ':cantidad' => $cantidad,
+        ':precio' => $precio
+    ]);
+}
+
+public function getPiezaUsada(int $idReparacionPieza): ?array
+{
+    $stmt = $this->pdo->prepare("
+        SELECT * FROM reparacion_pieza 
+        WHERE id_reparacion_pieza = :id
+    ");
+    $stmt->execute([':id' => $idReparacionPieza]);
+    return $stmt->fetch(\PDO::FETCH_ASSOC) ?: null;
+}
+
+
     public function eliminarPieza(int $idReparacionPieza) {
         $stmt = $this->pdo->prepare("DELETE FROM reparacion_pieza WHERE id_reparacion_pieza = :id");
         $stmt->execute([':id' => $idReparacionPieza]);
