@@ -74,7 +74,7 @@ class VehiculosModel extends BaseDbModel
     }
 
    public function actualizarEstado(int $idVehiculo, string $estado) {
-        $stmt = $this->pdo->prepare("UPDATE vehiculos SET estado_vehiculo = :estado WHERE id_vehiculo = :id");
+        $stmt = $this->pdo->prepare("UPDATE vehiculos SET estado = :estado WHERE id_vehiculo = :id");
         $stmt->execute([':estado' => $estado, ':id' => $idVehiculo]);
     }
 

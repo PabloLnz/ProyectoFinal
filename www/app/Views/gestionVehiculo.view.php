@@ -51,30 +51,31 @@
                     </div>
                 </div>
 
-
                 <div class="card shadow-lg card-info mt-4">
                     <div class="card-header">
                         <h3 class="card-title font-weight-bold"><i class="fas fa-tools mr-1"></i> Piezas Utilizadas</h3>
                     </div>
                     <div class="card-body">
 
-                        <h5 class="font-weight-bold text-info mb-3">Añadir Pieza</h5>
-                        <form action="/vehiculos/gestionVehiculo/agregar-pieza/<?php echo $vehiculo['id_vehiculo']; ?>" method="post" class="form-inline mb-3">
-                            <div class="form-group mr-2">
-                                <select name="id_pieza" class="form-control" required>
-                                    <option value="">Buscar o seleccionar...</option>
-                                    <?php foreach ($piezas as $pieza) { ?>
-                                        <option value="<?php echo $pieza['id_pieza']; ?>">
-                                            <?php echo htmlspecialchars($pieza['nombre']) . ' (Stock: ' . htmlspecialchars($pieza['stock']) . ')'; ?>
-                                        </option>
-                                    <?php } ?>
-                                </select>
-                            </div>
-                            <div class="form-group mr-2">
-                                <input type="number" name="cantidad" class="form-control" value="1" min="1" required>
-                            </div>
-                            <button type="submit" class="btn btn-success"><i class="fas fa-plus mr-1"></i> Añadir</button>
-                        </form>
+                        <?php if($vehiculo['estado_vehiculo'] !== 'finalizado'): ?>
+                            <h5 class="font-weight-bold text-info mb-3">Añadir Pieza</h5>
+                            <form action="/vehiculos/gestionVehiculo/agregar-pieza/<?php echo $vehiculo['id_vehiculo']; ?>" method="post" class="form-inline mb-3">
+                                <div class="form-group mr-2">
+                                    <select name="id_pieza" class="form-control" required>
+                                        <option value="">Buscar o seleccionar...</option>
+                                        <?php foreach ($piezas as $pieza) { ?>
+                                            <option value="<?php echo $pieza['id_pieza']; ?>">
+                                                <?php echo htmlspecialchars($pieza['nombre']) . ' (Stock: ' . htmlspecialchars($pieza['stock']) . ')'; ?>
+                                            </option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="form-group mr-2">
+                                    <input type="number" name="cantidad" class="form-control" value="1" min="1" required>
+                                </div>
+                                <button type="submit" class="btn btn-success"><i class="fas fa-plus mr-1"></i> Añadir</button>
+                            </form>
+                        <?php endif; ?>
 
                         <hr class="my-4">
                         <h5 class="font-weight-bold text-info mb-3">Listado de Piezas</h5>
@@ -104,9 +105,13 @@
                                         <td class="text-right"><?php echo number_format($p['precio_pieza_reparacion'], 2, ',', '.'); ?> €</td>
                                         <td class="text-right"><?php echo number_format($subtotal, 2, ',', '.'); ?> €</td>
                                         <td class="text-center">
-                                            <form action="/vehiculos/gestionVehiculo/eliminar-pieza/<?php echo $p['id_reparacion_pieza']; ?>/<?php echo $vehiculo['id_vehiculo']; ?>" method="post">
-                                                <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-times"></i></button>
-                                            </form>
+                                            <?php if($vehiculo['estado_vehiculo'] !== 'finalizado'): ?>
+                                                <form action="/vehiculos/gestionVehiculo/eliminar-pieza/<?php echo $p['id_reparacion_pieza']; ?>/<?php echo $vehiculo['id_vehiculo']; ?>" method="post">
+                                                    <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-times"></i></button>
+                                                </form>
+                                            <?php else: ?>
+                                                <span class="text-muted">Finalizado</span>
+                                            <?php endif; ?>
                                         </td>
                                     </tr>
                                     <?php } ?>
@@ -118,6 +123,17 @@
                                 </tbody>
                             </table>
                         </div>
+
+                        <?php if(!empty($comentario)): ?>
+                            <div class="card shadow-lg card-secondary mt-4">
+                                <div class="card-header">
+                                    <h3 class="card-title font-weight-bold">Comentario de la Reparación</h3>
+                                </div>
+                                <div class="card-body">
+                                    <p><?php echo nl2br(htmlspecialchars($comentario)); ?></p>
+                                </div>
+                            </div>
+                        <?php endif; ?>
 
                     </div>
                 </div>
@@ -138,18 +154,24 @@
                     </div>
                 </div>
 
-                <div class="card card-secondary shadow-lg card-outline mt-4">
-                    <div class="card-header">
-                        <h3 class="card-title font-weight-bold">Acciones Rápidas</h3>
+                <?php if($vehiculo['estado_vehiculo'] !== 'finalizado'): ?>
+                    <div class="card card-secondary shadow-lg card-outline mt-4">
+                        <div class="card-header">
+                            <h3 class="card-title font-weight-bold">Acciones Rápidas</h3>
+                        </div>
+                        <div class="card-body">
+                            <form action="/vehiculos/gestionVehiculo/factura/<?php echo $vehiculo['id_vehiculo']; ?>" method="post">
+                                <div class="form-group">
+                                    <label for="comentario">Comentario para la factura</label>
+                                    <textarea name="comentario" id="comentario" class="form-control" rows="3" placeholder="Ej: Se cambiaron las ruedas, aceite y filtros"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-info btn-block mb-2">
+                                    <i class="fas fa-file-invoice mr-1"></i> Generar Factura
+                                </button>
+                            </form>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <form action="/vehiculos/gestionVehiculo/factura/<?php echo $vehiculo['id_vehiculo']; ?>" method="post">
-                            <button type="submit" class="btn btn-info btn-block mb-2">
-                                <i class="fas fa-file-invoice mr-1"></i> Generar Factura
-                            </button>
-                        </form>
-                    </div>
-                </div>
+                <?php endif; ?>
             </div>
 
         </div>

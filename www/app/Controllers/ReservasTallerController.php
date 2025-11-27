@@ -5,6 +5,7 @@ namespace Com\Daw2\Controllers;
 use Com\Daw2\Core\BaseController;
 use Com\Daw2\Models\ReservasModel;
 use Com\Daw2\Libraries\Mensaje;
+use Com\Daw2\Models\ReparacionesModel;
 class ReservasTallerController extends BaseController
 {
 

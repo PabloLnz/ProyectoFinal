@@ -188,13 +188,7 @@ class FrontController
             'get'
         );
 
-        Route::add('/vehiculos/gestionVehiculo/estado/([0-9]+)',
-            function ($id_vehiculo){
-                $controlador = new \Com\Daw2\Controllers\VehiculosController();
-                $controlador->actualizarEstado($id_vehiculo);
-            },
-            'post'
-        );
+ 
 
         Route::add('/vehiculos/gestionVehiculo/agregar-pieza/([0-9]+)',
             function ($id_vehiculo){
@@ -210,7 +204,7 @@ class FrontController
                 $controlador = new \Com\Daw2\Controllers\VehiculosController();
                 $controlador->eliminarPieza($idReparacionPieza, $idVehiculo);
             },
-            'get'
+            'post'
         );
 
         Route::add('/vehiculos/gestionVehiculo/factura/([0-9]+)',
@@ -218,7 +212,7 @@ class FrontController
                 $controlador = new \Com\Daw2\Controllers\VehiculosController();
                 $controlador->generarFactura($id_vehiculo);
             },
-            'get'
+            'post'
         );
 
         Route::add('/reservaCliente',
