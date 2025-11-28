@@ -186,7 +186,7 @@ class FrontController
         Route::add('/empleadosTaller/baja/([0-9]+)',
             function ($id_usuario){
                 $controlador = new \Com\Daw2\Controllers\EmpleadosController($mensaje ?? "");
-                $controlador->estadoEmpleado($id_usuario);
+                $controlador->desactivarUsuario($id_usuario);
             },
             'get'
         );

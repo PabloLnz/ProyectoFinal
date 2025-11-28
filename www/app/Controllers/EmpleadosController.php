@@ -211,4 +211,30 @@ public function checkErrors(array $data): array
         }
         header('Location: /empleadosTaller');
     }
+
+        public function desactivarUsuario($id_usuario): void
+    {
+
+        $modelEmpleados = new EmpleadosModel();
+        $usuariosDisable = $modelEmpleados->getUsuarioDisable($id_usuario);
+
+
+        if ($_SESSION['datosEmpleado']['id_usuario'] == $id_usuario) {
+            header('Location: /empleadosTaller');
+            $mensaje = new Mensaje("No puedes interactuar contigo mismo", Mensaje::ERROR);
+        } elseif ($usuariosDisable['activo'] == 0) {
+            $modelEmpleados->setAlta($id_usuario);
+            $mensaje = new Mensaje("Usuario activado correctamente", Mensaje::SUCCESS);
+        } elseif ($usuariosDisable['activo'] == 1) {
+            $modelEmpleados->setBaja($id_usuario);
+            $mensaje = new Mensaje("Usuario desactivado correctamente", Mensaje::SUCCESS);
+        } else {
+            $mensaje = new Mensaje("Datos incorrectos", Mensaje::ERROR);
+        }
+        header('Location: /empleadosTaller');
+        $this->addFlashMessage($mensaje);
+        exit();
+    }
+
+    
 }

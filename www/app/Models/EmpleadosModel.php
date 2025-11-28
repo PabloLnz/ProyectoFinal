@@ -132,29 +132,6 @@ public function getLastEmpleados(array $parametros, int $order, string $dir): in
 }
 
 
-    public function editAlta(int $id_usuario):bool{
-        $sql = "UPDATE usuario_taller  SET activo=1 WHERE id_usuario = :id_usuario ";
-        $stmt=$this->pdo->prepare($sql);
-        $stmt->execute([
-            "id_usuario" => $id_usuario,
-
-        ]);
-        return $stmt->rowCount()>0;
-
-    }
-
-    public function editBaja(int $id_usuario):bool{
-        $sql = "UPDATE usuario_taller  SET activo=0 WHERE id_usuario = :id_usuario ";
-        $stmt=$this->pdo->prepare($sql);
-        $stmt->execute([
-            "id_usuario" => $id_usuario,
-
-        ]);
-        return $stmt->rowCount()>0;
-
-    }
-
-
     public function getUsuariosActivos()
     {
         $stmt = $this->pdo->query('
@@ -191,7 +168,34 @@ public function getLastEmpleados(array $parametros, int $order, string $dir): in
         return $stmt->rowCount() > 0;
     }
 
+    public function getUsuarioDisable($id_usuario):array|false{
+        $sql="SELECT * FROM usuario_taller WHERE id_usuario = :id_usuario;";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':id_usuario' => $id_usuario]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
 
+       public function setAlta(int $id_usuario):bool{
+        $sql = "UPDATE usuario_taller  SET activo=1 WHERE id_usuario = :id_usuario ";
+        $stmt=$this->pdo->prepare($sql);
+        $stmt->execute([
+            "id_usuario" => $id_usuario,
+
+        ]);
+        return $stmt->rowCount()>0;
+
+    }
+
+    public function setBaja(int $id_usuario):bool{
+        $sql = "UPDATE usuario_taller  SET activo=0 WHERE id_usuario = :id_usuario ";
+        $stmt=$this->pdo->prepare($sql);
+        $stmt->execute([
+            "id_usuario" => $id_usuario,
+
+        ]);
+        return $stmt->rowCount()>0;
+
+    }
     
 
 }
