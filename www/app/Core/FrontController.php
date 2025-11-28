@@ -183,6 +183,17 @@ class FrontController
             'get'
         );
 
+        
+          Route::add(
+            '/facturacion',
+            function () {
+                $controlador = new \Com\Daw2\Controllers\FacturasController();
+                $controlador->showFacturas();
+            },
+            'get'
+        );
+
+
         Route::add('/empleadosTaller/baja/([0-9]+)',
             function ($id_usuario){
                 $controlador = new \Com\Daw2\Controllers\EmpleadosController($mensaje ?? "");

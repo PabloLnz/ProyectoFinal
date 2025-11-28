@@ -3,16 +3,7 @@
     <div class="content-header">
         <?php
         include $_ENV['folder.views'] . '/templates/flash-messages.php'; 
-        
-        if (isset($mensaje)): ?>
-            <div class="container-fluid">
-                <div class="alert alert-<?php echo !empty($errors) ? 'danger' : 'info'; ?> alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <h5><i class="icon fas fa-exclamation-triangle"></i> Aviso</h5>
-                    <?php echo $mensaje; ?>
-                </div>
-            </div>
-        <?php endif; ?>
+        ?>
 
         <div class="container-fluid">
             <div class="row mb-2">
@@ -111,7 +102,7 @@
 
                         <div class="row">
                             <div class="col-12 text-right">
-                                <a href="/facturas" class="btn btn-default mr-2">
+                                <a href="/facturacion" class="btn btn-default mr-2">
                                     <i class="fas fa-sync-alt mr-1"></i> Limpiar Filtros
                                 </a>
                                 <button type="submit" class="btn btn-info">
@@ -141,25 +132,22 @@
                                     <th>Cliente</th>
                                     <th class="text-left">Total</th> 
                                     <th class="text-center">Estado</th>
-                                    <th>Método Pago</th>
-                                    <th>Comentarios Breves</th>
+                                    <th>Metodo Pago</th>
+                                    <th>Comentarios</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                            <?php foreach ($facturas as $factura): 
-                                $fechaFormateada = date('d/m/Y', strtotime($factura['fecha_emision']));
-                                $totalFormateado = number_format((float)$factura['total'], 2, ',', '.') . ' €';
-                            ?>
+
                                 <tr>
                                     <td><?php echo htmlspecialchars($factura['id_factura']); ?></td>
                                     <td><?php echo $fechaFormateada; ?></td>
                                     <td><?php echo htmlspecialchars($factura['nombre_cliente']); ?> (ID: <?php echo htmlspecialchars($factura['id_cliente']); ?>)</td>
                                     
-                                    <td class="font-weight-bold text-right"><?php echo $totalFormateado; ?></td> 
+                                    <td class="font-weight-bold text-left"><?php echo $totalFormateado; ?></td> 
                                     
                                     <td class="text-center">
-                                        <span class="badge <?php echo $factura['badgeClass']; ?>">
+                                        <span class="badge <?php echo $badgeClass; ?>">
                                             <?php echo ucfirst($factura['estado']); ?>
                                         </span>
                                     </td>
@@ -174,7 +162,7 @@
                             <i class="fas fa-info-circle fa-2x text-info mb-3"></i>
                             <h4 class="mb-1">
                                 <?php 
-                                if (isset($mensaje)) {
+                                if (isset($mensaje)) { 
                                     echo $mensaje;
                                 } else {
                                     echo 'No se encontraron facturas para mostrar.';
