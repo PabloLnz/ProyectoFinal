@@ -12,15 +12,21 @@
                     <div class="col-md-4 mb-4">
                         <div class="card card-outline shadow-lg" style="border-left: 5px solid 
                             <?php 
-                                if ($vehiculo['estado_vehiculo'] === 'pendiente') { echo '#ffc107'; } elseif ($vehiculo['estado_vehiculo'] === 'finalizado') { echo '#28a745'; } else { echo '#6c757d'; } 
+                                if ($vehiculo['estado_vehiculo'] === 'pendiente') { echo '#ffc107'; } 
+                                elseif ($vehiculo['estado_vehiculo'] === 'finalizado') { echo '#28a745'; } 
+                                else { echo '#6c757d'; } 
                             ?>;">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                     <h4 class="mb-0 text-dark font-weight-bolder"><?php echo htmlspecialchars($vehiculo['matricula']); ?></h4>
                                     <span class="badge font-weight-bold p-2 
-                                        <?php if ($vehiculo['estado_vehiculo'] === 'pendiente') { echo 'badge-warning text-dark'; } elseif ($vehiculo['estado_vehiculo'] === 'finalizado') { echo 'badge-success'; } else { echo 'badge-secondary'; } ?>">
+                                        <?php if ($vehiculo['estado_vehiculo'] === 'pendiente') { echo 'badge-warning text-dark'; } 
+                                        elseif ($vehiculo['estado_vehiculo'] === 'finalizado') { echo 'badge-success'; } 
+                                        else { echo 'badge-secondary'; } ?>">
                                         <i class="fas 
-                                            <?php if ($vehiculo['estado_vehiculo'] === 'pendiente') { echo 'fa-exclamation-triangle'; } elseif ($vehiculo['estado_vehiculo'] === 'finalizado') { echo 'fa-check-circle'; } else { echo 'fa-question-circle'; } ?> mr-1"></i>
+                                            <?php if ($vehiculo['estado_vehiculo'] === 'pendiente') { echo 'fa-exclamation-triangle'; } 
+                                            elseif ($vehiculo['estado_vehiculo'] === 'finalizado') { echo 'fa-check-circle'; } 
+                                            else { echo 'fa-question-circle'; } ?> mr-1"></i>
                                         <?php echo strtoupper($vehiculo['estado_vehiculo']); ?>
                                     </span>
                                 </div>
@@ -47,21 +53,32 @@
 
                                     <p class="mb-2 font-weight-bold">
                                         <i class="far fa-calendar-alt mr-2 text-secondary"></i>
-                                        Entrada: <span class="font-weight-normal"><?php echo htmlspecialchars($vehiculo['fecha_reserva']); ?></span>
+                                        Entrada: 
+                                        <span class="font-weight-normal">
+                                            <?php echo !empty($vehiculo['reparacion_inicio']) ? htmlspecialchars($vehiculo['reparacion_inicio']) : htmlspecialchars($vehiculo['fecha_reserva']); ?>
+                                        </span>
                                     </p>
                                     <p class="mb-2 font-weight-bold">
                                         <i class="fas fa-shipping-fast mr-2 text-secondary"></i>
-                                        Salida: <span class="font-weight-normal"><?php echo !empty($vehiculo['fecha_salida']) ? htmlspecialchars($vehiculo['fecha_salida']) : '---'; ?></span>
+                                        Salida: 
+                                        <span class="font-weight-normal">
+                                            <?php echo !empty($vehiculo['reparacion_fin']) ? htmlspecialchars($vehiculo['reparacion_fin']) : '---'; ?>
+                                        </span>
                                     </p>
 
                                     <p class="mt-3 mb-3 text-lg font-weight-bolder text-primary">
                                         <i class="fas fa-euro-sign mr-2"></i>
-                                        Coste: <span class="font-weight-bolder">---</span>
+                                        Coste: 
+                                        <span class="font-weight-bolder">
+                                            <?php echo !empty($vehiculo['coste_reparacion']) ? number_format($vehiculo['coste_reparacion'], 2, ',', '.') . ' €' : '---'; ?>
+                                        </span>
                                     </p>
 
                                     <p class="text-muted mt-3 mb-0 font-weight-bold">
                                         <i class="fas fa-wrench mr-2 text-secondary"></i>
-                                        Reparación: <span class="font-weight-normal">Pendiente de gestionar</span>
+                                        Reparación: <span class="font-weight-normal">
+                                            <?php echo !empty($vehiculo['reparacion_fin']) ? $vehiculo['comentariosReserva'] : 'Sin comentarios / Revision general'; ?>
+                                        </span>
                                     </p>
                                 </div>
 
