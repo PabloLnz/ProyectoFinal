@@ -163,6 +163,17 @@ class FrontController
             'post'
         );
 
+
+        Route::add(
+            '/empleadosTaller/delete/([0-9]+)',
+            function ($id_usuario){
+            $controlador = new \Com\Daw2\Controllers\EmpleadosController();
+            $controlador->deleteEmpleado($id_usuario);
+            },
+            'get'
+        );
+
+
           Route::add(
             '/empleadosTaller',
             function () {
@@ -334,15 +345,7 @@ class FrontController
 //        'post'
 //    );
 //
-//    Route::add(
-//        '/usuarios-sistema/delete/([0-9]+)',
-//        function ($id_usuario){
-//            $controlador = new \Com\Daw2\Controllers\UsuarioController();
-//            $controlador->deleteUsuario($id_usuario);
-//        },
-//        'get'
-//    );
-//
+
 //
 //
 //    Route::add('/usuarios-sistema/add',

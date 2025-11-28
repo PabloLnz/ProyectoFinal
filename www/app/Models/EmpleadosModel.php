@@ -180,4 +180,18 @@ public function getLastEmpleados(array $parametros, int $order, string $dir): in
         ]);
     }
 
+    public function deleteEmpleado(int $id_usuario): bool
+    {
+        $sql = "DELETE FROM usuario_taller WHERE id_usuario = :id_usuario";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            "id_usuario" => $id_usuario,
+        ]);
+     
+        return $stmt->rowCount() > 0;
+    }
+
+
+    
+
 }

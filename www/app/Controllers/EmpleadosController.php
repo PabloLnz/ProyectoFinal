@@ -197,4 +197,18 @@ public function checkErrors(array $data): array
 
         return $errors;
     }
+
+    public function deleteEmpleado($id_usuario)
+    {
+        $modelEmpleados = new EmpleadosModel();
+        $usuarioEliminado = $modelEmpleados->deleteEmpleado($id_usuario);
+        if ($usuarioEliminado === true) {
+            $mensaje = new Mensaje("El usuario se ha eliminado correctamente", Mensaje::INFO);
+            $this->addFlashMessage($mensaje);
+        } else {
+            $mensaje = new Mensaje("El no se ha podido eliminar", Mensaje::INFO);
+            $this->addFlashMessage($mensaje);
+        }
+        header('Location: /empleadosTaller');
+    }
 }
