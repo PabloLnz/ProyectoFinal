@@ -1,192 +1,104 @@
-<main class="content-wrapper" role="main">
+<main class="content-wrapper p-4">
+    <?php include $_ENV['folder.views'] . '/templates/flash-messages.php'; ?>
 
-    <div class="content-header">
-        <?php
-        include $_ENV['folder.views'] . '/templates/flash-messages.php'; 
-        
-        if (isset($mensaje)): ?>
-            <div class="container-fluid">
-                <div class="alert alert-<?php echo !empty($errors) ? 'danger' : 'info'; ?> alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <h5><i class="icon fas fa-exclamation-triangle"></i> Aviso</h5>
-                    <?php echo $mensaje; ?>
-                </div>
-            </div>
-        <?php endif; ?>
+    <div class="container-fluid">
+        <h2 class="mb-4 text-dark font-weight-bold">
+            <i class="fas fa-car-side text-info mr-2"></i> Gestión de Vehículos
+        </h2>
 
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">
-                        <i class="fas fa-file-invoice-dollar mr-2 text-primary"></i> Listado de Facturas
-                    </h1>
+        <div class="row">
+            <?php if (!empty($vehiculos)) { ?>
+                <?php foreach ($vehiculos as $vehiculo) { ?>
+                    <div class="col-md-4 mb-4">
+                        <div class="card card-outline shadow-lg" style="border-left: 5px solid
+                        <?php
+                        if ($vehiculo['estado_vehiculo'] === 'pendiente') { echo '#ffc107'; }
+                        elseif ($vehiculo['estado_vehiculo'] === 'finalizado') { echo '#28a745'; }
+                        else { echo '#6c757d'; }
+                        ?>;">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h4 class="mb-0 text-dark font-weight-bolder"><?php echo htmlspecialchars($vehiculo['matricula']); ?></h4>
+                                    <span class="badge font-weight-bold p-2
+                                        <?php if ($vehiculo['estado_vehiculo'] === 'pendiente') { echo 'badge-warning text-dark'; }
+                                    elseif ($vehiculo['estado_vehiculo'] === 'finalizado') { echo 'badge-success'; }
+                                    else { echo 'badge-secondary'; } ?>">
+                                        <i class="fas
+                                            <?php if ($vehiculo['estado_vehiculo'] === 'pendiente') { echo 'fa-exclamation-triangle'; }
+                                        elseif ($vehiculo['estado_vehiculo'] === 'finalizado') { echo 'fa-check-circle'; }
+                                        else { echo 'fa-question-circle'; } ?> mr-1"></i>
+                                        <?php echo strtoupper($vehiculo['estado_vehiculo']); ?>
+                                    </span>
+                                </div>
+
+                                <hr class="mt-0 mb-3">
+
+                                <div class="text-sm">
+                                    <p class="mb-2 font-weight-bold">
+                                        <i class="fas fa-user mr-2 text-secondary"></i>
+                                        Cliente: <span class="font-weight-normal"><?php echo htmlspecialchars($vehiculo['cliente_nombre']); ?></span>
+                                    </p>
+                                    <p class="mb-2 font-weight-bold">
+                                        <i class="fas fa-phone mr-2 text-secondary"></i>
+                                        Tel: <span class="font-weight-normal"><?php echo htmlspecialchars($vehiculo['cliente_telefono']); ?></span>
+                                    </p>
+                                    <p class="mb-2 font-weight-bold">
+                                        <i class="fas fa-envelope mr-2 text-secondary"></i>
+                                        Email: <span class="font-weight-normal"><?php echo htmlspecialchars($vehiculo['cliente_email']); ?></span>
+                                    </p>
+                                    <p class="mb-2 font-weight-bold">
+                                        <i class="fas fa-map-marker-alt mr-2 text-secondary"></i>
+                                        Dirección: <span class="font-weight-normal"><?php echo htmlspecialchars($vehiculo['cliente_direccion']); ?></span>
+                                    </p>
+
+                                    <p class="mb-2 font-weight-bold">
+                                        <i class="far fa-calendar-alt mr-2 text-secondary"></i>
+                                        Entrada:
+                                        <span class="font-weight-normal">
+                                            <?php echo !empty($vehiculo['reparacion_inicio']) ? htmlspecialchars($vehiculo['reparacion_inicio']) : htmlspecialchars($vehiculo['fecha_reserva']); ?>
+                                        </span>
+                                    </p>
+                                    <p class="mb-2 font-weight-bold">
+                                        <i class="fas fa-shipping-fast mr-2 text-secondary"></i>
+                                        Salida:
+                                        <span class="font-weight-normal">
+                                            <?php echo !empty($vehiculo['reparacion_fin']) ? htmlspecialchars($vehiculo['reparacion_fin']) : '---'; ?>
+                                        </span>
+                                    </p>
+
+                                    <p class="mt-3 mb-3 text-lg font-weight-bolder text-primary">
+                                        <i class="fas fa-euro-sign mr-2"></i>
+                                        Coste:
+                                        <span class="font-weight-bolder">
+                                            <?php echo !empty($vehiculo['coste_reparacion']) ? number_format($vehiculo['coste_reparacion'], 2, ',', '.') . ' €' : '---'; ?>
+                                        </span>
+                                    </p>
+
+                                    <p class="text-muted mt-3 mb-0 font-weight-bold">
+                                        <i class="fas fa-wrench mr-2 text-secondary"></i>
+                                        Reparación: <span class="font-weight-normal">
+                                            <?php echo !empty($vehiculo['reparacion_fin']) ? $vehiculo['comentariosReserva'] : 'Sin comentarios / Revision general'; ?>
+                                        </span>
+                                    </p>
+                                </div>
+
+                                <div class="mt-4 pt-3 border-top">
+                                    <a href="/vehiculos/gestionVehiculo/<?php echo $vehiculo['id_vehiculo']; ?>" class="btn btn-sm btn-outline-<?php echo $vehiculo['estado_vehiculo'] === 'finalizado' ? 'success' : ($vehiculo['estado_vehiculo'] === 'pendiente' ? 'warning text-dark' : 'info'); ?> btn-block font-weight-bold shadow-sm">
+                                        <i class="fas <?php echo $vehiculo['estado_vehiculo'] === 'finalizado' ? 'fa-eye' : 'fa-edit'; ?> mr-1"></i>
+                                        <?php echo $vehiculo['estado_vehiculo'] === 'finalizado' ? 'Ver Historial' : 'Gestionar Vehículo'; ?>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
+            <?php } else { ?>
+                <div class="col-12">
+                    <div class="alert alert-info">
+                        No hay vehículos registrados en este momento.
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-                        <li class="breadcrumb-item active">Facturas</li>
-                    </ol>
-                </div>
-            </div>
+            <?php } ?>
         </div>
     </div>
-    <hr>
-
-    <section class="content">
-        <div class="container-fluid">
-
-            <div class="card card-outline card-info">
-                <div class="card-header">
-                    <h3 class="card-title"><i class="fas fa-filter mr-1"></i> Opciones de Filtrado</h3>
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="card-body">
-                    <form method="get">
-                        <div class="row">
-                            <div class="col-md-3 mb-3">
-                                <label for="selectEstado">Estado:</label>
-                                <select class="form-control <?php echo isset($errors['selectEstado']) ? 'is-invalid' : ''; ?>" id="selectEstado" name="selectEstado">
-                                    <option value="">-- Todos --</option>
-                                    <?php 
-                                    foreach ($estadosFactura as $estado):
-                                        $selected = ($input['selectEstado'] ?? '') === $estado['id_estado'] ? 'SELECTED' : '';
-                                    ?>
-                                        <option value="<?php echo $estado['id_estado']; ?>" <?php echo $selected; ?>>
-                                            <?php echo $estado['nombre_estado']; ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                                <?php if (isset($errors['selectEstado'])): ?>
-                                    <div class="invalid-feedback"><?php echo $errors['selectEstado']; ?></div>
-                                <?php endif; ?>
-                            </div>
-
-                            <div class="col-md-3 mb-3">
-                                <label for="inputCliente">Cliente (Nombre o ID)</label>
-                                <input type="text" name="inputCliente" class="form-control <?php echo isset($errors['inputCliente']) ? 'is-invalid' : ''; ?>"
-                                       id="inputCliente"
-                                       value="<?php echo htmlspecialchars($input['inputCliente'] ?? '') ?>"
-                                       placeholder="ID o nombre del cliente">
-                                <?php if (isset($errors['inputCliente'])): ?>
-                                    <div class="invalid-feedback"><?php echo $errors['inputCliente']; ?></div>
-                                <?php endif; ?>
-                            </div>
-
-                            <div class="col-md-2 mb-3">
-                                <label for="inputFechaDesde">Fecha Desde:</label>
-                                <input type="date" name="inputFechaDesde" class="form-control <?php echo isset($errors['inputFechaDesde']) ? 'is-invalid' : ''; ?>"
-                                       id="inputFechaDesde"
-                                       value="<?php echo htmlspecialchars($input['inputFechaDesde'] ?? '') ?>">
-                                <?php if (isset($errors['inputFechaDesde'])): ?>
-                                    <div class="invalid-feedback"><?php echo $errors['inputFechaDesde']; ?></div>
-                                <?php endif; ?>
-                            </div>
-
-                            <div class="col-md-2 mb-3">
-                                <label for="inputFechaHasta">Fecha Hasta:</label>
-                                <input type="date" name="inputFechaHasta" class="form-control <?php echo isset($errors['inputFechaHasta']) ? 'is-invalid' : ''; ?>"
-                                       id="inputFechaHasta"
-                                       value="<?php echo htmlspecialchars($input['inputFechaHasta'] ?? '') ?>">
-                                <?php if (isset($errors['inputFechaHasta'])): ?>
-                                    <div class="invalid-feedback"><?php echo $errors['inputFechaHasta']; ?></div>
-                                <?php endif; ?>
-                            </div>
-                            
-                            <div class="col-md-2 mb-3">
-                                <label for="inputTotalMax">Total Máx. (€):</label>
-                                <input type="number" name="inputTotalMax" step="0.01" min="0" class="form-control <?php echo isset($errors['inputTotalMax']) ? 'is-invalid' : ''; ?>"
-                                       id="inputTotalMax"
-                                       value="<?php echo htmlspecialchars($input['inputTotalMax'] ?? '') ?>"
-                                       placeholder="Máx.">
-                                <?php if (isset($errors['inputTotalMax'])): ?>
-                                    <div class="invalid-feedback"><?php echo $errors['inputTotalMax']; ?></div>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-12 text-right">
-                                <a href="/facturas" class="btn btn-default mr-2">
-                                    <i class="fas fa-sync-alt mr-1"></i> Limpiar Filtros
-                                </a>
-                                <button type="submit" class="btn btn-info">
-                                    <i class="fas fa-search mr-1"></i> Aplicar Filtros
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="card-title">Resultados de Facturas</h3>
-                </div>
-
-                <div class="card-body p-0">
-                    <div class="table-responsive">
-                    
-                    <?php 
-                    if (!empty($facturas)): ?>
-                        <table class="table table-hover table-striped">
-                            <thead>
-                                <tr>
-                                    <th># ID</th>
-                                    <th>Fecha Emisión</th>
-                                    <th>Cliente</th>
-                                    <th class="text-left">Total</th> 
-                                    <th class="text-center">Estado</th>
-                                    <th>Método Pago</th>
-                                    <th>Comentarios Breves</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                            <?php foreach ($facturas as $factura): 
-                                $fechaFormateada = date('d/m/Y', strtotime($factura['fecha_emision']));
-                                $totalFormateado = number_format((float)$factura['total'], 2, ',', '.') . ' €';
-                            ?>
-                                <tr>
-                                    <td><?php echo htmlspecialchars($factura['id_factura']); ?></td>
-                                    <td><?php echo $fechaFormateada; ?></td>
-                                    <td><?php echo htmlspecialchars($factura['nombre_cliente']); ?> (ID: <?php echo htmlspecialchars($factura['id_cliente']); ?>)</td>
-                                    
-                                    <td class="font-weight-bold text-right"><?php echo $totalFormateado; ?></td> 
-                                    
-                                    <td class="text-center">
-                                        <span class="badge <?php echo $factura['badgeClass']; ?>">
-                                            <?php echo ucfirst($factura['estado']); ?>
-                                        </span>
-                                    </td>
-                                    <td><?php echo htmlspecialchars($factura['metodo_pago'] ?? 'N/A'); ?></td>
-                                    <td><?php echo htmlspecialchars(substr($factura['comentarios'] ?? '', 0, 30)) . (strlen($factura['comentarios'] ?? '') > 30 ? '...' : ''); ?></td>
-                                </tr>
-                            <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    <?php else: ?>
-                        <div class="p-5 text-center bg-light">
-                            <i class="fas fa-info-circle fa-2x text-info mb-3"></i>
-                            <h4 class="mb-1">
-                                <?php 
-                                if (isset($mensaje)) {
-                                    echo $mensaje;
-                                } else {
-                                    echo 'No se encontraron facturas para mostrar.';
-                                }
-                                ?>
-                            </h4>
-                        </div>
-                    <?php endif; ?>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
 </main>

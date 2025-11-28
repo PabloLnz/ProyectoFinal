@@ -137,6 +137,16 @@ class FrontController
             },
             'get'
         );
+
+        Route::add(
+            '/horarios',
+            function () {
+                $controlador = new \Com\Daw2\Controllers\ClienteController();
+                $controlador->showHorarios();
+            },
+            'get'
+        );
+
         Route::add(
             '/register',
             function () {
@@ -183,7 +193,9 @@ class FrontController
             'get'
         );
 
-        
+
+
+
           Route::add(
             '/facturacion',
             function () {
@@ -219,6 +231,8 @@ class FrontController
             },
             'post'
         );
+
+
 
         Route::add(
             '/vehiculos/gestionVehiculo/eliminar-pieza/([0-9]+)/([0-9]+)',

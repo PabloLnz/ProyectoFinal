@@ -35,8 +35,8 @@
                     <img src="assets/img/logo.png" alt="Logo" class="logoIndex">
                 </a>
                 <ul class="d-flex list-unstyled justify-content-lg-end justify-content-md-center mb-0">
-                    <li><a href="#" class="navLi">HORARIOS</a></li>
-                    <li><a href="#" class="navLi">UBICACION</a></li>
+                    <li><a href="/horarios" class="navLi">HORARIOS</a></li>
+                    <li><a href="" class="navLi">UBICACION</a></li>
                     <li><a href="#" class="navLi">TALLER</a></li>
                     <li><a href="#" class="navLi">SOBRE NOSOTROS</a></li>
                     <li><a href="#" class="navLi">HISTORIAL</a></li>
