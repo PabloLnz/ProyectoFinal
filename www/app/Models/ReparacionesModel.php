@@ -23,7 +23,33 @@ public function getReparacionPorVehiculo(int $idVehiculo): ?array {
         ]);
         return $this->pdo->lastInsertId();
     }
+   public function crearReparacionPendiente(int $idVehiculo, int $idUsuario, string $descripcion = null)
+    {
+        $stmt = $this->pdo->prepare("
+            INSERT INTO reparaciones (id_vehiculo, id_usuario, descripcion, fecha_inicio)
+            VALUES (:vehiculo, :usuario, :desc, NOW())
+        ");
 
+        $stmt->execute([
+            ':vehiculo' => $idVehiculo,
+            ':usuario'  => $idUsuario,
+            ':desc'     => $descripcion
+        ]);
+
+        return $this->pdo->lastInsertId();
+    }
+
+    public function getReparacionPendientePorVehiculo(int $idVehiculo)
+    {
+        $stmt = $this->pdo->prepare("
+            SELECT * FROM reparaciones
+            WHERE id_vehiculo = :id AND fecha_fin IS NULL
+            LIMIT 1
+        ");
+
+        $stmt->execute([':id' => $idVehiculo]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC) ?: null;
+    }
 
 
 public function actualizarCoste(int $idReparacion, float $coste)

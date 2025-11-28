@@ -124,17 +124,6 @@
                             </table>
                         </div>
 
-                        <?php if(!empty($comentario)): ?>
-                            <div class="card shadow-lg card-secondary mt-4">
-                                <div class="card-header">
-                                    <h3 class="card-title font-weight-bold">Comentario de la Reparación</h3>
-                                </div>
-                                <div class="card-body">
-                                    <p><?php echo nl2br(htmlspecialchars($comentario)); ?></p>
-                                </div>
-                            </div>
-                        <?php endif; ?>
-
                     </div>
                 </div>
             </div>
@@ -153,6 +142,17 @@
                         </div>
                     </div>
                 </div>
+
+                <?php if(!empty($comentario)): ?>
+                    <div class="card shadow-lg card-secondary card-outline mt-3">
+                        <div class="card-header">
+                            <h3 class="card-title font-weight-bold">Comentario de la Reparación</h3>
+                        </div>
+                        <div class="card-body">
+                            <p><?php echo nl2br(htmlspecialchars($comentario)); ?></p>
+                        </div>
+                    </div>
+                <?php endif; ?>
 
                 <?php if($vehiculo['estado_vehiculo'] !== 'finalizado'): ?>
                     <div class="card card-secondary shadow-lg card-outline mt-4">

@@ -48,10 +48,11 @@ class VehiculosController extends BaseController
     $reparacion = $reparacionesModel->getReparacionPorVehiculo($idVehiculo);
 
     $facturas = $facturasModel->getFacturaPorReparacion($reparacion['id_reparacion']);
+    $comentario = '';
     if ($facturas) {
-        $comentarios = $facturas['comentarios'];
+        $comentario = $facturas['comentarios'];
     }
-    $data['comentarios'] = $comentarios;
+    $data['comentario'] = $comentario;
     $this->view->showViews(['templates/head.view.php', 'templates/aside.view.php', 'gestionVehiculo.view.php', 'templates/footer.view.php'],$data);
 }
 
@@ -152,7 +153,7 @@ public function eliminarPieza(int $idReparacionPieza, int $idVehiculo)
 
         $vehiculosModel->actualizarEstado($idVehiculo, 'finalizado');
 
-        $mensaje = new Mensaje("Factura generada correctamente", Mensaje::EXITO);
+        $mensaje = new Mensaje("Factura generada correctamente", Mensaje::SUCCESS);
         $this->addFlashMessage($mensaje);
 
         $this->gestionarVehiculo($idVehiculo);

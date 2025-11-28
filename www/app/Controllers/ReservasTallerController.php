@@ -22,29 +22,30 @@ class ReservasTallerController extends BaseController
 
     
 
-        public function confirmarReserva(int $id_reserva): void
-{
-    $reservaModel = new ReservasModel();
-    $reservaModel->cambiarEstado($id_reserva, 'confirmada');
-
-
-    $reserva = $reservaModel->getReservaById($id_reserva);
-    if ($reserva) {
-        $vehiculoId = $reserva['id_vehiculo'];
+ public function confirmarReserva(int $id_reserva): void
+    {
+        $reservaModel = new ReservasModel();
         $reparacionesModel = new ReparacionesModel();
-        $existeReparacion = $reparacionesModel->getReparacionPendientePorVehiculo($vehiculoId);
-        if (!$existeReparacion) {
-            $reparacionesModel->crearReparacionPendiente($vehiculoId);
-        }
-        $mensaje = new Mensaje("Reserva confirmada correctamente", Mensaje::SUCCESS);
-    } else {
-        $mensaje = new Mensaje("Error al confirmar la reserva", Mensaje::ERROR);
-    }
+        $reserva = $reservaModel->getReservaById($id_reserva);
 
-    $this->addFlashMessage($mensaje);
-    header('Location: /reservas');
-    exit;
-}
+        if (!$reserva) {
+            header("Location: /reservas");
+            exit;
+        }
+
+        $reservaModel->cambiarEstado($id_reserva, 'confirmada');
+
+        $idVehiculo = $reserva['id_vehiculo'];
+        $idUsuario  = $_SESSION['datosEmpleado']['id_usuario'];
+
+        $existe = $reparacionesModel->getReparacionPendientePorVehiculo($idVehiculo);
+
+        if (!$existe) {
+            $reparacionesModel->crearReparacionPendiente($idVehiculo,$idUsuario,$reserva['comentariosReserva'] ?? '');
+        }
+
+        header("Location: /reservas");
+    }
 
 
 
