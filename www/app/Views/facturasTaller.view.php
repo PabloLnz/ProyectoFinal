@@ -138,16 +138,16 @@
                             </thead>
 
                             <tbody>
-
+                            <?php foreach ($facturas as $factura):?>
                                 <tr>
                                     <td><?php echo htmlspecialchars($factura['id_factura']); ?></td>
-                                    <td><?php echo $fechaFormateada; ?></td>
+                                    <td><?php echo $factura['fechaFormateada']; ?></td>
                                     <td><?php echo htmlspecialchars($factura['nombre_cliente']); ?> (ID: <?php echo htmlspecialchars($factura['id_cliente']); ?>)</td>
                                     
-                                    <td class="font-weight-bold text-left"><?php echo $totalFormateado; ?></td> 
+                                    <td class="font-weight-bold text-right"><?php echo $factura['totalFormateado']; ?></td> 
                                     
                                     <td class="text-center">
-                                        <span class="badge <?php echo $badgeClass; ?>">
+                                        <span class="badge <?php echo ($factura['estado'] === 'pagada') ? 'bg-success' : (($factura['estado'] === 'pendiente') ? 'bg-warning text-dark' : (($factura['estado'] === 'cancelada') ? 'bg-danger' : 'bg-secondary')); ?>">
                                             <?php echo ucfirst($factura['estado']); ?>
                                         </span>
                                     </td>
