@@ -146,6 +146,14 @@ class FrontController
             },
             'get'
         );
+        Route::add(
+            '/sobreNosotros',
+            function () {
+                $controlador = new \Com\Daw2\Controllers\ClienteController();
+                $controlador->showSobreNosotros();
+            },
+            'get'
+        );
 
         Route::add(
             '/register',

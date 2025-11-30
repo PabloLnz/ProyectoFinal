@@ -31,6 +31,11 @@ class ClienteController extends BaseController
         $this->view->showViews(array('horarios.view.php'));
     }
 
+    public function showSobreNosotros()
+    {
+        $this->view->showViews(array('sobreNosotros.view.php'));
+    }
+
 
     public function register()
     {

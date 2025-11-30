@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
     <!-- css -->
     <link rel="stylesheet" href="assets/css/global.css">
-    <link rel="stylesheet" href="assets/css/horarios.css">
+    <link rel="stylesheet" href="assets/css/sobreNosotros.css">
 </head>
 <body class="hold-transition">
 <div class="wrapper">
@@ -57,56 +57,64 @@
     </header>
 
 
-    <!-- MAIN -->
+    <main class="main">
 
+        <section class="portada">
+            <div class="portada-fondo"></div>
+            <div class="portada-caja">
+                <h1>Galician Motors: Pasión por BMW en Galicia</h1>
+            </div>
+        </section>
 
-    <main class="horarios-main">
-        <div class="horarios-background"></div>
+        <section class="seccion">
+            <h2 class="titulo">Nuestra Historia</h2>
+            <div class="texto">
+                <p>
+                    Galician Motors no es solo un taller. Es el resultado de años currando con BMW y pillándole cariño a la marca. Empezamos porque aquí en Galicia no encontrábamos un sitio donde trataran estos coches como se merecen.
+                </p>
+                <p>
+                    Desde el principio hemos tenido claro lo que queríamos: ser el sitio de confianza para tu BMW. Todo el equipo está formado en lo último de la marca, usamos herramientas oficiales y siempre recambios originales. Queremos que tu coche vaya fino como el primer día.
+                </p>
+            </div>
+        </section>
 
-        <div class="horarios-container">
-            <h2>Horario de Servicio Técnico</h2>
+        <section class="seccion">
+            <h2 class="titulo">Nuestros Valores</h2>
+            <div class="cards-contenedor">
 
-            <p class="info-texto">Le rogamos que pida cita previa para garantizar la mejor atencion.</p>
+                <article class="card">
+                    <i class="fas fa-certificate icono"></i>
+                    <h3 class="card-titulo">Piezas Oficiales</h3>
+                    <p>Solo trabajamos con piezas y procesos oficiales BMW. Más garantía, más vida para tu coche.</p>
+                </article>
 
-            <table class="horarios-table">
-                <thead>
-                <tr>
-                    <th>Día</th>
-                    <th>Horario de Taller</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Lunes</td>
-                    <td>10:00 - 20:00</td>
-                </tr>
-                <tr>
-                    <td>Martes</td>
-                    <td>10:00 - 20:00</td>
-                </tr>
-                <tr>
-                    <td>Miércoles</td>
-                    <td>10:00 - 20:00</td>
-                </tr>
-                <tr>
-                    <td>Jueves</td>
-                    <td>10:00 - 20:00</td>
-                </tr>
-                <tr>
-                    <td>Viernes</td>
-                    <td>10:00 - 20:00</td>
-                </tr>
-                <tr>
-                    <td>Sábado</td>
-                    <td>10:00 - 20:00</td>
-                </tr>
-                <tr>
-                    <td>Domingo</td>
-                    <td>10:00 - 20:00</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+                <article class="card">
+                    <i class="fas fa-chart-line icono"></i>
+                    <h3 class="card-titulo">Transparencia</h3>
+                    <p>Sin sorpresas. Te explicamos lo que hay que hacer, el porqué, y te damos presupuesto antes de tocar nada.</p>
+                </article>
+
+                <article class="card">
+                    <i class="fas fa-microchip icono"></i>
+                    <h3 class="card-titulo">Tecnología Actual</h3>
+                    <p>Tenemos las herramientas y el software más moderno para cualquier BMW, desde mantenimiento a electrónica.</p>
+                </article>
+
+            </div>
+        </section>
+
+        <section class="cita">
+            <div class="contenedor-cita">
+                <h2 class="titulo titulo-cita">¿Quieres un servicio como toca?</h2>
+                <p>
+                    Si buscas cercanía, piezas originales y un equipo que conoce BMW al detalle, este es tu sitio.
+                </p>
+                <a href="/reservaCliente" class="boton-cita">
+                    PEDIR CITA
+                </a>
+            </div>
+        </section>
+
     </main>
 
 
@@ -172,6 +180,8 @@
         </div>
     </footer>
 </div>
+<!-- script index -->
+<script src="assets/js/index.js"></script>
 <!-- Scripts necesarios -->
 <script src="plugins/jquery/jquery.min.js"></script>
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -181,7 +191,17 @@
 <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <script src="assets/js/adminlte.min.js"></script>
 <script src="assets/js/pages/main.js"></script>
-<script src="assets/js/index.js"></script>
-<script
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

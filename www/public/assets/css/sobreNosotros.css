@@ -1,0 +1,139 @@
+.main {
+    background: #f8f8f8;
+    padding-bottom: 0;
+}
+
+.seccion {
+    max-width: 1000px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.titulo {
+    font-size: 2.2rem;
+    text-align: center;
+    color: #001C3F;
+    margin-bottom: 30px;
+    padding-bottom: 5px;
+    border-bottom: 3px solid #007bff;
+    display: inline-block;
+    font-weight: 700;
+}
+
+.portada {
+    position: relative;
+    height: 350px;
+    background: #001C3F;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.portada-fondo {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url("");
+    background-size: cover;
+    background-position: center;
+    opacity: 0.7;
+}
+
+.portada-caja {
+    position: relative;
+    background: rgba(0, 28, 63, 0.85);
+    padding: 25px 40px;
+    border-radius: 8px;
+    border-left: 6px solid #007bff;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+}
+
+.portada-caja h1 {
+    color: white;
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+.texto p {
+    font-size: 1.05rem;
+    color: #444;
+    line-height: 1.75;
+    margin-bottom: 20px;
+}
+
+.cards-contenedor {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.card {
+    background: white;
+    border: 1px solid #ddd;
+    width: 300px;
+    border-radius: 10px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0,123,255,0.2);
+}
+
+.icono {
+    font-size: 3rem;
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+.card-titulo {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    color: #001C3F;
+}
+
+.cita {
+    background: #333;
+    color: #eee;
+    text-align: center;
+    padding: 80px 20px;
+    margin-top: 60px;
+}
+
+.titulo-cita {
+    color: white;
+    border-bottom-color: #007bff;
+}
+
+.boton-cita {
+    display: inline-block;
+    margin-top: 25px;
+    background: #007bff;
+    color: white;
+    padding: 14px 35px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: 0.2s;
+}
+
+.boton-cita:hover {
+    background: #0056b3;
+    transform: scale(1.05);
+}
+
+@media (max-width: 960px) {
+    .card { width: 45%; }
+}
+
+@media (max-width: 650px) {
+    .portada-caja h1 { font-size: 2rem; }
+    .card { width: 100%; }
+    .titulo { font-size: 1.8rem; }
+    .cita { padding: 60px 20px; }
+}

@@ -31,22 +31,30 @@
     <header id="mainHeader">
         <div class="container-fluid">
             <nav class="navbar">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="/">
                     <img src="assets/img/logo.png" alt="Logo" class="logoIndex">
                 </a>
                 <ul class="d-flex list-unstyled justify-content-lg-end justify-content-md-center mb-0">
-                    <li><a href="#" class="navLi">HORARIOS</a></li>
-                    <li><a href="#" class="navLi">UBICACION</a></li>
-                    <li><a href="#" class="navLi">TALLER</a></li>
-                    <li><a href="#" class="navLi">SOBRE NOSOTROS</a></li>
-                    <li><a href="#" class="navLi">HISTORIAL</a></li>
+                    <li><a href="/horarios" class="navLi">HORARIOS</a></li>
+                    <li><a href="" class="navLi">UBICACION</a></li>
+                    <li><a href="/sobreNosotros" class="navLi">SOBRE NOSOTROS</a></li>
+                    <li><a href="/facturasCliente" class="navLi">FACTURAS</a></li>
                     <li><a href="/reservaCliente" class="navLi">RESERVAS</a></li>
-                    <li><a href="/login" class="linkLogin">LOGIN</a></li>
+                    <?php
+                    if (isset($_SESSION['datosUsuario'])):
+                        ?>
+                        <li>
+                            <a href="/logout" class="navLi linkLogout" title="Cerrar Sesión">
+                                <i class="fas fa-sign-out-alt"></i>
+                            </a>
+                        </li>
+                    <?php else: ?>
+                        <li><a href="/login" class="linkLogin">LOGIN</a></li>
+                    <?php endif; ?>
                 </ul>
             </nav>
         </div>
     </header>
-
 
     <!-- MAIN -->
     <main>
