@@ -1,0 +1,164 @@
+.contenedor-facturas {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.titulo {
+    font-size: 2.5rem;
+    color: #001C3F;
+    text-align: center;
+    margin-bottom: 40px;
+    border-bottom: 4px solid #007bff;
+    display: block;
+    padding-bottom: 5px;
+    font-weight: 700;
+}
+
+.mensaje-alerta {
+    text-align: center;
+    padding: 20px;
+    background: #e9f0ff;
+    color: #004085;
+    border: 1px solid #cce5ff;
+    border-radius: 8px;
+}
+
+.tabla-contenedor {
+    overflow-x: auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.tabla-facturas {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 700px;
+}
+
+.tabla-facturas th, .tabla-facturas td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+}
+
+.tabla-facturas th {
+    background-color: #f8f9fa;
+    color: #343a40;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+.tabla-facturas tbody tr:hover {
+    background-color: #f5f5f5;
+    transition: background-color 0.2s;
+}
+
+.conatinerEstado {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: white;
+    display: inline-block;
+    min-width: 90px;
+    text-align: center;
+}
+
+.estado-pendiente { background-color: #ffc107; color: #333; }
+.estado-pagada { background-color: #28a745; }
+.estado-cancelada { background-color: #dc3545; }
+
+.total {
+    font-weight: 700;
+    color: #001C3F;
+}
+
+.celda-comentarios {
+    text-align: center;
+}
+
+.btn-comentario {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-comentario:hover {
+    color: #0056b3;
+}
+
+.contenedor-comentarios {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.contenedor-comentarios.activo {
+    display: flex;
+}
+
+.contenido-comentarios {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    animation: contenedorComentario 0.3s ease-out;
+}
+
+.titulo-comentario {
+    color: #001C3F;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+#textoComentario {
+    white-space: pre-wrap;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.btn-cerrar {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    float: right;
+}
+
+.btn-cerrar:hover {
+    background-color: #0056b3;
+}
+
+@keyframes contenedorComentario {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+    .contenedor-facturas { margin: 15px auto; }
+    .titulo { font-size: 2rem; margin-bottom: 20px; }
+}

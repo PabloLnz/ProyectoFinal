@@ -91,4 +91,21 @@ class FacturasController extends BaseController
 
         return $errors;
     }
+
+    public function showFacturasCliente() {
+
+        if (!isset($_SESSION['datosUsuario'])){
+            header("Location: /login");
+            exit;
+        }
+
+        $idCliente = intval($_SESSION['datosUsuario']['id_cliente']);
+
+        $model = new FacturasModel();
+        $facturas = $model->getFacturasByCliente($idCliente);
+
+        $data['facturas']=$facturas;
+
+        $this->view->showViews(['facturasCliente.view.php',], $data);
+    }
 }

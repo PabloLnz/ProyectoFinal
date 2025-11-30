@@ -36,7 +36,7 @@
                 </a>
                 <ul class="d-flex list-unstyled justify-content-lg-end justify-content-md-center mb-0">
                     <li><a href="/horarios" class="navLi">HORARIOS</a></li>
-                    <li><a href="" class="navLi">UBICACION</a></li>
+                    <li><a href="/#ubicacion" class="navLi">UBICACION</a></li>
                     <li><a href="/sobreNosotros" class="navLi">SOBRE NOSOTROS</a></li>
                     <li><a href="/facturasCliente" class="navLi">FACTURAS</a></li>
                     <li><a href="/reservaCliente" class="navLi">RESERVAS</a></li>

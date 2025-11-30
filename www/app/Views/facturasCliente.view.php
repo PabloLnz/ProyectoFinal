@@ -22,8 +22,8 @@
     <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
     <!-- css -->
+    <link rel="stylesheet" href="assets/css/facturasCliente.css">
     <link rel="stylesheet" href="assets/css/global.css">
-    <link rel="stylesheet" href="assets/css/sobreNosotros.css">
 </head>
 <body class="hold-transition">
 <div class="wrapper">
@@ -57,65 +57,69 @@
     </header>
 
 
-    <main class="main">
+    <!-- MAIN -->
 
-        <section class="portada">
-            <div class="portada-fondo"></div>
-            <div class="portada-caja">
-                <h1>Galician Motors: Pasión por BMW en Galicia</h1>
+    <main class="contenedor-facturas">
+        <h1 class="titulo">Mis Facturas</h1>
+
+        <?php if (empty($facturas)): ?>
+            <p class="mensaje-alerta">Aún no tienes facturas registradas.</p>
+        <?php else: ?>
+            <div class="tabla-contenedor">
+                <table class="tabla-facturas">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Fecha</th>
+                        <th>Total</th>
+                        <th>Estado</th>
+                        <th>Matrícula</th>
+                        <th>Método de Pago</th>
+                        <th>Empleado</th>
+                        <th>Comentarios</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($facturas as $factura): ?>
+                        <tr>
+                            <td>#<?php echo htmlspecialchars($factura['id_factura']); ?></td>
+                            <td><?php echo htmlspecialchars($factura['fecha_emision']); ?></td>
+                            <td class="total"><?php echo number_format($factura['total'], 2, ',', '.') . ' €'; ?></td>
+                            <td>
+                                <span class="conatinerEstado <?php if ($factura['estado'] === 'pendiente') echo 'estado-pendiente';
+                                    elseif ($factura['estado'] === 'pagada') echo 'estado-pagada';
+                                    elseif ($factura['estado'] === 'cancelada') echo 'estado-cancelada';?>">
+                                    <?php echo ucfirst($factura['estado']); ?>
+                                </span>
+                            </td>
+                            <td><?php echo htmlspecialchars($factura['matricula_vehiculo'] ?? 'N/A'); ?></td>
+                            <td><?php echo htmlspecialchars($factura['metodo_pago'] ?? 'No especificado'); ?></td>
+                            <td><?php echo htmlspecialchars($factura['nombre_empleado'] ?? 'No asignado'); ?></td>
+                            <td class="celda-comentarios">
+                                <?php if (!empty($factura['comentarios'])): ?>
+                                    <button class="btn-comentario" onclick="abrirComentarios(this.getAttribute('data-texto'))" data-texto="<?php echo htmlspecialchars($factura['comentarios'] ?? 'Sin detalles'); ?>">
+                                        <i class="fa fa-comment"></i>
+                                    </button>
+                                <?php else: ?>
+                                    <span>Sin detalles</span>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
-        </section>
+        <?php endif; ?>
 
-        <section class="seccion">
-            <h2 class="titulo">Nuestra Historia</h2>
-            <div class="texto">
-                <p>
-                    Galician Motors no es solo un taller. Es el resultado de años currando con BMW y pillándole cariño a la marca. Empezamos porque aquí en Galicia no encontrábamos un sitio donde trataran estos coches como se merecen.
-                </p>
-                <p>
-                    Desde el principio hemos tenido claro lo que queríamos: ser el sitio de confianza para tu BMW. Todo el equipo está formado en lo último de la marca, usamos herramientas oficiales y siempre recambios originales. Queremos que tu coche vaya fino como el primer día.
-                </p>
+        <div id="contenedorComentarios" class="contenedor-comentarios">
+            <div class="contenido-comentarios">
+                <h3 class="titulo-comentario">Comentario de Factura</h3>
+                <p id="textoComentario"></p>
+                <button class="btn-cerrar" onclick="cerrarComentarios()">Cerrar</button>
             </div>
-        </section>
-
-        <section class="seccion">
-            <h2 class="titulo">Nuestros Valores</h2>
-            <div class="cards-contenedor">
-
-                <article class="card">
-                    <i class="fas fa-certificate icono"></i>
-                    <h3 class="card-titulo">Piezas Oficiales</h3>
-                    <p>Solo trabajamos con piezas y procesos oficiales BMW. Más garantía, más vida para tu coche.</p>
-                </article>
-
-                <article class="card">
-                    <i class="fas fa-chart-line icono"></i>
-                    <h3 class="card-titulo">Transparencia</h3>
-                    <p>Sin sorpresas. Te explicamos lo que hay que hacer, el porqué, y te damos presupuesto antes de tocar nada.</p>
-                </article>
-
-                <article class="card">
-                    <i class="fas fa-microchip icono"></i>
-                    <h3 class="card-titulo">Tecnología Actual</h3>
-                    <p>Tenemos las herramientas y el software más moderno para cualquier BMW, desde mantenimiento a electrónica.</p>
-                </article>
-
-            </div>
-        </section>
-
-        <section class="cita">
-            <div class="contenedor-cita">
-                <h2 class="titulo titulo-cita">¿Quieres un servicio como toca?</h2>
-                <p>
-                    Si buscas cercanía, piezas originales y un equipo que conoce BMW al detalle, este es tu sitio.
-                </p>
-                <a href="/reservaCliente" class="boton-cita">
-                    PEDIR CITA
-                </a>
-            </div>
-        </section>
-
+        </div>
     </main>
+
 
 
 
@@ -191,17 +195,7 @@
 <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <script src="assets/js/adminlte.min.js"></script>
 <script src="assets/js/pages/main.js"></script>
+<script src="assets/js/facturasCliente.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
 

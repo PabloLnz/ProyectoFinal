@@ -156,6 +156,16 @@ class FrontController
         );
 
         Route::add(
+            '/facturasCliente',
+            function () {
+                $controlador = new \Com\Daw2\Controllers\FacturasController();
+                $controlador->showFacturasCliente();
+            },
+            'get'
+        );
+
+
+        Route::add(
             '/register',
             function () {
                 $controlador = new \Com\Daw2\Controllers\ClienteController();

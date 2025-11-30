@@ -79,6 +79,22 @@ public function getFacturasByFilters(array $parametros): array {
 
     return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 }
+    public function getFacturasByCliente(int $idCliente) : array {
+        $stmt = $this->pdo->prepare("
+           SELECT DISTINCT f.id_factura,f.fecha_emision,f.total,f.estado,f.metodo_pago,f.comentarios, 
+                           v.matricula AS matricula_vehiculo, ut.nombre AS nombre_empleado      
+            FROM facturas f
+            INNER JOIN factura_reparacion fr ON f.id_factura = fr.id_factura
+            INNER JOIN reparaciones r ON fr.id_reparacion = r.id_reparacion
+            INNER JOIN vehiculos v ON r.id_vehiculo = v.id_vehiculo
+            INNER JOIN usuario_taller ut ON r.id_usuario = ut.id_usuario
+            WHERE f.id_cliente = :idCliente
+            ORDER BY f.fecha_emision DESC, f.id_factura
+        ");
+        $stmt->execute(['idCliente' => $idCliente]);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
 
 
 }
