@@ -136,3 +136,12 @@
 .enlaces-login a:hover {
     text-decoration: underline;
 }
+
+.mensaje-error {
+    text-align: center;
+    font-weight: 600;
+}
+.mensaje-error p {
+    margin: 0;
+    color: #e80e0e;
+}

@@ -78,43 +78,65 @@ class ClienteController extends BaseController
         $modelUsuario = new ClienteModel();
         $modelEmpleado = new EmpleadosModel();
 
+        $validacion = $this->checkErrors($_POST);
 
-        $email = $_POST['email'] ?? "";
-        $pass = $_POST['pass'] ?? "";
+        $data['errors'] = $validacion;
+        $data['input']  = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-        $usuarios = $modelUsuario->getusuariosEmail($email);
-        $empleados = $modelEmpleado->getEmpleadosEmail($email);
-        if ($usuarios !== false) {
-            $existePass = password_verify($pass, $usuarios['pass']);
-            if ($existePass !== false) {
-                    $_SESSION['datosUsuario'] = $usuarios;
-                    header('Location: /');
-            } else {
-                $data['datosIncorrectos'] = "Los datos introducidos son incorrectos";
-                $this->view->showViews(array('login.view.php'), $data);
-            }
-        } elseif ($empleados !== false) {
-            $existePass = password_verify($pass, $empleados['pass']);
-            if ($existePass !== false) {
-                if($empleados['activo']==1){
+        if (empty($data['errors'])) {
+
+            $email = $data['input']['email'];
+            $pass  = $data['input']['pass'];
+
+            $usuarios  = $modelUsuario->getUsuariosEmail($email);
+            $empleados = $modelEmpleado->getEmpleadosEmail($email);
+
+            if ($usuarios !== false && password_verify($pass, $usuarios['pass'])) {
+
+                $_SESSION['datosUsuario'] = $usuarios;
+                header('Location: /');
+                return;
+
+            } elseif ($empleados !== false && password_verify($pass, $empleados['pass'])) {
+
+                if ($empleados['activo'] == 1) {
                     $_SESSION['datosEmpleado'] = $empleados;
-                    $_SESSION['permisos']=$this->permisos($empleados['id_rol']);
-
+                    $_SESSION['permisos'] = $this->permisos($empleados['id_rol']);
                     header('Location: /indexTaller');
-                }else{
-                    $data['datosIncorrectos'] = "El usuario está dado de baja";
-                    $this->view->showViews(array('login.view.php'), $data);
+                    return;
                 }
-            } else {
-                $data['datosIncorrectos'] = "Los datos introducidos son incorrectos";
-                $this->view->showViews(array('login.view.php'), $data);
+                $data['errors']="Datos incorrectos";
+                $this->view->showViews(['login.view.php'], $data);
+                return;
             }
+            $data['errors']="El usuario está dado de baja";
+            $this->view->showViews(['login.view.php'], $data);
 
-        }else{
-            $data['datosIncorrectos'] = "Los datos introducidos son incorrectos";
-            $this->view->showViews(array('login.view.php'), $data);
+        } else {
+            $this->view->showViews(['login.view.php'], $data);
         }
     }
+
+
+    private function checkErrors(array $post): array
+    {
+        $errors = [];
+
+        $email = trim($post['email'] ?? "");
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($email) > 120) {
+            $errors[] = "Datos incorrectos";
+        }
+
+        $pass = trim($post['pass'] ?? "");
+        if (strlen($pass) < 3 || strlen($pass) > 120) {
+            $errors[] = "Datos incorrectos";
+        }
+
+        return $errors;
+    }
+
+
+
     public function permisos(int $idRol):array{
 
         $permisos=[];
