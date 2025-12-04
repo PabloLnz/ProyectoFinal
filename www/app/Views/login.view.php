@@ -48,6 +48,11 @@
                 </div>
             </form>
 
+
+            <div class="enlaces-login">
+                <p>¿No tienes cuenta? <a href="/register">Regístrate aquí</a></p>
+            </div>
+
         </div>
     </div>
 </div>

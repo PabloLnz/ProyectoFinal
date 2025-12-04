@@ -74,7 +74,12 @@
                         <i class="fas fa-map-marker-alt"></i>
                     </span>
                 </div>
+                <?php if (isset($errors)){ ?>
+                    <div class="mensaje-error">
+                        <p>Datos Incorrectos</p>
+                    </div>
 
+                <?php }?>
                 <div class="acceder">
                     <button type="submit" class="boton-acceder">Registrarse</button>
                 </div>

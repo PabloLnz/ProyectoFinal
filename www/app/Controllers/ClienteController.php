@@ -42,33 +42,43 @@ class ClienteController extends BaseController
         $modelCliente = new ClienteModel();
         $modelEmpleado = new EmpleadosModel();
 
-        $nombre = $_POST['nombre'] ?? "";
-        $email = $_POST['email'] ?? "";
-        $pass = $_POST['pass'] ?? "";
-        $telefono = $_POST['telefono'] ?? "";
-        $direccion = $_POST['direccion'] ?? "";
+        $validacion = $this->checkErrorsRegister($_POST);
 
-        $clienteExistente = $modelCliente->getusuariosEmail($email);
-        $empleadoExistente = $modelEmpleado->getEmpleadosEmail($email);
+        $data['errors'] = $validacion;
+        $data['input']  = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-        if ($clienteExistente !== false || $empleadoExistente !== false) {
-            $data['datosIncorrectos'] = "El correo electrónico ya está registrado. Por favor, utiliza otro.";
-            $this->view->showViews(array('register.view.php'), $data);
-            return;
-        }
+        if ($data['errors'] === "") {
 
-        $passHash = password_hash($pass, PASSWORD_DEFAULT);
+            $nombre   = $data['input']['nombre'] ?? "";
+            $email    = $data['input']['email'] ?? "";
+            $pass     = $data['input']['pass'] ?? "";
+            $telefono = $data['input']['telefono'] ?? "";
+            $direccion= $data['input']['direccion'] ?? "";
 
-        $registroExitoso = $modelCliente->insertCliente($nombre, $email, $passHash, $telefono, $direccion);
+            $clienteExistente = $modelCliente->getusuariosEmail($email);
+            $empleadoExistente = $modelEmpleado->getEmpleadosEmail($email);
 
-        if ($registroExitoso) {
-            $nuevoCliente = $modelCliente->getDatosCliente($email);
-            if ($nuevoCliente) {
-                $_SESSION['datosUsuario'] = $nuevoCliente;
+            if ($clienteExistente !== false || $empleadoExistente !== false) {
+                $data['errors'] = "El correo electrónico ya está registrado. Por favor, utiliza otro.";
+                $this->view->showViews(['register.view.php'], $data);
+                return;
             }
-            header('Location: /');
+
+            $passHash = password_hash($pass, PASSWORD_DEFAULT);
+            $registroExitoso = $modelCliente->insertCliente($nombre, $email, $passHash, $telefono, $direccion);
+
+            if ($registroExitoso) {
+                $nuevoCliente = $modelCliente->getDatosCliente($email);
+                if ($nuevoCliente) {
+                    $_SESSION['datosUsuario'] = $nuevoCliente;
+                }
+                header('Location: /');
+            } else {
+                $data['errors'] = "Ha ocurrido un error inesperado al registrar los datos.";
+                $this->view->showViews(array('register.view.php'), $data);
+            }
+
         } else {
-            $data['datosIncorrectos'] = "Ha ocurrido un error inesperado al registrar los datos.";
             $this->view->showViews(array('register.view.php'), $data);
         }
     }
@@ -168,6 +178,46 @@ class ClienteController extends BaseController
             ];
         }
         return $permisos;
+    }
+
+
+
+
+    private function checkErrorsRegister(array $post): string
+    {
+        $errors = "";
+
+        $nombre = trim($post['nombre'] ?? "");
+        if ($nombre === "" || strlen($nombre) < 3 || strlen($nombre) > 120) {
+            $errors = "Datos incorrectos";
+            return $errors;
+        }
+
+        $email = trim($post['email'] ?? "");
+        if ($email === "" || !filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($email) > 120) {
+            $errors = "Datos incorrectos";
+            return $errors;
+        }
+
+        $pass = trim($post['pass'] ?? "");
+        if ($pass === "" || strlen($pass) < 3 || strlen($pass) > 120) {
+            $errors = "Datos incorrectos";
+            return $errors;
+        }
+
+        $telefono = trim($post['telefono'] ?? "");
+        if ($telefono === "" || strlen($telefono) < 9 || strlen($telefono) > 15) {
+            $errors = "Datos incorrectos";
+            return $errors;
+        }
+
+        $direccion = trim($post['direccion'] ?? "");
+        if ($direccion === "" || strlen($direccion) < 3 || strlen($direccion) > 255) {
+            $errors = "Datos incorrectos";
+            return $errors;
+        }
+
+        return $errors;
     }
 
 }
