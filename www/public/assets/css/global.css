@@ -36,7 +36,7 @@ header.shrink img {
 
 /* NAV */
 .navbar {
-    padding: 0; 
+    padding: 0;
 }
 
 /* LISTA DEL NAV */
@@ -92,7 +92,7 @@ FOOTER
     padding-bottom: 30px;
     border-bottom: 1px solid #555;
 }
-/* --- ECOLUMANS FOOTER --- */
+/* --- COLUMNAS FOOTER --- */
 .footer-col {
     padding: 15px;
     box-sizing: border-box;
@@ -141,8 +141,7 @@ FOOTER
 }
 
 /* --- REDES SOCIALES --- */
-/*ACORDARSE DE REMPLAZAR PR ICONOS DESPUES*/
-.redes-links a {
+.social-links a {
     display: inline-block;
     background-color: #555;
     color: white;
@@ -178,4 +177,26 @@ FOOTER
 
 .footer-bot a:hover {
     color: #007bff;
+}
+
+/* MEDIA QUERIES (FOOTER) */
+
+@media (max-width: 768px) {
+    .footer-container {
+        flex-wrap: wrap;
+    }
+    .footer-col {
+        width: 50%;
+    }
+    .footer-info {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .footer-col {
+        width: 100%;
+        padding: 10px;
+    }
 }

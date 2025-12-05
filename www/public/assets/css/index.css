@@ -1,5 +1,4 @@
-
-/*TEXTO SUPERPUESTO*/
+/* TEXTO BANNER */
 .texto-superpuesto{
     position: absolute;
     top: 50%;
@@ -16,20 +15,19 @@
 }
 
 
-/*MAIN*/
+/* MAIN */
 main{
     background-color: rgb(255, 255, 255);
-
 }
 
 main section:first-child{
     position: relative;
     width: 100%;
-    margin-bottom: 30px;
+    margin-bottom: 0px;
 }
 
 
-/*ARTICULOS 4*/
+/* GRID ARTICULOS */
 .gridIndex {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -41,7 +39,6 @@ main section:first-child{
 
 .gridIndex article {
     background: #f9f9f9;
-
     padding: 20px;
     text-align: center;
     border-radius: 10px;
@@ -66,7 +63,7 @@ main section:first-child{
     line-height: 1.4;
     letter-spacing: 1px;
 }
-/*IMAGEN DETALLES ARTICULOS*/
+/* IMAGENES GRID */
 .imgDetalles {
     width: 100%;
     height: auto;
@@ -87,7 +84,7 @@ main section:first-child{
     height: auto;
     display: block;
 }
-/*TEXTO SUPERPUESTO IMAEGEN DESCRIPCION*/
+/* TEXTO DESCRIPCION */
 .texto-superpuesto-descripcion {
     position: absolute;
     top: 50%;
@@ -112,11 +109,7 @@ main section:first-child{
     display: block;
     margin-bottom: 12px;
 }
-/*
-UBICACION MAPS
- */
-
-
+/* SECCION MAPA */
 #ubicacion {
     background-color:#e6e6e6;
     padding: 30px 20px;
@@ -142,7 +135,7 @@ UBICACION MAPS
     line-height: 1.2;
 }
 
-/* /* CONTENEDOR MAPS */
+/* CONTENEDOR MAPA */
 .map-container {
     display: inline-block;
     width: 100%;
@@ -154,7 +147,6 @@ UBICACION MAPS
 .map-container iframe {
     border: 0;
     border-radius: 15px;
-
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
     overflow: hidden;
 }
@@ -168,3 +160,74 @@ UBICACION MAPS
     font-size: 0.9em;
 }
 
+/* MEDIA QUERIES */
+
+@media (max-width: 768px) {
+    /* TEXTO BANNER TABLET */
+    .texto-superpuesto {
+        left: 5%;
+    }
+    .texto-superpuesto h1 {
+        font-size: 5vw !important;
+    }
+    .texto-superpuesto span{
+        font-size: 4vw;
+    }
+
+    /* TEXTO DESCRIPCION TABLET */
+    .texto-superpuesto-descripcion {
+        max-width: 55%;
+        font-size: 2.2vw;
+        right: 3%;
+    }
+    .texto-superpuesto-descripcion h1 {
+        font-size: 4vw;
+    }
+}
+
+@media (max-width: 576px) {
+    /* TEXTO BANNER MOVIL */
+    .texto-superpuesto {
+        left: 5%;
+        transform: translateY(-50%);
+        text-align: left;
+        width: 90%;
+        background-color: rgba(0, 0, 0, 0.4);
+        padding: 10px;
+        border-radius: 5px;
+    }
+    .texto-superpuesto h1 {
+        font-size: 4.5vw !important;
+    }
+    .texto-superpuesto span{
+        font-size: 3.5vw;
+    }
+
+    /* OCULTAR BOTON */
+    .texto-superpuesto .btn-primary {
+        display: none !important;
+    }
+
+    /* BLOQUE DESCRIPCION MOVIL */
+    .texto-superpuesto-descripcion {
+        position: static;
+        transform: none;
+        max-width: 100%;
+        background-color: #cccccc;
+        color: #333;
+        text-shadow: none;
+        padding: 15px 10px;
+        font-size: 1rem;
+    }
+    .texto-superpuesto-descripcion h1 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+
+    /* GRID MOVIL */
+    .gridIndex {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 10px;
+    }
+}
