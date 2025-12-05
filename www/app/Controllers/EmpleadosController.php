@@ -164,30 +164,12 @@ public function checkErrors(array $data): array
     {
         $errors = [];
 
-        $username = $data['username'] ?? $data['nombre'] ?? '';
 
-        if (empty($username)) {
-            $errors['username'] = "El nombre de usuario no puede estar vacío";
-        } elseif (!preg_match('/^[a-zA-Z0-9_ ]{5,20}$/', $username)) {
-            $errors['username'] = "El nombre de usuario no es válido, debe tener entre 5 y 20 caracteres";
-        }
-
-        $passVacio = false;
-        if (!$edicion) {
-            if (empty($data['pass'])) {
-                $errors['pass'] = "La contraseña no puede estar vacía";
-                $passVacio = true;
-            }
-
-            if (empty($data['pass2'])) {
-                $errors['pass2'] = "La confirmación de contraseña no puede estar vacía";
-                $passVacio = true;
-            }
-        }
-
-        if ($passVacio === false && ($data['pass'] ?? '') !== ($data['pass2'] ?? '')) {
-            $errors['pass'] = "Las contraseñas no coinciden";
-            $errors['pass2'] = "Las contraseñas no coinciden";
+        $nombre = trim($data['nombre'] ?? '');
+        if ($nombre === '') {
+            $errors['nombre'] = "El nombre no puede estar vacío";
+        } elseif (!preg_match('/^[A-Za-zÁÉÍÓÚáéíóúÑñ ]{3,40}$/u', $nombre)) {
+            $errors['nombre'] = "El nombre solo puede contener letras y espacios";
         }
 
         if (empty($data['email'])) {
@@ -196,14 +178,46 @@ public function checkErrors(array $data): array
             $errors['email'] = "El email no es correcto";
         }
 
+        $telefono = trim($data['telefono'] ?? '');
+        if ($telefono === '') {
+            $errors['telefono'] = "El teléfono no puede estar vacío";
+        } elseif (!preg_match('/^[0-9]{9}$/', $telefono)) {
+            $errors['telefono'] = "El teléfono debe tener 9 dígitos";
+        }
+
+        if (!$edicion) {
+
+            if (empty($data['pass'])) {
+                $errors['pass'] = "La contraseña no puede estar vacía";
+            }
+
+            if (empty($data['pass2'])) {
+                $errors['pass2'] = "La confirmación no puede estar vacía";
+            }
+
+            if (!isset($errors['pass']) && !isset($errors['pass2']) &&
+                ($data['pass'] !== $data['pass2'])) {
+
+                $errors['pass'] = "Las contraseñas no coinciden";
+                $errors['pass2'] = "Las contraseñas no coinciden";
+            }
+        }
+
         if (empty($data['id_rol'])) {
-            $errors['rol'] = "El rol no puede estar vacío";
+            $errors['id_rol'] = "Debe seleccionar un rol";
         } elseif ((int)$data['id_rol'] < 1 || (int)$data['id_rol'] > 3) {
-            $errors['rol'] = "Introduzca un rol válido";
+            $errors['id_rol'] = "Rol inválido";
+        }
+
+        if (isset($data['id_pais']) && $data['id_pais'] !== '') {
+            if (!preg_match('/^[A-Za-zÁÉÍÓÚáéíóúÑñ ]{2,40}$/u', $data['id_pais'])) {
+                $errors['id_pais'] = "El país no es válido";
+            }
         }
 
         return $errors;
     }
+
 
     public function deleteEmpleado($id_usuario)
     {
