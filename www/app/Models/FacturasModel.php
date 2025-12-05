@@ -96,6 +96,20 @@ public function getFacturasByFilters(array $parametros): array {
     }
 
 
+    public function actualizarEstadoYMetodoPago(int $idFactura, string $metodoPago): bool {
+        $stmt = $this->pdo->prepare("
+            UPDATE facturas 
+            SET estado = 'pagada', 
+                metodo_pago = :metodoPago
+            WHERE id_factura = :idFactura AND estado = 'pendiente'
+        ");
+
+        $stmt->execute([
+            ':metodoPago' => $metodoPago,
+            ':idFactura' => $idFactura
+        ]);
+        return $stmt->rowCount() > 0;
+    }
 
 }
 

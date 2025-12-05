@@ -269,6 +269,14 @@ class FrontController
             'post'
         );
 
+        Route::add('/facturacion/pagar/([0-9]+)',
+            function ($id_factura){
+                $controlador = new \Com\Daw2\Controllers\facturasController();
+                $controlador->marcarComoPagada($id_factura);
+            },
+            'post'
+        );
+
         Route::add('/reservaCliente',
             function (){
                 if(!isset($_SESSION['datosUsuario'])) {

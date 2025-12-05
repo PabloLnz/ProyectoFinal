@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Com\Daw2\Controllers;
 
 use Com\Daw2\Core\BaseController;
+use Com\Daw2\Libraries\Mensaje;
 use Com\Daw2\Models\FacturasModel;
 
 class FacturasController extends BaseController
@@ -107,5 +108,46 @@ class FacturasController extends BaseController
         $data['facturas']=$facturas;
 
         $this->view->showViews(['facturasCliente.view.php',], $data);
+    }
+
+    private function checkErrorsMarcarPagada(array $data): array
+    {
+        $errors = [];
+        $validMethods = ['Tarjeta', 'Efectivo'];
+        $metodo = $data['metodo_pago'] ?? '';
+
+        if (!in_array($metodo, $validMethods)) {
+            $errors['metodo_pago'] = 'Debe seleccionar un método de pago válido: Tarjeta o Efectivo.';
+        }
+
+        return $errors;
+}
+    public function marcarComoPagada(int $idFactura) {
+
+        $data = $_POST;
+        $errors = $this->checkErrorsMarcarPagada($data);
+
+        if (!empty($errors)) {
+
+            $mensaje = new Mensaje("Ha ocurrido un error", Mensaje::ERROR);
+            $this->addFlashMessage($mensaje);
+            header('Location: /facturacion');
+            exit;
+        }
+
+        $metodoPago = $data['metodo_pago'];
+        $facturasModel = new FacturasModel();
+
+        $result = $facturasModel->actualizarEstadoYMetodoPago($idFactura, $metodoPago);
+
+        if ($result) {
+            $mensaje = new Mensaje("Factura pagada correctmente", Mensaje::SUCCESS);
+        } else {
+            $mensaje = new Mensaje("No se ha podido pagar", Mensaje::ERROR);
+        }
+        $this->addFlashMessage($mensaje);
+
+        header('Location: /facturacion');
+        exit;
     }
 }

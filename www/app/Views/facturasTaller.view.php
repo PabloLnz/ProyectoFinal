@@ -2,7 +2,7 @@
 
     <div class="content-header">
         <?php
-        include $_ENV['folder.views'] . '/templates/flash-messages.php'; 
+        include $_ENV['folder.views'] . '/templates/flash-messages.php';
         ?>
 
         <div class="container-fluid">
@@ -14,7 +14,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                        <li class="breadcrumb-item"><a href="/indexTaller">Inicio</a></li>
                         <li class="breadcrumb-item active">Facturas</li>
                     </ol>
                 </div>
@@ -43,10 +43,10 @@
                                 <label for="selectEstado">Estado:</label>
                                 <select class="form-control <?php echo isset($errors['selectEstado']) ? 'is-invalid' : ''; ?>" id="selectEstado" name="selectEstado">
                                     <option value="">-- Todos --</option>
-                                    <?php 
+                                    <?php
                                     foreach ($estadosFactura as $estado):
                                         $selected = ($input['selectEstado'] ?? '') === $estado['id_estado'] ? 'SELECTED' : '';
-                                    ?>
+                                        ?>
                                         <option value="<?php echo $estado['id_estado']; ?>" <?php echo $selected; ?>>
                                             <?php echo $estado['nombre_estado']; ?>
                                         </option>
@@ -87,7 +87,7 @@
                                     <div class="invalid-feedback"><?php echo $errors['inputFechaHasta']; ?></div>
                                 <?php endif; ?>
                             </div>
-                            
+
                             <div class="col-md-2 mb-3">
                                 <label for="inputTotalMax">Total Máx. (€):</label>
                                 <input type="number" name="inputTotalMax" step="0.01" min="0" class="form-control <?php echo isset($errors['inputTotalMax']) ? 'is-invalid' : ''; ?>"
@@ -121,56 +121,84 @@
 
                 <div class="card-body p-0">
                     <div class="table-responsive">
-                    
-                    <?php 
-                    if (!empty($facturas)): ?>
-                        <table class="table table-hover table-striped">
-                            <thead>
+
+                        <?php
+                        if (!empty($facturas)): ?>
+                            <table class="table table-hover table-striped" id="tablaFacturas">
+                                <thead>
                                 <tr>
                                     <th># ID</th>
                                     <th>Fecha Emisión</th>
                                     <th>Cliente</th>
-                                    <th class="text-left">Total</th> 
+                                    <th class="text-right">Total</th>
                                     <th class="text-center">Estado</th>
                                     <th>Metodo Pago</th>
                                     <th>Comentarios</th>
+                                    <th class="text-center">Acción</th>
                                 </tr>
-                            </thead>
+                                </thead>
 
-                            <tbody>
-                            <?php foreach ($facturas as $factura):?>
-                                <tr>
-                                    <td><?php echo htmlspecialchars($factura['id_factura']); ?></td>
-                                    <td><?php echo $factura['fechaFormateada']; ?></td>
-                                    <td><?php echo htmlspecialchars($factura['nombre_cliente']); ?> (ID: <?php echo htmlspecialchars($factura['id_cliente']); ?>)</td>
-                                    
-                                    <td class="font-weight-bold text-right"><?php echo $factura['totalFormateado']; ?></td> 
-                                    
-                                    <td class="text-center">
-                                        <span class="badge <?php echo ($factura['estado'] === 'pagada') ? 'bg-success' : (($factura['estado'] === 'pendiente') ? 'bg-warning text-dark' : (($factura['estado'] === 'cancelada') ? 'bg-danger' : 'bg-secondary')); ?>">
+                                <tbody>
+                                <?php foreach ($facturas as $factura):?>
+                                    <tr data-id-factura="<?php echo htmlspecialchars($factura['id_factura']); ?>">
+                                        <td><?php echo htmlspecialchars($factura['id_factura']); ?></td>
+                                        <td><?php echo $factura['fechaFormateada']; ?></td>
+                                        <td><?php echo htmlspecialchars($factura['nombre_cliente']); ?> (ID: <?php echo htmlspecialchars($factura['id_cliente']); ?>)</td>
+
+                                        <td class="font-weight-bold text-right"><?php echo $factura['totalFormateado']; ?></td>
+
+                                        <td class="text-center">
+                                        <span class="badge badge-estado <?php echo ($factura['estado'] === 'pagada') ? 'bg-success' : (($factura['estado'] === 'pendiente') ? 'bg-warning text-dark' : (($factura['estado'] === 'cancelada') ? 'bg-danger' : 'bg-secondary')); ?>">
                                             <?php echo ucfirst($factura['estado']); ?>
                                         </span>
-                                    </td>
-                                    <td><?php echo htmlspecialchars($factura['metodo_pago'] ?? 'N/A'); ?></td>
-                                    <td><?php echo htmlspecialchars(substr($factura['comentarios'] ?? '', 0, 30)) . (strlen($factura['comentarios'] ?? '') > 30 ? '...' : ''); ?></td>
-                                </tr>
-                            <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    <?php else: ?>
-                        <div class="p-5 text-center bg-light">
-                            <i class="fas fa-info-circle fa-2x text-info mb-3"></i>
-                            <h4 class="mb-1">
-                                <?php 
-                                if (isset($mensaje)) { 
-                                    echo $mensaje;
-                                } else {
-                                    echo 'No se encontraron facturas para mostrar.';
-                                }
-                                ?>
-                            </h4>
-                        </div>
-                    <?php endif; ?>
+                                        </td>
+
+                                        <td>
+                                            <?php if ($factura['estado'] === 'pendiente'): ?>
+                                                <span class="text-muted">Pendiente</span>
+                                            <?php else: ?>
+                                                <?php echo htmlspecialchars($factura['metodo_pago'] ?? 'N/A'); ?>
+                                            <?php endif; ?>
+                                        </td>
+
+                                        <td><?php echo htmlspecialchars(substr($factura['comentarios'] ?? '', 0, 30)) . (strlen($factura['comentarios'] ?? '') > 30 ? '...' : ''); ?></td>
+
+                                        <td class="text-center">
+                                            <?php if ($factura['estado'] === 'pendiente'): ?>
+                                                <form action="/facturacion/pagar/<?php echo $factura['id_factura']; ?>" method="post" class="form d-flex justify-content-center align-items-center">
+
+                                                    <select name="metodo_pago" class="form-control form-control-sm mr-2" style="width: 120px;" required>
+                                                        <option value="">Método...</option>
+                                                        <option value="Efectivo">Efectivo</option>
+                                                        <option value="Tarjeta">Tarjeta</option>
+                                                    </select>
+
+                                                    <button type="submit" class="btn btn-sm btn-success" title="Confirmar Pago">
+                                                        <i class="fas fa-check"></i>
+                                                    </button>
+                                                </form>
+                                            <?php else: ?>
+                                                <span class="text-success" title="Pagada"><i class="fas fa-check-circle fa-lg"></i></span>
+                                            <?php endif; ?>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        <?php else: ?>
+                            <div class="p-5 text-center bg-light">
+                                <i class="fas fa-info-circle fa-2x text-info mb-3"></i>
+                                <h4 class="mb-1">
+                                    <?php
+                                    if (isset($mensaje)) {
+                                        echo $mensaje;
+                                    } else {
+                                        echo 'No se encontraron facturas para mostrar.';
+                                    }
+                                    ?>
+                                </h4>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
