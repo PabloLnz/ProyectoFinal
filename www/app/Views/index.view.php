@@ -145,7 +145,7 @@
 
             <div class="footer-col footer-info">
                 <h3 class="footer-logo">Galician Motors</h3>
-                <p>Especialistas en la marca. Servicio de calidad garantizado en .</p>
+                <p>Especialistas en la marca. Servicio de calidad garantizado en Salceda de Caselas.</p>
                 <p>
                     📞 <a href=""> XX XXX XX XX</a><br>
                     ✉️ <a href="">gMotors@galicianmotors.com</a>
@@ -162,7 +162,6 @@
                     <li><a href="#blog">Blog</a></li>
                 </ul>
             </div>
-
             <div class="footer-col">
                 <h4>Servicios Top</h4>
                 <ul>
@@ -173,6 +172,7 @@
                     <li><a href="#">Neumáticos y Frenos</a></li>
                 </ul>
             </div>
+
 
             <div class="footer-col">
                 <h4>Visítanos</h4>

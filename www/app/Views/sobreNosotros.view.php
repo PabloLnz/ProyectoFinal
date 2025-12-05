@@ -31,25 +31,25 @@
     <header id="mainHeader">
         <div class="container-fluid">
             <nav class="navbar">
-                <a class="navbar-brand" href="/">
+                <a class="navbar-brand d-block mx-auto mx-md-0" href="/">
                     <img src="assets/img/logo.png" alt="Logo" class="logoIndex">
                 </a>
-                <ul class="d-flex list-unstyled justify-content-lg-end justify-content-md-center mb-0">
-                    <li><a href="/horarios" class="navLi">HORARIOS</a></li>
-                    <li><a href="/#ubicacion" class="navLi">UBICACION</a></li>
-                    <li><a href="/sobreNosotros" class="navLi">SOBRE NOSOTROS</a></li>
-                    <li><a href="/facturasCliente" class="navLi">FACTURAS</a></li>
-                    <li><a href="/reservaCliente" class="navLi">RESERVAS</a></li>
+                <ul class="d-flex list-unstyled justify-content-lg-end justify-content-md-center justify-content-center flex-wrap mb-0">
+                    <li class="mx-2 my-1"><a href="/horarios" class="navLi">HORARIOS</a></li>
+                    <li class="mx-2 my-1"><a href="#ubicacion" class="navLi">UBICACION</a></li>
+                    <li class="mx-2 my-1"><a href="/sobreNosotros" class="navLi">SOBRE NOSOTROS</a></li>
+                    <li class="mx-2 my-1"><a href="/facturasCliente" class="navLi">FACTURAS</a></li>
+                    <li class="mx-2 my-1"><a href="/reservaCliente" class="navLi">RESERVAS</a></li>
                     <?php
                     if (isset($_SESSION['datosUsuario'])):
                         ?>
-                        <li>
+                        <li class="mx-2 my-1">
                             <a href="/logout" class="navLi linkLogout" title="Cerrar Sesión">
                                 <i class="fas fa-sign-out-alt"></i>
                             </a>
                         </li>
                     <?php else: ?>
-                        <li><a href="/login" class="linkLogin">LOGIN</a></li>
+                        <li class="mx-2 my-1"><a href="/login" class="linkLogin">LOGIN</a></li>
                     <?php endif; ?>
                 </ul>
             </nav>
@@ -126,7 +126,7 @@
 
             <div class="footer-col footer-info">
                 <h3 class="footer-logo">Galician Motors</h3>
-                <p>Especialistas en la marca. Servicio de calidad garantizado en .</p>
+                <p>Especialistas en la marca. Servicio de calidad garantizado en Salceda de Caselas .</p>
                 <p>
                     📞 <a href=""> XX XXX XX XX</a><br>
                     ✉️ <a href="">gMotors@galicianmotors.com</a>
@@ -143,7 +143,6 @@
                     <li><a href="#blog">Blog</a></li>
                 </ul>
             </div>
-
             <div class="footer-col">
                 <h4>Servicios Top</h4>
                 <ul>
@@ -155,6 +154,7 @@
                 </ul>
             </div>
 
+
             <div class="footer-col">
                 <h4>Visítanos</h4>
                 <p>
@@ -162,9 +162,15 @@
                     Salceda de Caselas
                 </p>
                 <div class="social-links">
-                    <a href="#" target="_blank" title="Facebook">FB</a>
-                    <a href="#" target="_blank" title="Instagram">IG</a>
-                    <a href="#" target="_blank" title="Twitter/X">TW</a>
+                    <a href="#" target="_blank" title="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" target="_blank" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" target="_blank" title="Twitter/X">
+                        <i class="fab fa-twitter"></i>
+                    </a>
                 </div>
             </div>
 
