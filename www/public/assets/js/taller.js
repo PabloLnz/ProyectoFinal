@@ -35,6 +35,20 @@
 		}
 	}
 
+    const elementoFecha = document.getElementById('fecha-actual');
+
+    if (elementoFecha) {
+      const hoy = new Date();
+      const opciones = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      };
+      const fechaFormateada = hoy.toLocaleDateString('es-ES', opciones);
+
+      elementoFecha.textContent = fechaFormateada;
+    }
+
 	document.addEventListener('DOMContentLoaded', init);
 })();
 

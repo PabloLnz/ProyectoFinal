@@ -7,7 +7,7 @@
 		</div>
 
 		<div class="d-none d-sm-inline-block">
-			<b>Fecha:</b>34234234
+            <b>Fecha: <span id="fecha-actual"></span></b>
 		</div>
 	</footer>
 
