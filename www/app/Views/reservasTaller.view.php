@@ -22,14 +22,15 @@
 
                         <?php foreach ($reservas as $r) {
                             $estado = strtolower($r['estado']);
-                        ?>
-                            <div class="card card-widget shadow-sm mb-3 
-                                <?php if ($estado === 'pendiente') { echo 'border-left border-danger'; } elseif ($estado === 'confirmada') { echo 'border-left border-warning'; } elseif ($estado === 'finalizada') { echo 'border-left border-success'; } elseif ($estado === 'rechazada') { echo 'border-left border-dark'; } elseif ($estado === 'no_asistida') { echo 'border-left border-info'; } else { echo 'border-left border-secondary'; } ?>">
+                            ?>
+                            <div class="card card-widget shadow-sm mb-3
+                    <?php if ($estado === 'pendiente') { echo 'border-left border-danger'; } elseif ($estado === 'confirmada') { echo 'border-left border-warning'; } elseif ($estado === 'finalizada') { echo 'border-left border-success'; } elseif ($estado === 'rechazada') { echo 'border-left border-dark'; } elseif ($estado === 'no_asistida') { echo 'border-left border-info'; } else { echo 'border-left border-secondary'; } ?>">
                                 <div class="card-body p-3">
-                                    <div class="row align-items-center">
 
-                                        <?php if ($estado === 'pendiente' || $estado === 'confirmada') { ?>
-                                            <div class="col-5">
+                                    <?php if ($estado === 'pendiente' || $estado === 'confirmada') { ?>
+
+                                        <div class="row align-items-center mb-2">
+                                            <div class="col-12 col-lg-5">
                                                 <p class="mb-0 text-dark font-weight-bold">
                                                     <i class="fas fa-user mr-2 text-info"></i> Cliente: <?php echo $r['nombre_cliente']; ?>
                                                 </p>
@@ -38,39 +39,42 @@
                                                 </p>
                                             </div>
 
-                                            <div class="col-3 text-center">
-                                                <span class="badge 
-                                                    <?php if ($estado === 'pendiente') { echo 'badge-danger'; } elseif ($estado === 'confirmada') { echo 'badge-warning'; } elseif ($estado === 'finalizada') { echo 'badge-success'; } elseif ($estado === 'rechazada') { echo 'badge-dark'; } elseif ($estado === 'no_asistida') { echo 'badge-info'; } else { echo 'badge-secondary'; } ?> font-weight-bold p-2">
-                                                    <?php echo strtoupper($r['estado']); ?>
-                                                </span>
+                                            <div class="col-6 col-lg-4 text-left text-lg-center">
+                                    <span class="badge
+                                        <?php if ($estado === 'pendiente') { echo 'badge-danger'; } elseif ($estado === 'confirmada') { echo 'badge-warning'; } elseif ($estado === 'finalizada') { echo 'badge-success'; } elseif ($estado === 'rechazada') { echo 'badge-dark'; } elseif ($estado === 'no_asistida') { echo 'badge-info'; } else { echo 'badge-secondary'; } ?> font-weight-bold p-2">
+                                        <?php echo strtoupper($r['estado']); ?>
+                                    </span>
                                                 <p class="mb-0 mt-1 text-xs"><?php echo $r['fecha_reserva']; ?>, <?php echo $r['hora_reserva']; ?></p>
                                             </div>
 
-                                            <div class="col-4 text-right">
-                                                <a href="/reservas/gestionar/<?php echo $r['id_reserva']; ?>" class="btn btn-sm btn-info btn-block">
+                                            <div class="col-6 col-lg-3 text-right">
+                                                <a href="/reservas/gestionar/<?php echo $r['id_reserva']; ?>" class="btn btn-sm btn-info btn-block btn-lg-inline-block">
                                                     <i class="fas fa-edit mr-1"></i> Gestionar
                                                 </a>
                                             </div>
-                                        <?php } else { ?>
+                                        </div>
+
+                                    <?php } else { ?>
+                                        <div class="row align-items-center">
                                             <div class="col-7">
-                                                <p class="mb-0 text-dark font-weight-bold">
+                                                <p class="mb-0 text-dark font-weight-bold text-truncate">
                                                     <i class="fas fa-user mr-2 text-info"></i> Cliente: <?php echo $r['nombre_cliente']; ?>
                                                 </p>
-                                                <p class="mb-0 text-sm text-muted">
+                                                <p class="mb-0 text-sm text-muted text-truncate">
                                                     <i class="fas fa-car mr-2"></i> Matricula: <?php echo $r['matricula']; ?>
                                                 </p>
                                             </div>
 
                                             <div class="col-5 text-right">
-                                                <span class="badge 
-                                                    <?php if ($estado === 'pendiente') { echo 'badge-danger'; } elseif ($estado === 'confirmada') { echo 'badge-warning'; } elseif ($estado === 'finalizada') { echo 'badge-success'; } elseif ($estado === 'rechazada') { echo 'badge-dark'; } elseif ($estado === 'no_asistida') { echo 'badge-info'; } else { echo 'badge-secondary'; } ?> font-weight-bold p-2">
-                                                    <?php echo strtoupper($r['estado']); ?>
-                                                </span>
+                                    <span class="badge
+                                        <?php if ($estado === 'pendiente') { echo 'badge-danger'; } elseif (strtolower($r['estado']) === 'confirmada') { echo 'badge-warning'; } elseif (strtolower($r['estado']) === 'finalizada') { echo 'badge-success'; } elseif (strtolower($r['estado']) === 'rechazada') { echo 'badge-dark'; } elseif (strtolower($r['estado']) === 'no_asistida') { echo 'badge-info'; } else { echo 'badge-secondary'; } ?> font-weight-bold p-2">
+                                        <?php echo strtoupper($r['estado']); ?>
+                                    </span>
                                                 <p class="mb-0 mt-1 text-xs text-muted"><?php echo $r['fecha_reserva']; ?></p>
                                             </div>
-                                        <?php } ?>
+                                        </div>
+                                    <?php } ?>
 
-                                    </div>
                                 </div>
                             </div>
                         <?php } ?>
