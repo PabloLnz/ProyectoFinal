@@ -87,6 +87,13 @@ public function checkErrors(array $data): array
         }
     }
 
+    if (isset($data['nombre']) && trim($data['nombre']) !== '') {
+        $nombre = trim($data['nombre']);
+        if (!preg_match('/^[A-Za-zÁÉÍÓÚáéíóúñÑ ]{2,40}$/u', $nombre)) {
+            $errors['inputNombre'] = 'El nombre solo puede contener letras y espacios';
+        }
+    }
+
     return $errors;
 }
 
