@@ -14,13 +14,6 @@
     <!-- Bootstrap + AdminLTE -->
     <link rel="stylesheet" href="assets/css/adminlte.min.css">
 
-    <!-- Select2 -->
-    <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
-    <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-
-    <!-- Date/Time pickers -->
-    <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
     <!-- css -->
     <link rel="stylesheet" href="assets/css/nuevaReserva.css">
      <link rel="stylesheet" href="assets/css/global.css">
@@ -58,15 +51,13 @@
 
     <!-- MAIN -->
     <main>
-        	          <?php
-          include $_ENV['folder.views'] . '/templates/flash-messages.php';
-          ?>
+        <?php include $_ENV['folder.views'] . '/templates/flash-messages.php'; ?>
 
         <div class="contenedor-card">
             <h1 class="titulo-principal">Solicitud de Cita</h1>
-            <p class="descripcion-principal">Gestione la reserva de su próxima visita al taller de forma rapida y sencilla.</p>
-            <form method="post">
+            <p class="descripcion-principal">Gestione la reserva de su próxima visita al taller de forma rápida y sencilla.</p>
 
+            <form method="post">
                 <div class="contenedor-columnas">
 
                     <div>
@@ -74,7 +65,11 @@
 
                         <div class="grupo-formulario">
                             <label for="matricula" class="etiqueta-formulario">Matricula</label>
-                            <input type="text" name="matricula" placeholder="Ej: 1234 ABC" required class="inputEntrada inputMatricula"">
+                            <input type="text" name="matricula" placeholder="Ej: 1234 ABC"
+                                   value="<?= htmlspecialchars($input['matricula'] ?? '') ?>" class="inputEntrada inputMatricula">
+                            <?php if (isset($errors['matricula'])): ?>
+                                <div class="mensaje-error"><p><?php echo htmlspecialchars($errors['matricula']) ?></p></div>
+                            <?php endif; ?>
                         </div>
 
                         <div class="grupo-formulario">
@@ -84,12 +79,20 @@
 
                         <div class="grupo-formulario">
                             <label for="modelo" class="etiqueta-formulario">Modelo</label>
-                            <input type="text" name="modelo" placeholder="Ej: Serie 5, X3, M4" class="inputEntrada">
+                            <input type="text" name="modelo" placeholder="Ej: Serie 5, X3, M4"
+                                   value="<?= htmlspecialchars($input['modelo'] ?? '') ?>" class="inputEntrada">
+                            <?php if (isset($errors['modelo'])): ?>
+                                <div class="mensaje-error"><p><?php echo htmlspecialchars($errors['modelo']) ?></p></div>
+                            <?php endif; ?>
                         </div>
 
                         <div class="grupo-formulario">
                             <label for="anyo" class="etiqueta-formulario">Año de Fabricación</label>
-                            <input type="number" name="anyo" min="1950" max="2028" placeholder="Ej: 2018" class="inputEntrada">
+                            <input type="number" name="anyo" min="1950" max="2028" placeholder="Ej: 2018"
+                                   value="<?= htmlspecialchars($input['anyo'] ?? '') ?>" class="inputEntrada">
+                            <?php if (isset($errors['anyo'])): ?>
+                                <div class="mensaje-error"><p><?php echo htmlspecialchars($errors['anyo']) ?></p></div>
+                            <?php endif; ?>
                         </div>
 
                     </div>
@@ -99,24 +102,35 @@
 
                         <div class="grid-2columnas">
                             <div class="grupo-formulario">
-                                <label for="fecha_reserva" class="etiqueta-formulario" id="fehca_reserva">Fecha Preferida</label>
-                                <input type="date" id="fecha_reserva" name="fecha_reserva" required class="inputEntrada">
+                                <label for="fecha_reserva" class="etiqueta-formulario">Fecha Preferida</label>
+                                <input type="date" id="fecha_reserva" name="fecha_reserva"
+                                       value="<?= htmlspecialchars($input['fecha_reserva'] ?? '') ?>" class="inputEntrada">
+                                <?php if (isset($errors['fecha_reserva'])): ?>
+                                    <div class="mensaje-error"><p><?php echo htmlspecialchars($errors['fecha_reserva']) ?></p></div>
+                                <?php endif; ?>
                             </div>
+
                             <div class="grupo-formulario">
                                 <label for="hora_reserva" class="etiqueta-formulario">Hora Preferida</label>
-                                <input type="time" name="hora_reserva" required class="inputEntrada"  min="10:00" max="20:00">
+                                <input type="time" name="hora_reserva"
+                                       value="<?= htmlspecialchars($input['hora_reserva'] ?? '') ?>" class="inputEntrada" min="10:00" max="20:00">
+                                <?php if (isset($errors['hora_reserva'])): ?>
+                                    <div class="mensaje-error"><p><?php echo htmlspecialchars($errors['hora_reserva']) ?></p></div>
+                                <?php endif; ?>
                             </div>
                         </div>
 
                         <div class="grupo-formulario">
                             <label for="comentariosReserva" class="etiqueta-formulario">Detalles de la Avería / Razón de la Visita</label>
-                            <textarea name="comentariosReserva" rows="12" placeholder="Por favor, sea lo más específico posible." required class="area-texto"></textarea>
+                            <textarea name="comentariosReserva" rows="12" class="area-texto" placeholder="Por favor, sea lo más específico posible."><?= htmlspecialchars($input['comentariosReserva'] ?? '') ?></textarea>
+                            <?php if (isset($errors['comentariosReserva'])): ?>
+                                <div class="mensaje-error"><p><?php echo htmlspecialchars($errors['comentariosReserva']) ?></p></div>
+                            <?php endif; ?>
                         </div>
+
                     </div>
 
-                    <button type="submit" class="botonEnviar">
-                        Confirmar Solicitud de Cita
-                    </button>
+                    <button type="submit" class="botonEnviar">Confirmar Solicitud de Cita</button>
 
                 </div>
             </form>
