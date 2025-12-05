@@ -26,7 +26,7 @@
                 <li class="nav-item">
                     <a href="/vehiculos" class="nav-link <?php echo isset($seccion) && $seccion === '/vehiculos' ? 'active' : ''; ?>">
                         <i class="nav-icon fas fa-car-side"></i>
-                        <p>Vehhiculos</p>
+                        <p>Vehiculos</p>
                     </a>
                 </li>
 
