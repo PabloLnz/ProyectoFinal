@@ -1,14 +1,25 @@
 <main class="content-wrapper p-4">
-    	          <?php
-          include $_ENV['folder.views'] . '/templates/flash-messages.php';
-          ?>
+    <div class="content-header">
+        <?php
+        include $_ENV['folder.views'] . '/templates/flash-messages.php';
+        ?>
 
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">
+                        <i class="far fa-calendar-check mr-2 text-primary"></i> Gestión de Reservas
+                    </h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item active">Reservas</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container-fluid">
-
-        <h2 class="mb-4 text-dark font-weight-bold">
-            <i class="far fa-calendar-check text-info mr-2"></i> Gestión de Reservas
-        </h2>
-
         <div class="row">
             <div class="col-lg-6">
                 <div class="card card-primary card-outline shadow-lg">
@@ -110,14 +121,14 @@
                                 <dt class="col-sm-4">Teléfono:</dt>
                                 <dd class="col-sm-8"><?php echo $reserva['telefono'] ?? ''; ?></dd>
 
-                                
+
                                 <dt class="col-sm-4">Email:</dt>
                                 <dd class="col-sm-8"><?php echo $reserva['email'] ?? ''; ?></dd>
 
 
                                 <dt class="col-sm-4">Estado Actual:</dt>
                                 <dd class="col-sm-8">
-                                    <span class="badge 
+                                    <span class="badge
                                         <?php if (strtolower($reserva['estado']) === 'pendiente') { echo 'badge-danger'; } elseif (strtolower($reserva['estado']) === 'confirmada') { echo 'badge-warning'; } elseif (strtolower($reserva['estado']) === 'finalizada') { echo 'badge-success'; } elseif (strtolower($reserva['estado']) === 'rechazada') { echo 'badge-dark'; } elseif (strtolower($reserva['estado']) === 'no_asistida') { echo 'badge-info'; } else { echo 'badge-secondary'; } ?> font-weight-bold p-2">
                                         <?php echo strtoupper($reserva['estado']); ?>
                                     </span>

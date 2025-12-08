@@ -1,11 +1,25 @@
 <main class="content-wrapper p-4">
-    <?php include $_ENV['folder.views'] . '/templates/flash-messages.php'; ?>
+    <div class="content-header">
+        <?php
+        include $_ENV['folder.views'] . '/templates/flash-messages.php';
+        ?>
 
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">
+                        <i class="fas fa-car-side mr-2 text-primary"></i> Gestión de Vehículos
+                    </h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item active">Vehículos</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container-fluid">
-        <h2 class="mb-4 text-dark font-weight-bold">
-            <i class="fas fa-car-side text-info mr-2"></i> Gestión de Vehículos
-        </h2>
-
         <div class="row">
             <?php if (!empty($vehiculos)) { ?>
                 <?php foreach ($vehiculos as $vehiculo) { ?>

@@ -1,16 +1,31 @@
 <main class="content-wrapper p-4">
-    <?php include $_ENV['folder.views'] . '/templates/flash-messages.php'; ?>
+    <div class="content-header">
+        <?php
+        // Incluye el sistema de mensajes flash
+        include $_ENV['folder.views'] . '/templates/flash-messages.php';
+        ?>
 
-    <div class="container-fluid">
-
-        <h2 class="mb-4 text-dark font-weight-bold d-flex align-items-center flex-nowrap h5 h2-sm">
-            <i class="fas fa-car-side text-info mr-2 mr-sm-3 fa-lg fa-2x"></i>
-            <span class="d-none d-sm-inline">Gestión del Vehículo:</span>
-            <span class="d-sm-none">Vehículo:</span>
-            <span class="ml-2 text-primary text-truncate font-weight-bolder" style="max-width: 50%;">
-            <?php echo htmlspecialchars($vehiculo['matricula']); ?>
-        </span>
-        </h2>
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">
+                        <i class="fas fa-car-side mr-2 text-primary"></i>
+                        <span class="d-none d-sm-inline">Gestión del Vehículo:</span>
+                        <span class="d-sm-none">Vehículo:</span>
+                        <span class="ml-2 text-primary text-truncate font-weight-bolder" style="max-width: 50%;">
+                            <?php echo htmlspecialchars($vehiculo['matricula']); ?>
+                        </span>
+                    </h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/vehiculos">Vehículos</a></li>
+                        <li class="breadcrumb-item active">Gestión Vehiculo</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
         <p class="text-muted">Detalles y registro de actividad para el vehículo.</p>
 
         <div class="row">
