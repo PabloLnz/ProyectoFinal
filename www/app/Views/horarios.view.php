@@ -36,7 +36,7 @@
                 </a>
                 <ul class="d-flex list-unstyled justify-content-lg-end justify-content-md-center justify-content-center flex-wrap mb-0">
                     <li class="mx-2 my-1"><a href="/horarios" class="navLi">HORARIOS</a></li>
-                    <li class="mx-2 my-1"><a href="#ubicacion" class="navLi">UBICACION</a></li>
+                    <li class="mx-2 my-1"><a href="/#ubicacion" class="navLi">UBICACION</a></li>
                     <li class="mx-2 my-1"><a href="/sobreNosotros" class="navLi">SOBRE NOSOTROS</a></li>
                     <li class="mx-2 my-1"><a href="/facturasCliente" class="navLi">FACTURAS</a></li>
                     <li class="mx-2 my-1"><a href="/reservaCliente" class="navLi">RESERVAS</a></li>
