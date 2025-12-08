@@ -152,7 +152,6 @@ declare(strict_types=1);
                                             <?php } ?>
                                         </td>
                                         <td>
-                                            <a href="/empleadosTaller/edit/<?php echo $emp['id_usuario'] ?>" class="btn btn-sm btn-info"><i class="fas fa-edit"></i></a>
                                             <a href="/empleadosTaller/baja/<?php echo $emp['id_usuario'] ?>" class="btn btn-sm btn-warning text-dark"><i class="fas fa-minus-circle"></i></a>
                                             <a href="/empleadosTaller/delete/<?php echo $emp['id_usuario'] ?>" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
                                         </td>
