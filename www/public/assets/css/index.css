@@ -213,8 +213,8 @@ main section:first-child{
         position: static;
         transform: none;
         max-width: 100%;
-        background-color: #cccccc;
-        color: #333;
+        background-color: #333;
+        color: #ffffff;
         text-shadow: none;
         padding: 15px 10px;
         font-size: 1rem;

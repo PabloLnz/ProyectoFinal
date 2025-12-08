@@ -154,28 +154,6 @@
             </div>
 
             <div class="footer-col">
-                <h4>Navegación</h4>
-                <ul>
-                    <li><a href="#inicio">Inicio</a></li>
-                    <li><a href="#servicios">Servicios</a></li>
-                    <li><a href="#galeria">Galería</a></li>
-                    <li><a href="#citas">Pedir Cita</a></li>
-                    <li><a href="#blog">Blog</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Servicios Top</h4>
-                <ul>
-                    <li><a href="#">Mantenimiento Oficial</a></li>
-                    <li><a href="#">Diagnóstico Electrónico</a></li>
-                    <li><a href="#">Reparación de Motores</a></li>
-                    <li><a href="#">Chapa y Pintura</a></li>
-                    <li><a href="#">Neumáticos y Frenos</a></li>
-                </ul>
-            </div>
-
-
-            <div class="footer-col">
                 <h4>Visítanos</h4>
                 <p>
                     Pontevedra<br>

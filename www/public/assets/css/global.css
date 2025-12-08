@@ -89,18 +89,20 @@ FOOTER
 
 .footer-container {
     display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
     padding-bottom: 30px;
     border-bottom: 1px solid #555;
 }
-/* --- COLUMNAS FOOTER --- */
+
 .footer-col {
     padding: 15px;
     box-sizing: border-box;
-    width: 20%;
+    width: 50%;
 }
 
 .footer-info {
-    width: 35%;
+    width: 50%;
 }
 
 
@@ -159,7 +161,7 @@ FOOTER
     background-color: #007bff;
 }
 
-/* --- PIE PAGINA --- */
+
 .footer-bot{
     max-width: 1200px;
     margin: 0 auto;
@@ -179,14 +181,13 @@ FOOTER
     color: #007bff;
 }
 
-/* MEDIA QUERIES (FOOTER) */
 
 @media (max-width: 768px) {
     .footer-container {
         flex-wrap: wrap;
     }
     .footer-col {
-        width: 50%;
+        width: 100%;
     }
     .footer-info {
         width: 100%;
