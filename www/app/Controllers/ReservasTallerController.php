@@ -6,6 +6,8 @@ use Com\Daw2\Core\BaseController;
 use Com\Daw2\Models\ReservasModel;
 use Com\Daw2\Libraries\Mensaje;
 use Com\Daw2\Models\ReparacionesModel;
+use Com\Daw2\Models\VehiculosModel;
+
 class ReservasTallerController extends BaseController
 {
 
@@ -20,12 +22,13 @@ class ReservasTallerController extends BaseController
         $this->view->showViews(['templates/head.view.php','templates/aside.view.php','reservasTaller.view.php','templates/footer.view.php'], $data);
     }
 
-    
+
 
  public function confirmarReserva(int $id_reserva): void
     {
         $reservaModel = new ReservasModel();
         $reparacionesModel = new ReparacionesModel();
+        $vehiculosModel = new VehiculosModel();
         $reserva = $reservaModel->getReservaById($id_reserva);
 
         if (!$reserva) {
@@ -34,6 +37,7 @@ class ReservasTallerController extends BaseController
         }
 
         $reservaModel->cambiarEstado($id_reserva, 'confirmada');
+        $vehiculosModel->actualizarEstadoPend($reserva['id_vehiculo'], 'pendiente');
 
         $idVehiculo = $reserva['id_vehiculo'];
         $idUsuario  = $_SESSION['datosEmpleado']['id_usuario'];
@@ -43,6 +47,8 @@ class ReservasTallerController extends BaseController
         if (!$existe) {
             $reparacionesModel->crearReparacionPendiente($idVehiculo,$idUsuario,$reserva['comentariosReserva'] ?? '');
         }
+
+
 
         header("Location: /reservas");
     }

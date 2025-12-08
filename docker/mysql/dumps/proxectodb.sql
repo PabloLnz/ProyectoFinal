@@ -398,6 +398,7 @@ ALTER TABLE `reparacion_pieza`
   ADD CONSTRAINT `fk_rp_pieza` FOREIGN KEY (`id_pieza`) REFERENCES `piezas` (`id_pieza`) ON DELETE RESTRICT ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_rp_reparacion` FOREIGN KEY (`id_reparacion`) REFERENCES `reparaciones` (`id_reparacion`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+
 --
 -- Filtros para la tabla `reservas`
 --
@@ -422,6 +423,22 @@ ALTER TABLE `usuario_taller`
 ALTER TABLE `vehiculos`
   ADD CONSTRAINT `fk_vehiculo_cliente` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
+
+-- Usuarios del taller
+INSERT INTO `paises` (nombre) VALUES ('España');
+-- Usuarios del taller
+INSERT INTO `usuario_taller` (`nombre`, `email`, `pass`, `telefono`, `id_rol`, `id_pais`, `activo`, `disponibilidad`)
+VALUES
+    ('Admin', 'admin@galicianMotors.com', '$2y$10$8r5pEliERXgWWad.wrehBuKe7uDpR7/HtG8DxPj.QxXiRB7GhtR2q', '600000001', 1, 1, 1, 'disponible'),
+    ('Gerente', 'gerente@galicianMotors.com', '$2y$10$8r5pEliERXgWWad.wrehBuKe7uDpR7/HtG8DxPj.QxXiRB7GhtR2q', '600000002', 2, 1, 1, 'disponible'),
+    ('Mecanico', 'mecanico@galicianMotors.com', '$2y$10$8r5pEliERXgWWad.wrehBuKe7uDpR7/HtG8DxPj.QxXiRB7GhtR2q', '600000003', 3, 1, 1, 'disponible');
+
+-- Usuario cliente
+INSERT INTO `clientes` (`nombre`, `email`, `pass`, `telefono`, `direccion`)
+VALUES
+    ('Usuario', 'cliente@taller.com', '$2y$10$8r5pEliERXgWWad.wrehBuKe7uDpR7/HtG8DxPj.QxXiRB7GhtR2q', '600000004', 'España, Salceda de Caselas');
+
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
