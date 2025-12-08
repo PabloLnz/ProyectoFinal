@@ -37,22 +37,25 @@ class VehiculosModel extends BaseDbModel
     {
         $stmt = $this->pdo->query("
         SELECT DISTINCT v.id_vehiculo,
-                        v.matricula,
-                        v.marca,
-                        v.modelo,
-                        v.anyo,
-                        v.estado AS estado_vehiculo,
-                        c.nombre AS cliente_nombre,
-                        c.telefono AS cliente_telefono,
-                        c.email AS cliente_email,
-                        c.direccion AS cliente_direccion,
-                        r.fecha_reserva,
-                        r.comentariosReserva
-        FROM vehiculos v
-        INNER JOIN clientes c ON v.id_cliente = c.id_cliente
-        INNER JOIN reservas r ON r.id_vehiculo = v.id_vehiculo
-        WHERE r.estado IN ('confirmada','finalizada')
-        ORDER BY v.id_vehiculo ASC
+                v.matricula,
+                v.marca,
+                v.modelo,
+                v.anyo,
+                v.estado AS estado_vehiculo,
+                c.nombre AS cliente_nombre,
+                c.telefono AS cliente_telefono,
+                c.email AS cliente_email,
+                c.direccion AS cliente_direccion,
+                r.fecha_reserva,
+                r.comentariosReserva,
+                rep.fecha_fin AS reparacion_fin,
+                rep.coste AS coste_reparacion
+FROM vehiculos v
+INNER JOIN clientes c ON v.id_cliente = c.id_cliente
+INNER JOIN reservas r ON r.id_vehiculo = v.id_vehiculo
+LEFT JOIN reparaciones rep ON rep.id_vehiculo = v.id_vehiculo
+WHERE r.estado IN ('confirmada','finalizada')
+ORDER BY v.id_vehiculo ASC
     ");
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }

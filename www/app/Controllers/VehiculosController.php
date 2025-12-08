@@ -82,6 +82,13 @@ class VehiculosController extends BaseController
         $cantidad = intval($_POST['cantidad']);
         $precio = $piezasModel->getPrecioPieza($idPieza);
 
+        if (!$piezasModel->quitarStock($idPieza, $cantidad)) {
+            $mensaje = new Mensaje("No hay stock suficiente de esta pieza.", Mensaje::ERROR);
+            $this->addFlashMessage($mensaje);
+            $this->gestionarVehiculo($idVehiculo);
+            return;
+        }
+
         $reparacion = $reparacionesModel->getReparacionPorVehiculo($idVehiculo);
 
         if (!$reparacion) {
@@ -97,10 +104,9 @@ class VehiculosController extends BaseController
 
         $reparacionPiezaModel->agregarPieza($idReparacion, $idPieza, $cantidad, $precio);
 
-        $piezasModel->quitarStock($idPieza, $cantidad);
-
         $this->gestionarVehiculo($idVehiculo);
     }
+
 
 public function eliminarPieza(int $idReparacionPieza, int $idVehiculo)
 {
