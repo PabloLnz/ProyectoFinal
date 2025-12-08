@@ -157,24 +157,23 @@ class ClienteController extends BaseController
                 'empleados'=>'rwd',
                 'vehiculos'=>'rwd',
                 'reservas'=>'rwd',
-                'historial'=>'rwd',
                 'facturacion'=>'rwd'
             ];
         }elseif ($idRol==2){
             $permisos=[
-                'inicioTaller'=>'rwd',
-                'empleados'=>'rwd',
+                'inicioTaller'=>'rw',
+                'empleados'=>'rw',
                 'vehiculos'=>'rwd',
                 'reservas'=>'rwd',
-                'historial'=>'r',
-                'facturacion'=>'r'
+                'facturacion'=>'rw'
             ];
         }elseif ($idRol==3){
             $permisos=[
                 'inicioTaller'=>'r',
                 'empleados'=>'r',
-                'vehiculos'=>'r',
+                'vehiculos'=>'rwd',
                 'reservas'=>'r',
+                'facturacion'=>'r'
             ];
         }
         return $permisos;

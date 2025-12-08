@@ -10,8 +10,15 @@ class FrontController
     static function main()
     {
         session_start();
+        Route::add(
+            '/logout',
+            function () {
+                $controlador = new \Com\Daw2\Controllers\TallerController();
+                $controlador->logout();
+            },
+            'get'
+        );
 
-        //Rutas que están disponibles para todos
         Route::add(
             '/',
             function () {
@@ -20,7 +27,6 @@ class FrontController
             },
             'get'
         );
-
         Route::add(
             '/login',
             function () {
@@ -37,98 +43,6 @@ class FrontController
             },
             'post'
         );
-
-        Route::add(
-            '/indexTaller',
-            function () {
-                $controlador = new \Com\Daw2\Controllers\TallerController();
-                $controlador->showIndexTaller();
-            },
-            'get'
-        );
-
-
-        Route::add(
-            '/indexTaller/cambiar-disponibilidad/([0-9]+)',
-            function ($id_usuario) {
-                $controlador = new \Com\Daw2\Controllers\TallerController();
-                $controlador->cambiarDisponibilidad($id_usuario);
-            },
-            'get'
-        );
-
-
-        Route::add(
-            '/logout',
-            function () {
-                $controlador = new \Com\Daw2\Controllers\TallerController();
-                $controlador->logout();
-            },
-            'get'
-        );
-
-           Route::add(
-            '/vehiculos',
-            function () {
-                $controlador = new \Com\Daw2\Controllers\VehiculosController();
-                $controlador->showVehiculos();
-            },
-            'get'
-        );
-
-        Route::add(
-            '/reservas',
-            function () {
-                $controlador = new \Com\Daw2\Controllers\ReservasTallerController();
-                $controlador->showReservas();
-            },
-            'get'
-        );
-        
-    Route::add(
-            '/reservas/gestionar/([0-9]+)',
-            function ($id_reserva) {
-                $controlador = new \Com\Daw2\Controllers\ReservasTallerController();
-                $controlador->gestionarReservas($id_reserva);
-            },
-            'get'
-        );
-
-        Route::add(
-            '/reservas/gestionar/confirmar/([0-9]+)',
-            function ($id_reserva) {
-                $controlador = new \Com\Daw2\Controllers\ReservasTallerController();
-                $controlador->confirmarReserva($id_reserva);
-            },
-            'get'
-        );
-
-             Route::add(
-            '/reservas/gestionar/rechazar/([0-9]+)',
-            function ($id_reserva) {
-                $controlador = new \Com\Daw2\Controllers\ReservasTallerController();
-                $controlador->rechazarReserva($id_reserva);
-            },
-            'get'
-        );
-
-             Route::add(
-            '/reservas/gestionar/finalizar/([0-9]+)',
-            function ($id_reserva) {
-                $controlador = new \Com\Daw2\Controllers\ReservasTallerController();
-                $controlador->finalizarReserva($id_reserva);
-            },
-            'get'
-        );
-             Route::add(
-            '/reservas/gestionar/no-asistida/([0-9]+)',
-            function ($id_reserva) {
-                $controlador = new \Com\Daw2\Controllers\ReservasTallerController();
-                $controlador->noAsistidaReserva($id_reserva);
-            },
-            'get'
-        );
-
         Route::add(
             '/register',
             function () {
@@ -137,7 +51,14 @@ class FrontController
             },
             'get'
         );
-
+        Route::add(
+            '/register',
+            function () {
+                $controlador = new \Com\Daw2\Controllers\ClienteController();
+                $controlador->register();
+            },
+            'post'
+        );
         Route::add(
             '/horarios',
             function () {
@@ -155,529 +76,269 @@ class FrontController
             'get'
         );
 
-        Route::add(
-            '/facturasCliente',
+
+        if (isset($_SESSION['datosUsuario'])) {
+
+
+            Route::add(
+                '/facturasCliente',
+                function () {
+                    $controlador = new \Com\Daw2\Controllers\FacturasController();
+                    $controlador->showFacturasCliente();
+                },
+                'get'
+            );
+
+            Route::add('/reservaCliente',
+                function (){
+                    $controlador = new \Com\Daw2\Controllers\ReservaClienteController();
+                    $controlador->showReservaCliente();
+                },
+                'get'
+            );
+
+            Route::add('/nuevaReserva',
+                function (){
+                    $controlador = new \Com\Daw2\Controllers\ReservaClienteController();
+                    $controlador->showNuevaReserva();
+                },
+                'get'
+            );
+
+            Route::add('/nuevaReserva',
+                function (){
+                    $controlador = new \Com\Daw2\Controllers\ReservaClienteController();
+                    $controlador->nuevaReserva();
+                },
+                'post'
+            );
+
+            Route::add('/reservaCliente/delete/([0-9]+)',
+                function ($id_reserva){
+                    $controlador = new \Com\Daw2\Controllers\ReservaClienteController();
+                    $controlador->deleteReservaCliente($id_reserva);
+                },
+                'get'
+            );
+        }
+
+        if (isset($_SESSION['permisos'])) {
+
+            if (isset($_SESSION['permisos']['inicioTaller']) && str_contains($_SESSION['permisos']['inicioTaller'], 'r')) {
+                Route::add(
+                    '/indexTaller',
+                    function () {
+                        $controlador = new \Com\Daw2\Controllers\TallerController();
+                        $controlador->showIndexTaller();
+                    },
+                    'get'
+                );
+
+                if (str_contains($_SESSION['permisos']['inicioTaller'], 'w') || str_contains($_SESSION['permisos']['inicioTaller'], 'd')) {
+                    Route::add(
+                        '/indexTaller/cambiar-disponibilidad/([0-9]+)',
+                        function ($id_usuario) {
+                            $controlador = new \Com\Daw2\Controllers\TallerController();
+                            $controlador->cambiarDisponibilidad($id_usuario);
+                        },
+                        'get'
+                    );
+                }
+            }
+
+            if (isset($_SESSION['permisos']['empleados']) && str_contains($_SESSION['permisos']['empleados'], 'r')) {
+                Route::add(
+                    '/empleadosTaller',
+                    function () {
+                        $controlador = new \Com\Daw2\Controllers\EmpleadosController();
+                        $controlador->showEmpleados();
+                    },
+                    'get'
+                );
+
+                if (str_contains($_SESSION['permisos']['empleados'], 'w')) {
+                    Route::add(
+                        '/altaEmpleado',
+                        function () {
+                            $controlador = new \Com\Daw2\Controllers\EmpleadosController();
+                            $controlador->showAltaEmpleado();
+                        },
+                        'get'
+                    );
+                    Route::add(
+                        '/altaEmpleado',
+                        function () {
+                            $controlador = new \Com\Daw2\Controllers\EmpleadosController();
+                            $controlador->altaEmpleado();
+                        },
+                        'post'
+                    );
+                }
+
+                if (str_contains($_SESSION['permisos']['empleados'], 'd')) {
+                    Route::add(
+                        '/empleadosTaller/delete/([0-9]+)',
+                        function ($id_usuario){
+                            $controlador = new \Com\Daw2\Controllers\EmpleadosController();
+                            $controlador->deleteEmpleado($id_usuario);
+                        },
+                        'get'
+                    );
+                    Route::add('/empleadosTaller/baja/([0-9]+)',
+                        function ($id_usuario){
+                            $controlador = new \Com\Daw2\Controllers\EmpleadosController();
+                            $controlador->desactivarUsuario($id_usuario);
+                        },
+                        'get'
+                    );
+                }
+            }
+
+            if (isset($_SESSION['permisos']['vehiculos']) && str_contains($_SESSION['permisos']['vehiculos'], 'r')) {
+                Route::add(
+                    '/vehiculos',
+                    function () {
+                        $controlador = new \Com\Daw2\Controllers\VehiculosController();
+                        $controlador->showVehiculos();
+                    },
+                    'get'
+                );
+                Route::add('/vehiculos/gestionVehiculo/([0-9]+)',
+                    function ($id_vehiculo){
+                        $controlador = new \Com\Daw2\Controllers\VehiculosController();
+                        $controlador->gestionarVehiculo($id_vehiculo);
+                    },
+                    'get'
+                );
+
+                if (str_contains($_SESSION['permisos']['vehiculos'], 'w') || str_contains($_SESSION['permisos']['vehiculos'], 'd')) {
+                    Route::add('/vehiculos/gestionVehiculo/agregar-pieza/([0-9]+)',
+                        function ($id_vehiculo){
+                            $controlador = new \Com\Daw2\Controllers\VehiculosController();
+                            $controlador->agregarPieza($id_vehiculo);
+                        },
+                        'post'
+                    );
+                    Route::add(
+                        '/vehiculos/gestionVehiculo/eliminar-pieza/([0-9]+)/([0-9]+)',
+                        function($idReparacionPieza, $idVehiculo) {
+                            $controlador = new \Com\Daw2\Controllers\VehiculosController();
+                            $controlador->eliminarPieza($idReparacionPieza, $idVehiculo);
+                        },
+                        'post'
+                    );
+                    Route::add('/vehiculos/gestionVehiculo/factura/([0-9]+)',
+                        function ($id_vehiculo){
+                            $controlador = new \Com\Daw2\Controllers\VehiculosController();
+                            $controlador->generarFactura($id_vehiculo);
+                        },
+                        'post'
+                    );
+                }
+            }
+
+            if (isset($_SESSION['permisos']['reservas']) && str_contains($_SESSION['permisos']['reservas'], 'r')) {
+                Route::add(
+                    '/reservas',
+                    function () {
+                        $controlador = new \Com\Daw2\Controllers\ReservasTallerController();
+                        $controlador->showReservas();
+                    },
+                    'get'
+                );
+                Route::add(
+                    '/reservas/gestionar/([0-9]+)',
+                    function ($id_reserva) {
+                        $controlador = new \Com\Daw2\Controllers\ReservasTallerController();
+                        $controlador->gestionarReservas($id_reserva);
+                    },
+                    'get'
+                );
+
+                if (str_contains($_SESSION['permisos']['reservas'], 'w') || str_contains($_SESSION['permisos']['reservas'], 'd')) {
+                    Route::add(
+                        '/reservas/gestionar/confirmar/([0-9]+)',
+                        function ($id_reserva) {
+                            $controlador = new \Com\Daw2\Controllers\ReservasTallerController();
+                            $controlador->confirmarReserva($id_reserva);
+                        },
+                        'get'
+                    );
+                    Route::add(
+                        '/reservas/gestionar/rechazar/([0-9]+)',
+                        function ($id_reserva) {
+                            $controlador = new \Com\Daw2\Controllers\ReservasTallerController();
+                            $controlador->rechazarReserva($id_reserva);
+                        },
+                        'get'
+                    );
+                    Route::add(
+                        '/reservas/gestionar/finalizar/([0-9]+)',
+                        function ($id_reserva) {
+                            $controlador = new \Com\Daw2\Controllers\ReservasTallerController();
+                            $controlador->finalizarReserva($id_reserva);
+                        },
+                        'get'
+                    );
+                    Route::add(
+                        '/reservas/gestionar/no-asistida/([0-9]+)',
+                        function ($id_reserva) {
+                            $controlador = new \Com\Daw2\Controllers\ReservasTallerController();
+                            $controlador->noAsistidaReserva($id_reserva);
+                        },
+                        'get'
+                    );
+                }
+            }
+
+            if (isset($_SESSION['permisos']['facturacion']) && str_contains($_SESSION['permisos']['facturacion'], 'r')) {
+                Route::add(
+                    '/facturacion',
+                    function () {
+                        $controlador = new \Com\Daw2\Controllers\FacturasController();
+                        $controlador->showFacturas();
+                    },
+                    'get'
+                );
+
+                if (str_contains($_SESSION['permisos']['facturacion'], 'w')) {
+                    Route::add('/facturacion/pagar/([0-9]+)',
+                        function ($id_factura){
+                            $controlador = new \Com\Daw2\Controllers\FacturasController();
+                            $controlador->marcarComoPagada($id_factura);
+                        },
+                        'post'
+                    );
+                }
+            }
+        }
+
+        Route::pathNotFound(
             function () {
-                $controlador = new \Com\Daw2\Controllers\FacturasController();
-                $controlador->showFacturasCliente();
-            },
-            'get'
-        );
+                $tienePermisoTaller = false;
+                if(isset($_SESSION['permisos'])) {
+                    foreach($_SESSION['permisos'] as $permiso) {
+                        if(str_contains($permiso, 'r')) {
+                            $tienePermisoTaller = true;
+                            break;
+                        }
+                    }
+                }
 
-
-        Route::add(
-            '/register',
-            function () {
-                $controlador = new \Com\Daw2\Controllers\ClienteController();
-                $controlador->register();
-            },
-            'post'
-        );
-
-        Route::add(
-            '/altaEmpleado',
-            function () {
-                $controlador = new \Com\Daw2\Controllers\EmpleadosController();
-                $controlador->showAltaEmpleado();
-            },
-            'get'
-        );
-          Route::add(
-            '/altaEmpleado',
-            function () {
-                $controlador = new \Com\Daw2\Controllers\EmpleadosController();
-                $controlador->altaEmpleado();
-            },
-            'post'
-        );
-
-
-        Route::add(
-            '/empleadosTaller/delete/([0-9]+)',
-            function ($id_usuario){
-            $controlador = new \Com\Daw2\Controllers\EmpleadosController();
-            $controlador->deleteEmpleado($id_usuario);
-            },
-            'get'
-        );
-
-
-          Route::add(
-            '/empleadosTaller',
-            function () {
-                $controlador = new \Com\Daw2\Controllers\EmpleadosController($mensaje ?? "");
-                $controlador->showEmpleados();
-            },
-            'get'
-        );
-
-
-
-
-          Route::add(
-            '/facturacion',
-            function () {
-                $controlador = new \Com\Daw2\Controllers\FacturasController();
-                $controlador->showFacturas();
-            },
-            'get'
-        );
-
-
-        Route::add('/empleadosTaller/baja/([0-9]+)',
-            function ($id_usuario){
-                $controlador = new \Com\Daw2\Controllers\EmpleadosController($mensaje ?? "");
-                $controlador->desactivarUsuario($id_usuario);
-            },
-            'get'
-        );
-
-          Route::add('/vehiculos/gestionVehiculo/([0-9]+)',
-            function ($id_vehiculo){
-                $controlador = new \Com\Daw2\Controllers\VehiculosController();
-                $controlador->gestionarVehiculo($id_vehiculo);
-            },
-            'get'
-        );
-
- 
-
-        Route::add('/vehiculos/gestionVehiculo/agregar-pieza/([0-9]+)',
-            function ($id_vehiculo){
-                $controlador = new \Com\Daw2\Controllers\VehiculosController();
-                $controlador->agregarPieza($id_vehiculo);
-            },
-            'post'
-        );
-
-
-
-        Route::add(
-            '/vehiculos/gestionVehiculo/eliminar-pieza/([0-9]+)/([0-9]+)',
-            function($idReparacionPieza, $idVehiculo) {
-                $controlador = new \Com\Daw2\Controllers\VehiculosController();
-                $controlador->eliminarPieza($idReparacionPieza, $idVehiculo);
-            },
-            'post'
-        );
-
-        Route::add('/vehiculos/gestionVehiculo/factura/([0-9]+)',
-            function ($id_vehiculo){
-                $controlador = new \Com\Daw2\Controllers\VehiculosController();
-                $controlador->generarFactura($id_vehiculo);
-            },
-            'post'
-        );
-
-        Route::add('/facturacion/pagar/([0-9]+)',
-            function ($id_factura){
-                $controlador = new \Com\Daw2\Controllers\facturasController();
-                $controlador->marcarComoPagada($id_factura);
-            },
-            'post'
-        );
-
-        Route::add('/reservaCliente',
-            function (){
-                if(!isset($_SESSION['datosUsuario'])) {
+                if ($tienePermisoTaller) {
+                    header('Location: /indexTaller');
+                    exit;
+                } else if (isset($_SESSION['datosUsuario'])) {
+                    header('Location: /');
+                    exit;
+                } else {
                     header('Location: /login');
                     exit;
                 }
-                $controlador = new \Com\Daw2\Controllers\ReservaClienteController();
-                $controlador->showReservaCliente();
-            },
-            'get'
+            }
         );
-
-
-        Route::add('/nuevaReserva',
-            function (){
-                if(!isset($_SESSION['datosUsuario'])) {
-                    header('Location: /login');
-                    exit;
-                }
-                $controlador = new \Com\Daw2\Controllers\ReservaClienteController();
-                $controlador->showNuevaReserva();
-            },
-            'get'
-        );
-
-        Route::add('/nuevaReserva',
-            function (){
-                if(!isset($_SESSION['datosUsuario'])) {
-                    header('Location: /login');
-                    exit;
-                }
-                $controlador = new \Com\Daw2\Controllers\ReservaClienteController();
-                $controlador->nuevaReserva();
-            },
-            'post'
-        );
-
-         Route::add('/reservaCliente/delete/([0-9]+)',
-            function ($id_reserva){
-                if(!isset($_SESSION['datosUsuario'])) {
-                    header('Location: /login');
-                    exit;
-                }
-                $controlador = new \Com\Daw2\Controllers\ReservaClienteController();
-                $controlador->deleteReservaCliente($id_reserva);
-            },
-            'get'
-        );
-
-
-
-
 
 
         Route::run();
     }
-//
-//session_start();
-//if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
-//
-//    Route::add('/login',
-//        function (){
-//            $controlador = new \Com\Daw2\Controllers\UsuarioController();
-//            $controlador->showLogin();
-//        },
-//        'get'
-//    );
-//
-//
-//    Route::add('/login',
-//        function (){
-//            $controlador = new \Com\Daw2\Controllers\UsuarioController();
-//            $controlador->login();
-//        },
-//        'post'
-//    );
-//
-//    Route::pathNotFound(
-//        function () {
-//            $controller = new \Com\Daw2\Controllers\UsuarioController();
-//            $controller->showLogin();
-//        },
-//        'get'
-//    );
-//
-//    Route::pathNotFound(
-//        function () {
-//            $controller = new \Com\Daw2\Controllers\UsuarioController();
-//            $controller->login();
-//        },
-//        'post'
-//    );
-//
-//}else{
-//    Route::add(
-//        '/usuarios-sistema',
-//        function (){
-//            $controlador = new \Com\Daw2\Controllers\UsuarioController();
-//            $controlador->showUsuarios();
-//        }
-//    );
-//    Route::add(
-//        '/usuarios-sistema/edit/([0-9]+)',
-//        function ($id_usuario){
-//            $controlador = new \Com\Daw2\Controllers\UsuarioController();
-//            $controlador->showUsuarioEdit($id_usuario);
-//        },
-//        'get'
-//    );
-//
-//    Route::add(
-//        '/usuarios-sistema/edit/([0-9]+)',
-//        function ($id_usuario){
-//            $controlador = new \Com\Daw2\Controllers\UsuarioController();
-//            $controlador->editUsuario($id_usuario);
-//        },
-//        'post'
-//    );
-//
-
-//
-//
-//    Route::add('/usuarios-sistema/add',
-//        function (){
-//            $controlador = new \Com\Daw2\Controllers\UsuarioController();
-//            $controlador->showAltaUsuario();
-//        },
-//        'get'
-//    );
-//
-//    Route::add('/usuarios-sistema/add',
-//        function (){
-//            $controlador = new \Com\Daw2\Controllers\UsuarioController();
-//            $controlador->altaUsuarios();
-//        },
-//        'post'
-//    );
-//
-//    Route::add('/usuarios-sistema/baja/([0-9]+)',
-//        function ($id_usuario){
-//            $controlador = new \Com\Daw2\Controllers\UsuarioController();
-//            $controlador->estadoUsuario($id_usuario);
-//        },
-//        'get'
-//    );
-//
-//
-//    Route::add('/logout',
-//        function (){
-//            $controlador = new \Com\Daw2\Controllers\UsuarioController();
-//            $controlador->logout();
-//        },
-//        'get'
-//    );
-//
-//
-//
-//
-//    //Demos
-//    Route::add(
-//        '/demos/usuarios-sistema',
-//        function () {
-//            $controlador = new \Com\Daw2\Controllers\InicioController();
-//            $controlador->demoUsuariosSistema();
-//        },
-//        'get'
-//    );
-//
-//
-//
-//
-//
-//
-//    Route::add(
-//        '/demos/usuarios-sistema/add',
-//        function () {
-//            $controlador = new \Com\Daw2\Controllers\InicioController();
-//            $controlador->demoUsuariosSistemaAdd();
-//        },
-//        'get'
-//    );
-//
-//    Route::add(
-//        '/demos/login',
-//        function () {
-//            $controlador = new \Com\Daw2\Controllers\InicioController();
-//            $controlador->demoLogin();
-//        },
-//        'get'
-//    );
-//
-//
-//    # Gestion de categorías
-//    Route::add(
-//        '/categorias',
-//        function () {
-//            $controlador = new \Com\Daw2\Controllers\CategoriaController();
-//            $controlador->mostrarTodos();
-//        },
-//        'get'
-//    );
-//
-//    Route::add(
-//        '/categorias/view/([0-9]+)',
-//        function ($id) {
-//            $controlador = new \Com\Daw2\Controllers\CategoriaController();
-//            $controlador->view((int)$id);
-//        },
-//        'get'
-//    );
-//
-//    Route::add(
-//        '/categorias/delete/([0-9]+)',
-//        function ($id) {
-//            $controlador = new \Com\Daw2\Controllers\CategoriaController();
-//            $controlador->delete($id);
-//        },
-//        'get'
-//    );
-//
-//    Route::add(
-//        '/categorias/edit/([0-9]+)',
-//        function ($id) {
-//            $controlador = new \Com\Daw2\Controllers\CategoriaController();
-//            $controlador->mostrarEdit((int)$id);
-//        },
-//        'get'
-//    );
-//
-//    Route::add(
-//        '/categorias/edit/([0-9]+)',
-//        function ($id) {
-//            $controlador = new \Com\Daw2\Controllers\CategoriaController();
-//            $controlador->edit($id);
-//        },
-//        'post'
-//    );
-//
-//    Route::add(
-//        '/categorias/add',
-//        function () {
-//            $controlador = new \Com\Daw2\Controllers\CategoriaController();
-//            $controlador->mostrarAdd();
-//        },
-//        'get'
-//    );
-//
-//    Route::add(
-//        '/categorias/add',
-//        function () {
-//            $controlador = new \Com\Daw2\Controllers\CategoriaController();
-//            $controlador->add();
-//        },
-//        'post'
-//    );
-//
-//    //Produtos
-//    Route::add(
-//        '/productos',
-//        function () {
-//            $controlador = new \Com\Daw2\Controllers\ProductoController();
-//            $controlador->mostrarTodos();
-//        },
-//        'get'
-//    );
-//    Route::add(
-//        '/productos/view/([A-Za-z0-9]+)',
-//        function ($codigo) {
-//            $controlador = new \Com\Daw2\Controllers\ProductoController();
-//            $controlador->view($codigo);
-//        },
-//        'get'
-//    );
-//
-//    Route::add(
-//        '/productos/delete/([A-Za-z0-9]+)',
-//        function ($codigo) {
-//            $controlador = new \Com\Daw2\Controllers\ProductoController();
-//            $controlador->delete($codigo);
-//        },
-//        'get'
-//    );
-//
-//    Route::add(
-//        '/productos/edit/([A-Za-z0-9]+)',
-//        function ($codigo) {
-//            $controlador = new \Com\Daw2\Controllers\ProductoController();
-//            $controlador->mostrarEdit($codigo);
-//        },
-//        'get'
-//    );
-//
-//    Route::add(
-//        '/productos/edit/([A-Za-z0-9]+)',
-//        function ($codigo) {
-//            $controlador = new \Com\Daw2\Controllers\ProductoController();
-//            $controlador->processEdit($codigo);
-//        },
-//        'post'
-//    );
-//
-//    Route::add(
-//        '/productos/add',
-//        function () {
-//            $controlador = new \Com\Daw2\Controllers\ProductoController();
-//            $controlador->mostrarAdd();
-//        },
-//        'get'
-//    );
-//
-//    Route::add(
-//        '/productos/add',
-//        function () {
-//            $controlador = new \Com\Daw2\Controllers\ProductoController();
-//            $controlador->processAdd();
-//        },
-//        'post'
-//    );
-//
-//    //Proveedores
-//    Route::add(
-//        '/proveedores',
-//        function () {
-//            $controlador = new \Com\Daw2\Controllers\ProveedorController();
-//            $controlador->mostrarTodos();
-//        },
-//        'get'
-//    );
-//
-//    Route::add(
-//        '/proveedores/view/([A-Za-z0-9]+)',
-//        function ($cif) {
-//            $controlador = new \Com\Daw2\Controllers\ProveedorController();
-//            $controlador->view($cif);
-//        },
-//        'get'
-//    );
-//
-//    Route::add(
-//        '/proveedores/delete/([A-Za-z0-9]+)',
-//        function ($cif) {
-//            $controlador = new \Com\Daw2\Controllers\ProveedorController();
-//            $controlador->delete($cif);
-//        },
-//        'get'
-//    );
-//
-//
-//    Route::add(
-//        '/proveedores/edit/([A-Za-z0-9]+)',
-//        function ($cif) {
-//            $controlador = new \Com\Daw2\Controllers\ProveedorController();
-//            $controlador->mostrarEdit($cif);
-//        },
-//        'get'
-//    );
-//
-//    Route::add(
-//        '/proveedores/edit/([A-Za-z0-9]+)',
-//        function ($cif) {
-//            $controlador = new \Com\Daw2\Controllers\ProveedorController();
-//            $controlador->edit($cif);
-//        },
-//        'post'
-//    );
-//
-//    Route::add(
-//        '/proveedores/add',
-//        function () {
-//            $controlador = new \Com\Daw2\Controllers\ProveedorController();
-//            $controlador->mostrarAdd();
-//        },
-//        'get'
-//    );
-//
-//    Route::add(
-//        '/proveedores/add',
-//        function () {
-//            $controlador = new \Com\Daw2\Controllers\ProveedorController();
-//            $controlador->add();
-//        },
-//        'post'
-//    );
-//
-//
-//    Route::pathNotFound(
-//        function () {
-//            $controller = new \Com\Daw2\Controllers\ErroresController();
-//            $controller->error404();
-//        }
-//    );
-//    Route::methodNotAllowed(
-//        function () {
-//            $controller = new \Com\Daw2\Controllers\ErroresController();
-//            $controller->error405();
-//        }
-//    );
-//
-//
-//}
-
-
-
 }
