@@ -14,6 +14,11 @@ use Com\Daw2\Libraries\Mensaje;
 class VehiculosController extends BaseController
 {
 
+    /**
+     * @return void
+     * @throws \Exception
+     * muestra los vehiculos del taller
+     */
     public function showVehiculos()
     {
         $modelVehiculos = new VehiculosModel();
@@ -27,6 +32,12 @@ class VehiculosController extends BaseController
         $this->view->showViews(['templates/head.view.php', 'templates/aside.view.php', 'vehiculosTaller.view.php', 'templates/footer.view.php'], $data);
     }
 
+    /**
+     * @param int $idVehiculo
+     * @return void
+     * @throws \Exception
+     * gestiona la reparacion del vehiculo
+     */
    public function gestionarVehiculo(int $idVehiculo)
 {
     $vehiculosModel = new VehiculosModel();
@@ -72,6 +83,12 @@ class VehiculosController extends BaseController
         $this->gestionarVehiculo($idVehiculo);
     }
 
+    /**
+     * @param int $idVehiculo
+     * @return void
+     * @throws \Exception
+     * controla el stock de piezas
+     */
     public function agregarPieza(int $idVehiculo)
     {
         $piezasModel = new PiezasModel();
@@ -107,7 +124,13 @@ class VehiculosController extends BaseController
         $this->gestionarVehiculo($idVehiculo);
     }
 
-
+    /**
+     * @param int $idReparacionPieza
+     * @param int $idVehiculo
+     * @return void
+     * @throws \Exception
+     * controla el stock de piezas
+     */
 public function eliminarPieza(int $idReparacionPieza, int $idVehiculo)
 {
     $reparacionesPiezaModel = new ReparacionPiezaModel();
@@ -123,8 +146,12 @@ public function eliminarPieza(int $idReparacionPieza, int $idVehiculo)
 }
 
 
-
-
+    /**
+     * @param int $idVehiculo
+     * @return void
+     * @throws \Exception
+     * geneera la factura y da la reparacion como finalizada
+     */
     public function generarFactura(int $idVehiculo)
     {
         $vehiculosModel = new VehiculosModel();

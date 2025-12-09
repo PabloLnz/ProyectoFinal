@@ -5,6 +5,13 @@ use Com\Daw2\Core\BaseDbModel;
 
 class FacturasModel extends BaseDbModel {
 
+    /**
+     * @param int $idCliente
+     * @param float $total
+     * @param string $comentario
+     * @return int
+     * funcion que crea una factura
+     */
 public function crearFactura(int $idCliente, float $total, string $comentario = ''): int {
     $stmt = $this->pdo->prepare("
         INSERT INTO facturas (id_cliente, fecha_emision, total, comentarios)
@@ -17,7 +24,11 @@ public function crearFactura(int $idCliente, float $total, string $comentario = 
     return intval($this->pdo->lastInsertId());
 }
 
-
+    /**
+     * @param int $idReparacion
+     * @return array|null
+     * obtiene la factura asociada a una reparacion
+     */
 public function getFacturaPorReparacion(int $idReparacion): ?array {
     $stmt = $this->pdo->prepare("
         SELECT f.* 
@@ -30,6 +41,11 @@ public function getFacturaPorReparacion(int $idReparacion): ?array {
     return $stmt->fetch(\PDO::FETCH_ASSOC) ?: null;
 }
 
+    /**
+     * @param array $parametros
+     * @return array
+     * devuelve las facturas segun filtros
+     */
 public function getFacturasByFilters(array $parametros): array {
     $valores = [];
     $filtros = [];
@@ -79,6 +95,12 @@ public function getFacturasByFilters(array $parametros): array {
 
     return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 }
+
+    /**
+     * @param int $idCliente
+     * @return array
+     * devuelve las facturass de un cliente
+     */
     public function getFacturasByCliente(int $idCliente) : array {
         $stmt = $this->pdo->prepare("
            SELECT DISTINCT f.id_factura,f.fecha_emision,f.total,f.estado,f.metodo_pago,f.comentarios, 
@@ -95,7 +117,12 @@ public function getFacturasByFilters(array $parametros): array {
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-
+    /**
+     * @param int $idFactura
+     * @param string $metodoPago
+     * @return bool
+     * actualzia el estado y metodo de pago de la factura
+     */
     public function actualizarEstadoYMetodoPago(int $idFactura, string $metodoPago): bool {
         $stmt = $this->pdo->prepare("
             UPDATE facturas 

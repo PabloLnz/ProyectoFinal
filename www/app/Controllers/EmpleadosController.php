@@ -10,7 +10,12 @@ use Com\Daw2\Libraries\Mensaje;
 
 class EmpleadosController extends BaseController
 {
-
+    /**
+     * @param string $mensaje
+     * @return void
+     * @throws \Exception
+     * Muestra a los empelados con filtros de ser necesario
+     */
 public function showEmpleados(string $mensaje = "")
 {
     $data = ['seccion' => '/empleadosTaller'];
@@ -70,7 +75,11 @@ public function showEmpleados(string $mensaje = "")
     $this->view->showViews(array('templates/head.view.php', 'templates/aside.view.php', 'empleadosTaller.view.php', 'templates/footer.view.php'), $data);
 }
 
-
+    /**
+     * @param array $data
+     * @return array
+     * Check errors de los filtros
+     */
 public function checkErrors(array $data): array
 {
     $errors = [];
@@ -98,6 +107,13 @@ public function checkErrors(array $data): array
 }
 
 
+    /**
+     * @param array $input
+     * @param array $errors
+     * @return void
+     * @throws \Exception
+     * Muestra la ventana para dar de alta alos empleados
+     */
     public function showAltaEmpleado(array $input = [], array $errors = [])
     {
         $data = [
@@ -116,6 +132,11 @@ public function checkErrors(array $data): array
         $this->view->showViews(array('templates/head.view.php','templates/aside.view.php','altaEmpleado.view.php','templates/footer.view.php'), $data);
     }
 
+    /**
+     * @return void
+     * @throws \Exception
+     * Logica para dar de  alta a los empleados
+     */
     public function altaEmpleado()
     {
         $input = filter_var_array($_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -160,6 +181,12 @@ public function checkErrors(array $data): array
         }
     }
 
+    /**
+     * @param array $data
+     * @param bool $edicion
+     * @return array
+     * Check errors del alta de  los empleados
+     */
     public function checkErroresAlta(array $data, bool $edicion = false): array
     {
         $errors = [];
@@ -218,7 +245,11 @@ public function checkErrors(array $data): array
         return $errors;
     }
 
-
+    /**
+     * @param $id_usuario
+     * @return void
+     * Funcion para borrar un empleado
+     */
     public function deleteEmpleado($id_usuario)
     {
         $modelEmpleados = new EmpleadosModel();
@@ -233,6 +264,11 @@ public function checkErrors(array $data): array
         header('Location: /empleadosTaller');
     }
 
+    /**
+     * @param $id_usuario
+     * @return void
+     * funcion para dar de baja o alta a un empleado
+     */
         public function desactivarUsuario($id_usuario): void
     {
 

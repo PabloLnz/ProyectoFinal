@@ -6,6 +6,11 @@ use Com\Daw2\Core\BaseDbModel;
 
 class EmpleadosModel extends BaseDbModel
 {
+    /**
+     * @param string $email
+     * @return array|false
+     * Comprueba si hay un empelado con ese email
+     */
     public function getEmpleadosEmail(string $email):array|false{
         $stmt = $this->pdo->prepare("SELECT * FROM usuario_taller WHERE email = :email");
         $stmt->execute([':email' => $email]);
@@ -13,6 +18,16 @@ class EmpleadosModel extends BaseDbModel
 
     }
 
+    /**
+     * @param string $nombre
+     * @param string $email
+     * @param string $passHash
+     * @param string $telefono
+     * @param int $id_rol
+     * @param int $id_pais
+     * @return bool
+     * permite insertar empleados
+     */
     public function insertEmpleado(string $nombre, string $email, string $passHash, string $telefono, int $id_rol, int $id_pais): bool
     {
         $sql = "INSERT INTO usuario_taller (nombre, email, pass, telefono, id_rol, id_pais, activo)
@@ -30,7 +45,14 @@ class EmpleadosModel extends BaseDbModel
     }
 
 
-
+    /**
+     * @param array $parametros
+     * @param int $page
+     * @param int $order
+     * @param string $dir
+     * @return array
+     * devuelve a los empleados segun filtros
+     */
 public function getEmpeleadosByFilters(array $parametros, int $page, int $order, string $dir): array
 {
     $valores = [];
@@ -82,6 +104,14 @@ public function getEmpeleadosByFilters(array $parametros, int $page, int $order,
     $stmt->execute($valores);
     return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 }
+
+    /**
+     * @param array $parametros
+     * @param int $order
+     * @param string $dir
+     * @return int
+     * devuelve a los empleados de la ultima pagina
+     */
 public function getLastEmpleados(array $parametros, int $order, string $dir): int
 {
     $valores = [];
@@ -131,7 +161,10 @@ public function getLastEmpleados(array $parametros, int $order, string $dir): in
     return $stmt->fetchColumn(0);
 }
 
-
+    /**
+     * @return array|false
+     * devuelve a los empleados dadode de alta
+     */
     public function getUsuariosActivos()
     {
         $stmt = $this->pdo->query('
@@ -145,6 +178,12 @@ public function getLastEmpleados(array $parametros, int $order, string $dir): in
         return $stmt->fetchAll();
     }
 
+    /**
+     * @param $id_usuario
+     * @param $estado
+     * @return void
+     * Actualiza la disponibilidad d eun empleado
+     */
         public function actualizarDisponibilidad($id_usuario, $estado)
     {
         $stmt = $this->pdo->prepare("UPDATE usuario_taller 
@@ -157,6 +196,11 @@ public function getLastEmpleados(array $parametros, int $order, string $dir): in
         ]);
     }
 
+    /**
+     * @param int $id_usuario
+     * @return bool
+     * borra a un empleado
+     */
     public function deleteEmpleado(int $id_usuario): bool
     {
         $sql = "DELETE FROM usuario_taller WHERE id_usuario = :id_usuario";
@@ -168,6 +212,11 @@ public function getLastEmpleados(array $parametros, int $order, string $dir): in
         return $stmt->rowCount() > 0;
     }
 
+    /**
+     * @param $id_usuario
+     * @return array|false
+     *
+     */
     public function getUsuarioDisable($id_usuario):array|false{
         $sql="SELECT * FROM usuario_taller WHERE id_usuario = :id_usuario;";
         $stmt = $this->pdo->prepare($sql);
@@ -175,6 +224,11 @@ public function getLastEmpleados(array $parametros, int $order, string $dir): in
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
+    /**
+     * @param int $id_usuario
+     * @return bool
+     * actualiza el estado de empleado a activo
+     */
        public function setAlta(int $id_usuario):bool{
         $sql = "UPDATE usuario_taller  SET activo=1 WHERE id_usuario = :id_usuario ";
         $stmt=$this->pdo->prepare($sql);
@@ -186,6 +240,11 @@ public function getLastEmpleados(array $parametros, int $order, string $dir): in
 
     }
 
+    /**
+     * @param int $id_usuario
+     * @return bool
+     * establece el estado del usaurio a baja
+     */
     public function setBaja(int $id_usuario):bool{
         $sql = "UPDATE usuario_taller  SET activo=0 WHERE id_usuario = :id_usuario ";
         $stmt=$this->pdo->prepare($sql);

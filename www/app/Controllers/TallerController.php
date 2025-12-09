@@ -7,6 +7,11 @@ use Com\Daw2\Core\BaseController;
 class TallerController extends BaseController
 {
 
+    /**
+     * @return void
+     * @throws \Exception
+     * Muestra el index del taller
+     */
     public function showIndexTaller()
     {
         $modelEmpleados = new EmpleadosModel();
@@ -21,6 +26,11 @@ class TallerController extends BaseController
             array('templates/head.view.php','templates/aside.view.php','indexTaller.view.php','templates/footer.view.php'),$data);
     }
 
+    /**
+     * @param int $id
+     * @return void
+     * cambia la disponibilidad de un empleado
+     */
     public function cambiarDisponibilidad(int $id)
     {
         $nuevoEstado = filter_input(INPUT_GET,'disponibilidad', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -43,6 +53,12 @@ class TallerController extends BaseController
     }
 
 
+    /**
+     * @param string $nuevoEstado
+     * @param int $id
+     * @return array
+     * check errors para cambiar la disponibilidad
+     */
     private function checkErrores(string $nuevoEstado,int $id)
     {
         $permitidos = ['disponible', 'en servicio', 'indispuesto'];
@@ -60,6 +76,10 @@ class TallerController extends BaseController
         return $errores;
     }
 
+    /**
+     * @return void
+     * cerrar sesion
+     */
     public function logout()
     {
         session_destroy();

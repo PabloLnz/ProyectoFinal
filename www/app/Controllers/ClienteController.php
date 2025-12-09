@@ -9,34 +9,63 @@ use Com\Daw2\Models\EmpleadosModel;
 class ClienteController extends BaseController
 {
 
-
+    /**
+     * @return void
+     * @throws \Exception
+     * Muestra el index del cliente
+     */
     public function index() {
 
         $this->view->showViews(array('index.view.php'));
     }
 
+    /**
+     * @return void
+     * @throws \Exception
+     * Muestra el login
+     */
     public function showLogin()
     {
         $this->view->showViews(array('login.view.php'));
     }
 
+    /**
+     * @return void
+     * @throws \Exception
+     * Muestra el register
+     */
     public function showRegister()
     {
         $this->view->showViews(array('register.view.php'));
     }
 
 
+    /**
+     * @return void
+     * @throws \Exception
+     * Muestra los horarios
+     */
     public function showHorarios()
     {
         $this->view->showViews(array('horarios.view.php'));
     }
 
+    /**
+     * @return void
+     * @throws \Exception
+     * Muestra el apartado de sobre nosotros
+     */
     public function showSobreNosotros()
     {
         $this->view->showViews(array('sobreNosotros.view.php'));
     }
 
 
+    /**
+     * @return void
+     * @throws \Exception
+     * Logica del register
+     */
     public function register()
     {
         $modelCliente = new ClienteModel();
@@ -83,6 +112,11 @@ class ClienteController extends BaseController
         }
     }
 
+    /**
+     * @return void
+     * @throws \Exception
+     * Logica del login
+     */
     public function login()
     {
         $modelUsuario = new ClienteModel();
@@ -128,6 +162,11 @@ class ClienteController extends BaseController
     }
 
 
+    /**
+     * @param array $post
+     * @return array
+     * Check errors login
+     */
     private function checkErrors(array $post): array
     {
         $errors = [];
@@ -146,7 +185,11 @@ class ClienteController extends BaseController
     }
 
 
-
+    /**
+     * @param int $idRol
+     * @return array|string[]
+     * Asigna permisos a los empleados
+     */
     public function permisos(int $idRol):array{
 
         $permisos=[];
@@ -180,8 +223,11 @@ class ClienteController extends BaseController
     }
 
 
-
-
+    /**
+     * @param array $post
+     * @return string
+     * Check errors resgister
+     */
     private function checkErrorsRegister(array $post): string
     {
         $errors = "";

@@ -11,7 +11,11 @@ use Com\Daw2\Models\VehiculosModel;
 class ReservasTallerController extends BaseController
 {
 
-
+    /**
+     * @return void
+     * @throws \Exception
+     * Muestra las reservas
+     */
     public function showReservas(): void
     {
         $data = ['seccion' => '/reservas'];
@@ -23,7 +27,11 @@ class ReservasTallerController extends BaseController
     }
 
 
-
+    /**
+     * @param int $id_reserva
+     * @return void
+     * Confirma la reserva
+     */
  public function confirmarReserva(int $id_reserva): void
     {
         $reservaModel = new ReservasModel();
@@ -54,7 +62,11 @@ class ReservasTallerController extends BaseController
     }
 
 
-
+    /**
+     * @param int $id_reserva
+     * @return void
+     * Rechaza la reserva
+     */
     public function rechazarReserva(int $id_reserva): void
     {
         $reservaRechazada = new ReservasModel();
@@ -71,6 +83,11 @@ class ReservasTallerController extends BaseController
         exit;
     }
 
+    /**
+     * @param int $id_reserva
+     * @return void
+     * Finaliza la reserva
+     */
     public function finalizarReserva(int $id_reserva): void
     {
         $reservaFinalizada = new ReservasModel();
@@ -87,6 +104,11 @@ class ReservasTallerController extends BaseController
         exit;
     }
 
+    /**
+     * @param int $id_reserva
+     * @return void
+     * Marca como no asistida la reserva
+     */
     public function noAsistidaReserva(int $id_reserva): void
     {
         $reservaNoAsistida = new ReservasModel();
@@ -103,6 +125,11 @@ class ReservasTallerController extends BaseController
         exit;
     }
 
+    /**
+     * @param $id_reserva
+     * @return void
+     * @throws \Exception
+     */
 public function gestionarReservas($id_reserva) {
     $id = (int)$id_reserva;
     if ($id <= 0) {
@@ -123,12 +150,7 @@ public function gestionarReservas($id_reserva) {
         'reservas' => $reservas
     ];
 
-    $this->view->showViews([
-        'templates/head.view.php',
-        'templates/aside.view.php',
-        'reservasTaller.view.php',
-        'templates/footer.view.php'
-    ], $data);
+    $this->view->showViews(['templates/head.view.php','templates/aside.view.php','reservasTaller.view.php', 'templates/footer.view.php'], $data);
 }
 
 

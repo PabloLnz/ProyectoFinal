@@ -6,13 +6,22 @@ use Com\Daw2\Core\BaseDbModel;
 
 class PaisesModel extends BaseDbModel
 {
+    /**
+     * @return array
+     * devuelce los paises
+     */
     public function getPaises(): array
     {
         $stmt = $this->pdo->query("SELECT id_pais, nombre FROM paises ORDER BY nombre");
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-
+    /**
+     * @param string $codigo
+     * @param string $nombre
+     * @return int
+     * busca un pais ponr nombre y lo cerea si no exise
+     */
     public function obtenerCrearPaises(string $codigo, string $nombre): int
     {
     

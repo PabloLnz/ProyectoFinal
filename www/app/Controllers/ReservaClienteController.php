@@ -9,6 +9,11 @@ use Com\Daw2\Models\VehiculosModel;
 
 class ReservaClienteController extends BaseController
 {
+    /**
+     * @return void
+     * @throws \Exception
+     * muestra las reservas de un cliente
+     */
    public function showReservaCliente()
 {
     $idCliente = $_SESSION['datosUsuario']['id_cliente'];
@@ -21,13 +26,22 @@ class ReservaClienteController extends BaseController
 }
 
 
+    /**
+     * @return void
+     * @throws \Exception
+     * muetsra la ventana para crear una nueva reserva
+     */
     public function showNuevaReserva()
     {
         $this->view->showViews(array('nuevaReserva.view.php'));
 
     }
 
-
+    /**
+     * @return void
+     * @throws \Exception
+     * crea la nueva reserva
+     */
     public function nuevaReserva()
     {
         $input  = filter_var_array($_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -65,9 +79,11 @@ class ReservaClienteController extends BaseController
     }
 
 
-
-
-
+    /**
+     * @param array $data
+     * @return array
+     * checkerrors al crear la reserva
+     */
     public function checkErroresReserva(array $data): array
     {
         $errors = [];
@@ -121,7 +137,11 @@ class ReservaClienteController extends BaseController
     }
 
 
-
+    /**
+     * @param int $id_reserva
+     * @return void
+     * borra la reserva del cliente
+     */
     public function deleteReservaCliente(int $id_reserva)
     {
         $model = new ReservasModel();

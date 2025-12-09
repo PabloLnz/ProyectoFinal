@@ -5,7 +5,11 @@ use Com\Daw2\Core\BaseDbModel;
 
 class ReparacionPiezaModel extends BaseDbModel {
 
-
+    /**
+     * @param int $idReparacion
+     * @return float
+     * calcula el precio de una reparacion
+     */
 public function calcularCosteReparacion(int $idReparacion): float
 {
     $stmt = $this->pdo->prepare("
@@ -17,6 +21,14 @@ public function calcularCosteReparacion(int $idReparacion): float
     return floatval($stmt->fetch()['total']);
 }
 
+    /**
+     * @param int $idReparacion
+     * @param int $idPieza
+     * @param int $cantidad
+     * @param float $precio
+     * @return void
+     * agrega piezas  auna reparacion
+     */
     public function agregarPieza(int $idReparacion, int $idPieza, int $cantidad, float $precio) {
         $stmt = $this->pdo->prepare("INSERT INTO reparacion_pieza (id_reparacion, id_pieza, cantidad, precio_pieza_reparacion) VALUES (:reparacion, :pieza, :cantidad, :precio)");
         $stmt->execute([
@@ -27,7 +39,11 @@ public function calcularCosteReparacion(int $idReparacion): float
         ]);
     }
 
-
+    /**
+     * @param int $idReparacionPieza
+     * @return array|null
+     * devuelve las piezas usadas en una reparacion por su id
+     */
 public function getPiezaUsada(int $idReparacionPieza): ?array
 {
     $stmt = $this->pdo->prepare("
@@ -38,12 +54,21 @@ public function getPiezaUsada(int $idReparacionPieza): ?array
     return $stmt->fetch(\PDO::FETCH_ASSOC) ?: null;
 }
 
-
+    /**
+     * @param int $idReparacionPieza
+     * @return void
+     * elimina uan pieza usada en una reparacion
+     */
     public function eliminarPieza(int $idReparacionPieza) {
         $stmt = $this->pdo->prepare("DELETE FROM reparacion_pieza WHERE id_reparacion_pieza = :id");
         $stmt->execute([':id' => $idReparacionPieza]);
     }
 
+    /**
+     * @param int $idVehiculo
+     * @return array
+     * devuelve las piezas utilizadas en una reparacion por la id del vehiculo
+     */
     public function getPiezasUsadas(int $idVehiculo): array {
         $stmt = $this->pdo->prepare("
             SELECT rp.*, p.nombre, p.codigo 

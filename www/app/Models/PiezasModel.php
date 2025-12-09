@@ -6,20 +6,34 @@ use Com\Daw2\Core\BaseDbModel;
 
 class PiezasModel extends BaseDbModel
 {
-  
 
+    /**
+     * @return array
+     * devuelce las piezas disponibles
+     */
 public function getPiezasDisponibles(): array {
     return $this->pdo->query("
         SELECT * FROM piezas ORDER BY nombre ASC
     ")->fetchAll(\PDO::FETCH_ASSOC);
 }
 
+    /**
+     * @param int $idPieza
+     * @return float|null
+     * deculeve el precio de la pieza
+     */
 public function getPrecioPieza(int $idPieza): ?float {
     $stmt = $this->pdo->prepare("SELECT precio FROM piezas WHERE id_pieza = :id LIMIT 1");
     $stmt->execute([':id' => $idPieza]);
     return $stmt->fetchColumn();
 }
 
+    /**
+     * @param int $idPieza
+     * @param int $cantidad
+     * @return bool
+     * quita stock de la BBDD
+     */
     public function quitarStock(int $idPieza, int $cantidad): bool {
         $stmt = $this->pdo->prepare("
         UPDATE piezas 
@@ -35,6 +49,12 @@ public function getPrecioPieza(int $idPieza): ?float {
         return $stmt->rowCount() > 0;
     }
 
+    /**
+     * @param int $idPieza
+     * @param int $cantidad
+     * @return bool
+     * suma stock a la BBDD
+     */
     public function sumarStock(int $idPieza, int $cantidad): bool {
         $stmt = $this->pdo->prepare("
         UPDATE piezas 

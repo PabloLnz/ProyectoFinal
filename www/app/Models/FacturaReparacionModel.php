@@ -5,6 +5,12 @@ use Com\Daw2\Core\BaseDbModel;
 
 class FacturaReparacionModel extends BaseDbModel {
 
+    /**
+     * @param int $idFactura
+     * @param int $idReparacion
+     * @return void
+     * asocia una factura y una reparacion
+     */
     public function asociarFacturaReparacion(int $idFactura, int $idReparacion)
     {
         $stmt = $this->pdo->prepare("
@@ -13,7 +19,11 @@ class FacturaReparacionModel extends BaseDbModel {
         ");
         $stmt->execute([':idFactura' => $idFactura, ':idReparacion' => $idReparacion]);
     }
-    
+
+    /**
+     * @param int $idVehiculo
+     * @return array|null
+     */
 public function getReparacionPendienteFactura(int $idVehiculo): ?array {
     $stmt = $this->pdo->prepare("
         SELECT r.*

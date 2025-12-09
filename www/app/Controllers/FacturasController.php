@@ -9,6 +9,11 @@ use Com\Daw2\Models\FacturasModel;
 
 class FacturasController extends BaseController
 {
+    /**
+     * @return void
+     * @throws \Exception
+     * Funcion qu muestra las facturas del taller
+     */
     public function showFacturas()
     {
         $data = ['seccion' => '/facturacion'];
@@ -50,6 +55,11 @@ class FacturasController extends BaseController
         );
     }
 
+    /**
+     * @param array $data
+     * @return array
+     * CheckErrors de los filtros de las facturas
+     */
     public function checkErrors(array $data): array
     {
         $errors = [];
@@ -93,6 +103,11 @@ class FacturasController extends BaseController
         return $errors;
     }
 
+    /**
+     * @return void
+     * @throws \Exception
+     * Fucnion para ver las facturas de un cliente
+     */
     public function showFacturasCliente() {
 
         if (!isset($_SESSION['datosUsuario'])){
@@ -110,6 +125,11 @@ class FacturasController extends BaseController
         $this->view->showViews(['facturasCliente.view.php',], $data);
     }
 
+    /**
+     * @param array $data
+     * @return array
+     * checkErrors a la hora de marcar como pagada
+     */
     private function checkErrorsMarcarPagada(array $data): array
     {
         $errors = [];
@@ -122,6 +142,12 @@ class FacturasController extends BaseController
 
         return $errors;
 }
+
+    /**
+     * @param int $idFactura
+     * @return void
+     * Marca una factura como pagada
+     */
     public function marcarComoPagada(int $idFactura) {
 
         $data = $_POST;
