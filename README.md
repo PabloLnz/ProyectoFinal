@@ -136,3 +136,14 @@ Las credenciales por defecto para la conexión son:
 | Usuario | Clave | Base de datos |
 |:---:|:---:|:---:|
 | admin | daw2pass | myproject-db |
+
+Los usuarios por defecto para acceder a la app son:
+
+|           Usuario           | Clave |   Tipo   |
+|:---------------------------:|:-----:|:--------:|
+|  admin@galicianMotors.com   |  123  | Empleado |
+| gerente@galicianMotors.com  |  123  | Empleado |
+| mecanico@galicianMotors.com |  123  | Empleado |
+|     cliente@taller.com      |  123  | Cliente  |
+   
+
