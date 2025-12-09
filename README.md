@@ -2,7 +2,7 @@
 
 Es necesario otorgar permisos al proyecto
 ```zsh
-sudo chmod -R 777 proxectodb
+sudo chmod -R 777 ProyectoFinal
 ```
 
 
