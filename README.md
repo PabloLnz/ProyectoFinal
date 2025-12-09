@@ -160,8 +160,8 @@ Existen dos dominios para conectarse a base de datos.
 Las credenciales por defecto para la conexión son:
 
 | Usuario | Clave | Base de datos |
-|:---:|:---:|:---:|
-| admin | daw2pass | myproject-db |
+|:---:|:---:|:-------------:|
+| admin | daw2pass |  proxectodb   |
 
 Los usuarios por defecto para acceder a la app son:
 
