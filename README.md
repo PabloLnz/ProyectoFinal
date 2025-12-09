@@ -1,5 +1,11 @@
 # Docker: PHP & MySQL
 
+Es necesario otorgar permisos al proyecto
+```zsh
+sudo chmod -R 777 proxectoDB 
+```
+
+
 ## php
 Se ha añadido soporte para trabajar con otras versiones de php. Se ha modificado el archivo docker de la máquina para instalar:
 
@@ -71,6 +77,26 @@ docker compose build mysql
 docker compose up -d
 ```
 
+
+Testing y Pruebas Unitarias (PHPUnit)
+
+El proyecto utiliza PHPUnit como framework estándar para la ejecución de pruebas unitarias y de integración. La finalidad es confirmar la corrección de la lógica de negocio y la robustez del sistema de gestión, especialmente en módulos de seguridad y validación de datos.
+
+Requisito
+
+Asegurar que PHPUnit esté instalado como dependencia de desarrollo a través de Composer.
+
+Ejecución de Pruebas
+
+Ejecutar el conjunto completo de pruebas unitarias desde la raíz del proyecto, dentro del contenedor PHP:
+
+```zsh
+docker compose exec php ./vendor/bin/phpunit
+```
+
+Validación: Confirmar la pasada del 100% de las pruebas antes de considerar cualquier desarrollo como completado.
+
+Foco: Las pruebas se concentran en validar el control de acceso, la gestión de permisos y la validación de datos en formularios críticos.
 
 
 Readme proyecto original

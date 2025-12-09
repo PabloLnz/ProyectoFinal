@@ -15,5 +15,8 @@
         "ext-decimal": "*",
         "ext-mbstring": "*",
         "ext-gd": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.6"
     }
 }
